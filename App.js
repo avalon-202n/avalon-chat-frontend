@@ -1,20 +1,40 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React from "react";
 
-export default function App() {
+// import { } from '@screen/login';
+// import { } from '@screen/signup';
+// import { } from '@screen/profile';
+// import { } from '@screen/friend';
+// import { } from '@screen/chat';
+// import { } from '@screen/setting';
+import HomeScreen from './screen/Home';
+
+import { RecoilRoot } from 'recoil';
+// import RecoilNexus from "recoil-nexus";
+
+const Stack = createNativeStackNavigator();
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <RecoilRoot>
+      <RecoilNexus/>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName='Home'>
+            <Stack.Group>
+                <Stack.Screen name="Login" component={LoginScreen} options={{headerShown: false}}/>
+            </Stack.Group>
+            <Stack.Group>
+              <Stack.Screen name="Home" component={HomeScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="Profile" component={ProfileScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="Chat" component={ChatScreen}/>
+                <Stack.Screen name="Point" component={PointScreen}/>
+            </Stack.Group>
+          </Stack.Navigator>
+        </NavigationContainer>
+        <SocketContainer/>
+    </RecoilRoot>
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
