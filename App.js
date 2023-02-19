@@ -1,7 +1,8 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from "react";
-import {View, Text} from 'react-native'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 // *react
 import { ProfileScreen } from '@screen/profile';
 import { ChatScreen } from '@screen/chat';
@@ -15,7 +16,7 @@ import { RecoilRoot } from 'recoil';
 import RecoilNexus from "recoil-nexus";
 
 const Stack = createNativeStackNavigator();
-
+const Tab = createBottomTabNavigator();
 const App = () => {
   return (
     <RecoilRoot>
@@ -23,9 +24,11 @@ const App = () => {
         <NavigationContainer>
           <Stack.Navigator initialRouteName='Home'>
             <Stack.Group>
-              <Stack.Screen name="Home" component={HomeScreen} options={{headerShown: false}}/>
-                <Stack.Screen name="Chat" component={ChatScreen}/>
-                <Stack.Screen name="Profile" component={ProfileScreen}/>
+            <Tab.Navigator>
+              <Tab.Screen name="Home" component={HomeScreen} options={{headerShown: false}}/>
+              <Tab.Screen name="Chat" component={ChatScreen} />
+              <Tab.Screen name="Profile" component={ProfileScreen} />
+            </Tab.Navigator>
             </Stack.Group>
           </Stack.Navigator>
         </NavigationContainer>
