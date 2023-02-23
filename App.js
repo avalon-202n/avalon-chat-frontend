@@ -1,18 +1,20 @@
 // react
-import React, { useState } from "react";
+import React from "react";
 import { View, Image, Pressable, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { BottomTabBarHeightCallbackContext, createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 // custom component
-import { ProfileScreen } from "@screen/profile";
+
 import { ChatScreen } from "@screen/chat";
 import { FriendScreen } from "@screen/friend";
 import { SettingScreen } from "@screen/setting";
+import { SettingFriend, HeaderRightFriend } from "@component/Friend";
+import HomeScreen from "./screen/Home";
 // import { } from '@screen/login';
 // import { } from '@screen/signup';
-
+// import { } from "@screen/profile";
 // recoil
 import { RecoilRoot } from "recoil";
 import RecoilNexus from "recoil-nexus";
@@ -22,6 +24,14 @@ import { windowWidth, windowHeight } from "@enum/size";
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
+const SettingStack = () => {
+  return (
+    <Stack.Navigator initialRouteName="SettingScreen">
+      <Stack.Screen name="SettingFriend" component={SettingFriend} options={{ headerShown: false }} />
+      <Stack.Screen name="SettingScreen" component={SettingScreen} options={{ headerShown: false }} />
+    </Stack.Navigator>
+  );
+};
 const App = () => {
   return (
     <RecoilRoot>
@@ -32,34 +42,13 @@ const App = () => {
             name="Friend"
             component={FriendScreen}
             options={{
+              headerShown: true,
               headerTitle: "",
               headerLeft: () => {
-                return <Text style={{ fontSize: windowWidth * 20, marginLeft: windowWidth * 10 }}>친구</Text>;
+                return <Text style={{ fontSize: windowWidth * 20, marginLeft: windowWidth * 20 }}>친구</Text>;
               },
               headerRight: () => {
-                return (
-                  //컴포넌트화
-                  <View style={{ flexDirection: "row" }}>
-                    <Pressable
-                      onPress={() => {
-                        //SettingFriend 이동
-                      }}>
-                      <Image
-                        source={require("./public/image/user_01.png")}
-                        style={{ width: windowWidth * 30, height: windowWidth * 30 }}
-                      />
-                    </Pressable>
-                    <Pressable
-                      onPress={() => {
-                        //AddFriend 이동
-                      }}>
-                      <Image
-                        source={require("./public/image/setting_01.png")}
-                        style={{ width: windowWidth * 30, height: windowWidth * 30 }}
-                      />
-                    </Pressable>
-                  </View>
-                );
+                return <HeaderRightFriend />;
               },
               tabBarIconStyle: "center",
               tabBarLabel: "",
@@ -76,7 +65,11 @@ const App = () => {
             name="Chat"
             component={ChatScreen}
             options={{
-              headerTitle: "채팅",
+              headerShown: true,
+              headerTitle: "",
+              headerLeft: () => {
+                return <Text style={{ fontSize: windowWidth * 20, marginLeft: windowWidth * 20 }}>채팅</Text>;
+              },
               tabBarIconStyle: "center",
               tabBarLabel: "",
               tabBarLabelPosition: "beside-icon",
@@ -90,9 +83,13 @@ const App = () => {
           />
           <Tab.Screen
             name="Setting"
-            component={SettingScreen}
+            component={SettingStack}
             options={{
-              headerTitle: "더보기",
+              headerShown: true,
+              headerTitle: "",
+              headerLeft: () => {
+                return <Text style={{ fontSize: windowWidth * 20, marginLeft: windowWidth * 20 }}>더보기</Text>;
+              },
               tabBarIconStyle: "center",
               tabBarLabel: "",
               tabBarLabelPosition: "beside-icon",
