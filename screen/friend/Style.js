@@ -9,19 +9,23 @@ const styles = StyleSheet.create({
     marginLeft: windowWidth * 10,
     width: windowWidth * 50,
     height: windowWidth * 50,
+    maxWidth: 100,
+    maxHeight: 100,
+    borderRadius: 25,
+    margin: 7,
   },
   profileInclude: {
     justifyContent: "center",
     alignSelf: "center",
   },
-  profileNameStyle: {
+  profileName: {
     marginTop: windowHeight * 5,
     marginLeft: windowWidth * 5,
     marginBottom: windowHeight * 5,
     fontSize: windowWidth * 15,
     fontWeight: "500",
   },
-  profileMessageStyle: {
+  profileMessage: {
     marginLeft: windowWidth * 5,
     fontSize: windowWidth * 12,
   },
