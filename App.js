@@ -75,7 +75,7 @@ const App = () => {
               tabBarLabelPosition: "beside-icon",
               tabBarIcon: () => (
                 <Image
-                  source={require("./public/image/user_01.png")}
+                  source={require("./public/image/user_black01.png")}
                   style={{ width: windowWidth * 30, height: windowWidth * 30 }}
                 />
               ),
@@ -133,7 +133,7 @@ const App = () => {
               tabBarLabelPosition: "beside-icon",
               tabBarIcon: () => (
                 <Image
-                  source={require("./public/image/more_01.png")}
+                  source={require("./public/image/more_black01.png")}
                   style={{ width: windowWidth * 30, height: windowWidth * 30 }}
                 />
               ),

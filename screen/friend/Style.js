@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     height: windowWidth * 50,
     maxWidth: 100,
     maxHeight: 100,
-    borderRadius: 25,
+    borderRadius: 10,
     margin: 7,
   },
   profileInclude: {

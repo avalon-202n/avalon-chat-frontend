@@ -1,20 +1,18 @@
 // react
-import React, { useState } from "react";
+import React from "react";
 import { View, Text, Modal, Pressable, Image } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 
 // custom
 import styles from "./Style";
-import ProfileEditModal from "@component/Common/ProfileEditModal";
-const ProfileModal = ({
-  setIsOpenProfile,
+const ProfileEditModal = ({
   isOpenProfile,
+  setIsOpenProfile,
   instanceMessage,
   profileName,
   profileMessage,
 }) => {
-  const navigation = useNavigation();
-  const [isProfileEdit, setIsProfileEdit] = useState(false);
+  console.log("ProfileEditModal");
+
   return (
     <View>
       <Modal
@@ -36,20 +34,22 @@ const ProfileModal = ({
                 setIsOpenProfile(false);
               }}
             >
+              {/* 뒤로가기버튼 
               <Image
                 source={require("@public/image/closeButton_white01.png")}
                 style={styles.CloseImage}
-              />
+              /> */}
             </Pressable>
             <Pressable
               onPress={() => {
-                console.log("즐겨찾기");
+                console.log("완료");
               }}
             >
+              {/* 완료버튼 
               <Image
                 source={require("@public/image/star_white01.png")}
                 style={styles.starImage}
-              />
+              /> */}
             </Pressable>
           </View>
           <View style={styles.profileContainer}>
@@ -69,50 +69,10 @@ const ProfileModal = ({
               <Text style={styles.profileMessage}>{profileMessage}</Text>
             </View>
           </View>
-          <View style={styles.settingLineView} />
-          <View style={styles.bottomContent}>
-            <View>
-              <Image
-                style={styles.bottomImages}
-                source={require("@public/image/chat_white01.png")}
-              />
-              <Text style={styles.bottomfont}>나와의 채팅</Text>
-            </View>
-            <View>
-              <Pressable
-                onPress={() => {
-                  console.log("프로필 편집");
-                  setIsProfileEdit(!isProfileEdit);
-                }}
-              >
-                <Image
-                  style={styles.bottomImages}
-                  source={require("@public/image/pencil_white01.png")}
-                />
-                <Text style={styles.bottomfont}>프로필 편집</Text>
-              </Pressable>
-            </View>
-            <View>
-              <Image
-                style={styles.bottomImages}
-                source={require("@public/image/waterWave_white01.png")}
-              />
-              <Text style={styles.bottomfont}>인스턴스</Text>
-            </View>
-          </View>
         </View>
       </Modal>
-      {!isProfileEdit && (
-        <ProfileEditModal
-          isOpenProfile={isOpenProfile}
-          setIsOpenProfile={setIsOpenProfile}
-          instanceMessage={instanceMessage}
-          profileName={profileName}
-          profileMessage={profileMessage}
-        />
-      )}
     </View>
   );
 };
 
-export default ProfileModal;
+export default ProfileEditModal;

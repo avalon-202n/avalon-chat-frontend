@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "black",
   },
+  backgroundImage: { position: "absolute", width: "100%", height: "100%" },
   buttonContainer: {
     flex: 1,
     flexDirection: "row",
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
   },
   settingLineView: {
     width: "100%",
-    height: windowHeight * 5,
+    height: windowHeight * 1,
     backgroundColor: "#f4f4f5",
   },
 });

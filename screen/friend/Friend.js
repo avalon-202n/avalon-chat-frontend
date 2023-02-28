@@ -19,7 +19,7 @@ const Friend = () => {
           }}
         >
           <Image
-            source={require("@public/image/user_01.png")}
+            source={require("@public/image/coke_01.png")}
             style={styles.profileImg}
           />
         </Pressable>

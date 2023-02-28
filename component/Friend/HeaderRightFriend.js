@@ -10,13 +10,20 @@ const HeaderRightFriend = () => {
   return (
     <View style={{ flexDirection: "row" }}>
       <Pressable onPress={() => {}}>
-        <Image source={require("@public/image/user_01.png")} style={styles.headerRightImg} />
+        <Image
+          source={require("@public/image/user_black01.png")}
+          style={styles.headerRightImg}
+        />
       </Pressable>
       <Pressable
         onPress={() => {
           navigation.navigate("Setting");
-        }}>
-        <Image source={require("@public/image/setting_01.png")} style={styles.headerRightImg} />
+        }}
+      >
+        <Image
+          source={require("@public/image/setting_black01.png")}
+          style={styles.headerRightImg}
+        />
       </Pressable>
     </View>
   );
