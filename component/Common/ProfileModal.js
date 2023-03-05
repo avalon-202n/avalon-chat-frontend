@@ -2,19 +2,22 @@
 import React, { useState } from "react";
 import { View, Text, Modal, Pressable, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-
+import Carousel from "react-native-reanimated-carousel";
 // custom
 import styles from "./Style";
-import ProfileEditModal from "@component/Common/ProfileEditModal";
 const ProfileModal = ({
   setIsOpenProfile,
   isOpenProfile,
   instanceMessage,
   profileName,
   profileMessage,
+  setIsProfileEdit,
+  isProfileEdit,
+  isProfileImage,
+  setIsProfileImage,
 }) => {
   const navigation = useNavigation();
-  const [isProfileEdit, setIsProfileEdit] = useState(false);
+
   return (
     <View>
       <Modal
@@ -33,7 +36,7 @@ const ProfileModal = ({
           <View style={styles.buttonContainer}>
             <Pressable
               onPress={() => {
-                setIsOpenProfile(false);
+                setIsOpenProfile(!isOpenProfile);
               }}
             >
               <Image
@@ -43,11 +46,12 @@ const ProfileModal = ({
             </Pressable>
             <Pressable
               onPress={() => {
-                console.log("즐겨찾기");
+                setIsOpenProfile(!isOpenProfile);
+                navigation.navigate("Setting");
               }}
             >
               <Image
-                source={require("@public/image/star_white01.png")}
+                source={require("@public/image/setting_black01.png")}
                 style={styles.starImage}
               />
             </Pressable>
@@ -61,10 +65,39 @@ const ProfileModal = ({
                     : instanceMessage.slice(0, 85)}
                 </Text>
               </View>
-              <Image
-                style={styles.profileImage}
-                source={require("@public/image/coke_01.png")}
-              />
+              <Pressable
+                onPress={() => {
+                  <Carousel
+                    loop
+                    width={300}
+                    height={150}
+                    autoPlay={false}
+                    data={[...new Array(6).keys()]}
+                    onSnapToItem={(index) =>
+                      console.log("current index:", index)
+                    }
+                    renderItem={({ index }) => (
+                      <View
+                        style={{
+                          flex: 1,
+                          borderWidth: 1,
+                          justifyContent: "center",
+                        }}
+                      >
+                        <Text>{index}</Text>
+                      </View>
+                    )}
+                  />;
+
+                  //ProfileModal close and then ProfileImageModal open
+                  console.log("open Profile image");
+                }}
+              >
+                <Image
+                  style={styles.profileImage}
+                  source={require("@public/image/coke_01.png")}
+                />
+              </Pressable>
               <Text style={styles.profileName}>{profileName}</Text>
               <Text style={styles.profileMessage}>{profileMessage}</Text>
             </View>
@@ -81,8 +114,8 @@ const ProfileModal = ({
             <View>
               <Pressable
                 onPress={() => {
-                  console.log("프로필 편집");
-                  setIsProfileEdit(!isProfileEdit);
+                  // setIsOpenProfile(false);
+                  // setIsProfileEdit(true);
                 }}
               >
                 <Image
@@ -102,15 +135,6 @@ const ProfileModal = ({
           </View>
         </View>
       </Modal>
-      {!isProfileEdit && (
-        <ProfileEditModal
-          isOpenProfile={isOpenProfile}
-          setIsOpenProfile={setIsOpenProfile}
-          instanceMessage={instanceMessage}
-          profileName={profileName}
-          profileMessage={profileMessage}
-        />
-      )}
     </View>
   );
 };

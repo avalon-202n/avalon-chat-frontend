@@ -5,6 +5,19 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "black",
   },
+
+  //AddFriendModal
+  addFriendContainer: {
+    flex: 1,
+    backgroundColor: "white",
+  },
+  TopbuttonContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: windowHeight * 10,
+  },
+  //ProfileModal
   backgroundImage: { position: "absolute", width: "100%", height: "100%" },
   buttonContainer: {
     flex: 1,

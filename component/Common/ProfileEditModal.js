@@ -1,76 +1,30 @@
 // react
 import React from "react";
 import { View, Text, Modal, Pressable, Image } from "react-native";
-
+import * as ImagePicker from "expo-image-picker";
 // custom
 import styles from "./Style";
-const ProfileEditModal = ({
-  isOpenProfile,
-  setIsOpenProfile,
-  instanceMessage,
-  profileName,
-  profileMessage,
-}) => {
-  console.log("ProfileEditModal");
+const ProfileEditModal = () => {
+  console.log("프로필 모달 오픈");
+  //  프로필수정모달(이미지 변경)
+  // const [profileImage, setProfileImage] = useState(null);
+  // const pickImage = async () => {
+  //   let result = await ImagePicker.launchImageLibraryAsync({
+  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
+  //     allowsEditing: true,
+  //     aspect: [4, 3],
+  //     quality: 1,
+  //   });
 
+  //   console.log(result);
+
+  //   if (!result.canceled) {
+  //     setProfileImage(result.assets[0].uri);
+  //   }
+  // };
   return (
     <View>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={isOpenProfile}
-        onRequestClose={() => {
-          navigation.goBack();
-        }}
-      >
-        <View style={styles.container}>
-          <Image
-            style={styles.backgroundImage}
-            source={require("@public/image/backImg.png")}
-          />
-          <View style={styles.buttonContainer}>
-            <Pressable
-              onPress={() => {
-                setIsOpenProfile(false);
-              }}
-            >
-              {/* 뒤로가기버튼 
-              <Image
-                source={require("@public/image/closeButton_white01.png")}
-                style={styles.CloseImage}
-              /> */}
-            </Pressable>
-            <Pressable
-              onPress={() => {
-                console.log("완료");
-              }}
-            >
-              {/* 완료버튼 
-              <Image
-                source={require("@public/image/star_white01.png")}
-                style={styles.starImage}
-              /> */}
-            </Pressable>
-          </View>
-          <View style={styles.profileContainer}>
-            <View style={styles.profileContent}>
-              <View style={styles.instanceMessageBox}>
-                <Text style={{ fontSize: 15 }}>
-                  {instanceMessage.length < 80
-                    ? instanceMessage
-                    : instanceMessage.slice(0, 85)}
-                </Text>
-              </View>
-              <Image
-                style={styles.profileImage}
-                source={require("@public/image/coke_01.png")}
-              />
-              <Text style={styles.profileName}>{profileName}</Text>
-              <Text style={styles.profileMessage}>{profileMessage}</Text>
-            </View>
-          </View>
-        </View>
-      </Modal>
+      <Text>프로필 수정모달</Text>
     </View>
   );
 };

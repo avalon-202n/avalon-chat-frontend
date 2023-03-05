@@ -4,18 +4,26 @@ import { View, Text, Image, Pressable } from "react-native";
 
 // custom
 import styles from "./Style";
-import { ProfileModal } from "@component/Common";
+import {
+  ProfileModal,
+  ProfileImageModal,
+  ProfileEditModal,
+} from "@component/Common";
+
 const Friend = () => {
   const [profileName, setProfileName] = useState("이름");
   const [profileMessage, setProfileMessage] = useState("프로필메세지");
   const [instanceMessage, setInstanceMessage] = useState("인스턴스 메세지");
-  const [isOpenProfile, setIsOpenProfile] = useState(false);
+  const [isOpenProfile, setIsOpenProfile] = useState(false); //ProfileModal
+  const [isProfileEdit, setIsProfileEdit] = useState(false); //ProfileEditModal
+  const [isProfileImage, setIsProfileImage] = useState(false); //ProfileImageModal
+
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: "row" }}>
         <Pressable
           onPress={() => {
-            setIsOpenProfile(!isOpenProfile);
+            setIsOpenProfile(true);
           }}
         >
           <Image
@@ -50,6 +58,23 @@ const Friend = () => {
           instanceMessage={instanceMessage}
           profileMessage={profileMessage}
           profileName={profileName}
+          isProfileEdit={isProfileEdit}
+          setIsProfileEdit={setIsProfileEdit}
+          isProfileImage={isProfileImage}
+          setIsProfileImage={setIsProfileImage}
+        />
+      )}
+      {isProfileImage === true && (
+        <ProfileImageModal
+          setIsOpenProfile={setIsOpenProfile}
+          isProfileImage={isProfileImage}
+          setIsProfileImage={setIsProfileImage}
+        />
+      )}
+      {isProfileEdit === true && (
+        <ProfileEditModal
+          isProfileEdit={isProfileEdit}
+          setIsProfileEdit={setIsProfileEdit}
         />
       )}
     </View>
