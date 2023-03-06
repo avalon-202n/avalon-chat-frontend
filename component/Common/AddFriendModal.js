@@ -5,6 +5,7 @@ import { View, Text, Image, Pressable, Modal } from "react-native";
 // custom
 import styles from "./Style";
 const AddFriendModal = ({ isFriendAddModal, setIsFriendAddModal }) => {
+  const [searchFor, setSearchFor] = useState("");
   return (
     <View>
       <Modal
@@ -16,7 +17,7 @@ const AddFriendModal = ({ isFriendAddModal, setIsFriendAddModal }) => {
         }}
       >
         <View style={styles.addFriendContainer}>
-          <View style={styles.TopbuttonContainer}>
+          <View style={styles.headerBtnContainer}>
             <Pressable
               onPress={() => {
                 setIsFriendAddModal(!isFriendAddModal);
@@ -33,75 +34,46 @@ const AddFriendModal = ({ isFriendAddModal, setIsFriendAddModal }) => {
                 console.log("확인버튼클릭");
               }}
             >
-              <Text style={{ fontSize: 20, marginTop: 10 }}>확인</Text>
+              <Text style={styles.confirmText}>확인</Text>
             </Pressable>
           </View>
-          <View
-            style={{
-              flex: 1,
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-around",
-            }}
-          >
+          <View style={styles.topViewContainer}>
             <Pressable
               onPress={() => {
-                console.log("QR코드");
+                setSearchFor("QR");
               }}
             >
               <Image
-                style={{
-                  width: 50,
-                  height: 50,
-                  alignSelf: "center",
-                  justifyContent: "center",
-                }}
-                source={require("@public/image/more_black01.png")}
+                style={styles.topBtnImage}
+                source={require("@public/image/qrcodeSearch_black01.png")}
               />
               <Text>QR코드</Text>
             </Pressable>
             <Pressable
               onPress={() => {
-                console.log("연락처로 추가");
+                setSearchFor("PHONE");
               }}
             >
               <Image
-                style={{
-                  width: 50,
-                  height: 50,
-                  alignSelf: "center",
-                  justifyContent: "center",
-                }}
-                source={require("@public/image/more_black01.png")}
+                style={styles.topBtnImage}
+                source={require("@public/image/numberSearch_black01.png")}
               />
               <Text>연락처로 추가</Text>
             </Pressable>
             <Pressable
               onPress={() => {
-                console.log("ID로 추가");
+                setSearchFor("ID");
               }}
             >
               <Image
-                style={{
-                  width: 50,
-                  height: 50,
-                  alignSelf: "center",
-                  justifyContent: "center",
-                }}
-                source={require("@public/image/more_black01.png")}
+                style={styles.topBtnImage}
+                source={require("@public/image/idSearch_black01.png")}
               />
               <Text>ID로 추가</Text>
             </Pressable>
           </View>
 
-          <View
-            style={{
-              flex: 10,
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: "black",
-            }}
-          >
+          <View style={styles.middleViewContainer}>
             <Text>default</Text>
           </View>
         </View>

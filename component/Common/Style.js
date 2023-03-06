@@ -11,11 +11,33 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
   },
-  TopbuttonContainer: {
+  headerBtnContainer: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: windowHeight * 10,
+  },
+  confirmText: {
+    fontSize: 20,
+    marginTop: 10,
+  },
+  topViewContainer: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
+  },
+  topBtnImage: {
+    width: 50,
+    height: 50,
+    alignSelf: "center",
+    justifyContent: "center",
+  },
+  middleViewContainer: {
+    flex: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "black",
   },
   //ProfileModal
   backgroundImage: { position: "absolute", width: "100%", height: "100%" },
