@@ -22,6 +22,7 @@ const Friend = () => {
     <View style={styles.container}>
       <View style={{ flexDirection: "row" }}>
         <Pressable
+          style={{ flexDirection: "row" }}
           onPress={() => {
             setIsOpenProfile(true);
           }}
@@ -30,13 +31,21 @@ const Friend = () => {
             source={require("@public/image/coke_01.png")}
             style={styles.profileImg}
           />
+
+          <View style={styles.profileInclude}>
+            <Text style={styles.profileName}>{profileName}</Text>
+            <Text style={styles.profileMessage}>{profileMessage}</Text>
+          </View>
         </Pressable>
-        <View style={styles.profileInclude}>
-          <Text style={styles.profileName}>{profileName}</Text>
-          <Text style={styles.profileMessage}>{profileMessage}</Text>
-        </View>
-        <View style={styles.InstanceBox}>
-          <Text style={styles.InstanceMessage}>{instanceMessage}</Text>
+        <View>
+          <Pressable
+            onPress={() => {
+              console.log("인스턴스 메시지 수정");
+            }}
+            style={styles.InstanceBox}
+          >
+            <Text style={styles.InstanceMessage}>{instanceMessage}</Text>
+          </Pressable>
         </View>
       </View>
       <View style={styles.settingLineView} />
