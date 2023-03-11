@@ -32,8 +32,8 @@ const styles = StyleSheet.create({
   InstanceBox: {
     flex: 1,
     marginVertical: windowHeight * 7,
-    marginLeft: windowWidth * 50,
-    marginRight: windowWidth * 10,
+    width: windowWidth * 150,
+    marginLeft: windowWidth * 70,
     backgroundColor: "#cccccc",
     justifyContent: "center",
   },
