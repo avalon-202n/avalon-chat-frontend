@@ -7,13 +7,14 @@ import {
   BottomTabBarHeightCallbackContext,
   createBottomTabNavigator,
 } from "@react-navigation/bottom-tabs";
-
+import { StatusBar } from "expo-status-bar";
 // custom component
 
 import { ChatScreen } from "@screen/chat";
 import { FriendScreen } from "@screen/friend";
 import { SettingScreen } from "@screen/setting";
 import { SettingFriend, HeaderRightFriend } from "@component/Friend";
+import { ProfileEditModal } from "@component/Common";
 import HomeScreen from "./screen/Home";
 // import { } from '@screen/login';
 // import { } from '@screen/signup';
@@ -27,120 +28,46 @@ import { windowWidth, windowHeight } from "@enum/size";
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const SettingStack = () => {
-  return (
-    <Stack.Navigator initialRouteName="SettingScreen">
-      <Stack.Screen
-        name="SettingFriend"
-        component={SettingFriend}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="SettingScreen"
-        component={SettingScreen}
-        options={{ headerShown: false }}
-      />
-    </Stack.Navigator>
-  );
-};
 const App = () => {
   return (
     <RecoilRoot>
       <RecoilNexus />
       <NavigationContainer>
-        <Tab.Navigator>
-          <Tab.Screen
-            name="Friend"
-            component={FriendScreen}
-            options={{
-              headerShown: true,
-              headerTitle: "",
-              headerLeft: () => {
-                return (
-                  <Text
-                    style={{
-                      fontSize: windowWidth * 20,
-                      marginLeft: windowWidth * 20,
-                    }}
-                  >
-                    친구
-                  </Text>
-                );
-              },
-              headerRight: () => {
-                return <HeaderRightFriend />;
-              },
-              tabBarIconStyle: "center",
-              tabBarLabel: "",
-              tabBarLabelPosition: "beside-icon",
-              tabBarIcon: () => (
-                <Image
-                  source={require("./public/image/user_black01.png")}
-                  style={{ width: windowWidth * 30, height: windowWidth * 30 }}
-                />
-              ),
-            }}
+        <Stack.Navigator initialRouteName="HomeScreen">
+          <Stack.Screen
+            name="HomeScreen"
+            component={HomeScreen}
+            options={{ headerShown: false }}
           />
-          <Tab.Screen
+          <Stack.Screen
+            name="FriendScreen"
+            component={FriendScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ProfileEditModal"
+            component={ProfileEditModal}
+            options={{ headerShown: false }}
+          />
+
+          <Stack.Screen
+            name="SettingFriend"
+            component={SettingFriend}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Setting"
+            component={SettingScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
             name="Chat"
             component={ChatScreen}
-            options={{
-              headerShown: true,
-              headerTitle: "",
-              headerLeft: () => {
-                return (
-                  <Text
-                    style={{
-                      fontSize: windowWidth * 20,
-                      marginLeft: windowWidth * 20,
-                    }}
-                  >
-                    채팅
-                  </Text>
-                );
-              },
-              tabBarIconStyle: "center",
-              tabBarLabel: "",
-              tabBarLabelPosition: "beside-icon",
-              tabBarIcon: () => (
-                <Image
-                  source={require("./public/image/chat_black01.png")}
-                  style={{ width: windowWidth * 30, height: windowWidth * 30 }}
-                />
-              ),
-            }}
+            options={{ headerShown: false }}
           />
-          <Tab.Screen
-            name="Setting"
-            component={SettingStack}
-            options={{
-              headerShown: true,
-              headerTitle: "",
-              headerLeft: () => {
-                return (
-                  <Text
-                    style={{
-                      fontSize: windowWidth * 20,
-                      marginLeft: windowWidth * 20,
-                    }}
-                  >
-                    더보기
-                  </Text>
-                );
-              },
-              tabBarIconStyle: "center",
-              tabBarLabel: "",
-              tabBarLabelPosition: "beside-icon",
-              tabBarIcon: () => (
-                <Image
-                  source={require("./public/image/more_black01.png")}
-                  style={{ width: windowWidth * 30, height: windowWidth * 30 }}
-                />
-              ),
-            }}
-          />
-        </Tab.Navigator>
+        </Stack.Navigator>
       </NavigationContainer>
+      <StatusBar style="dark" />
     </RecoilRoot>
   );
 };
