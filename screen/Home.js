@@ -1,13 +1,16 @@
+// react
 import React from "react";
 import { View, Text } from "react-native";
 
-// *react
+// custom
 import styles from "@screen/Style";
-
+import { TopView, MidView, BottomView } from "@component";
 const HomeScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>Home</Text>
+      <TopView />
+      <MidView />
+      <BottomView />
     </View>
   );
 };

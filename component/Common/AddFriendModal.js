@@ -1,17 +1,17 @@
 // react
 import React, { useState, useEffect } from "react";
 import { View, Text, Image, Pressable, Modal } from "react-native";
-
 // custom
 import styles from "./Style";
-const AddFriendModal = ({ isFriendAddModal, setIsFriendAddModal }) => {
+const AddFriendModal = ({ isOpenAddFriend, setIsOpenAddFriend }) => {
   const [searchFor, setSearchFor] = useState("");
+
   return (
     <View>
       <Modal
         animationType="slide"
         transparent={true}
-        visible={isFriendAddModal}
+        visible={isOpenAddFriend}
         onRequestClose={() => {
           navigation.goBack();
         }}
@@ -20,7 +20,7 @@ const AddFriendModal = ({ isFriendAddModal, setIsFriendAddModal }) => {
           <View style={styles.headerBtnContainer}>
             <Pressable
               onPress={() => {
-                setIsFriendAddModal(!isFriendAddModal);
+                setIsOpenAddFriend(!isOpenAddFriend);
               }}
             >
               <Image

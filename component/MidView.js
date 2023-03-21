@@ -10,7 +10,7 @@ import {
   ProfileEditModal,
 } from "@component/Common";
 
-const Friend = () => {
+const MidView = () => {
   const [profileName, setProfileName] = useState("이름");
   const [profileMessage, setProfileMessage] = useState("프로필메세지");
   const [instanceMessage, setInstanceMessage] = useState("인스턴스 메세지");
@@ -75,50 +75,7 @@ const Friend = () => {
           />
         )}
       </ScrollView>
-      <View style={styles.bottomContent}>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-around",
-            marginTop: 10,
-          }}
-        >
-          <Pressable
-            onPress={() => {
-              console.log("친구");
-            }}
-          >
-            <Image
-              onPress={() => {
-                console.log("친구");
-              }}
-              source={require("@public/image/user_black01.png")}
-              style={{ width: 30, height: 30 }}
-            />
-          </Pressable>
-          <Pressable
-            onPress={() => {
-              navigation.navigate("Chat");
-            }}
-          >
-            <Image
-              source={require("@public/image/chat_black01.png")}
-              style={{ width: 30, height: 30 }}
-            />
-          </Pressable>
-          <Pressable
-            onPress={() => {
-              navigation.navigate("Setting");
-            }}
-          >
-            <Image
-              source={require("@public/image/more_black01.png")}
-              style={{ width: 30, height: 30 }}
-            />
-          </Pressable>
-        </View>
-      </View>
     </View>
   );
 };
-export default Friend;
+export default MidView;

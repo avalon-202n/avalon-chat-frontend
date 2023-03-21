@@ -4,6 +4,46 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
   },
+  //TopView
+  topContainer: {
+    width: windowWidth * 360,
+    height: windowHeight * 50,
+    backgroundColor: "white",
+    marginTop: windowHeight * 20,
+  },
+  topTitleContainer: {
+    flexDirection: "row",
+    flex: 1,
+  },
+  topTitleView: {
+    alignContent: "center",
+    justifyContent: "center",
+  },
+  topRightView: {
+    flex: 1,
+    justifyContent: "flex-end",
+    alignSelf: "center",
+  },
+  topTitleFont: {
+    fontSize: windowWidth * 25,
+    marginLeft: windowWidth * 20,
+  },
+  topRightIconView: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+  },
+  topRightIcon: {
+    width: windowWidth * 30,
+    height: windowWidth * 30,
+    marginRight: windowWidth * 3,
+  },
+  //BottomView
+  bottomContent: {
+    width: windowWidth * 360,
+    height: windowHeight * 50,
+    backgroundColor: "#F3F3F3",
+  },
+  //MidView
   profileImg: {
     marginLeft: windowWidth * 10,
     width: windowWidth * 50,

@@ -11,10 +11,6 @@ const ProfileModal = ({
   instanceMessage,
   profileName,
   profileMessage,
-  setIsProfileEdit,
-  isProfileEdit,
-  isProfileImage,
-  setIsProfileImage,
 }) => {
   const navigation = useNavigation();
 
@@ -90,7 +86,6 @@ const ProfileModal = ({
                   />;
 
                   //ProfileModal close and then ProfileImageModal open
-                  console.log("open Profile image");
                 }}
               >
                 <Image
@@ -114,8 +109,14 @@ const ProfileModal = ({
             <View>
               <Pressable
                 onPress={() => {
-                  // setIsOpenProfile(false);
-                  // setIsProfileEdit(true);
+                  setIsOpenProfile(!isOpenProfile);
+                  navigation.navigate("ProfileEditModal", {
+                    profileName: profileName,
+                    profileMessage: profileMessage,
+                    instanceMessage: instanceMessage,
+                    isOpenProfile: isOpenProfile,
+                    setIsOpenProfile: setIsOpenProfile,
+                  });
                 }}
               >
                 <Image

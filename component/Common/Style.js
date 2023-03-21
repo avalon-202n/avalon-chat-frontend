@@ -10,22 +10,25 @@ const styles = StyleSheet.create({
   addFriendContainer: {
     flex: 1,
     backgroundColor: "white",
+    marginTop: windowHeight * 15,
   },
   headerBtnContainer: {
-    flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: windowHeight * 10,
+    width: windowWidth * 360,
+    height: windowHeight * 45,
   },
   confirmText: {
     fontSize: 20,
     marginTop: 10,
   },
   topViewContainer: {
-    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
+    marginVertical: windowHeight * 5,
+    width: windowWidth * 360,
+    height: windowHeight * 60,
   },
   topBtnImage: {
     width: 50,
@@ -38,6 +41,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "black",
+    opacity: "80%",
   },
   //ProfileModal
   backgroundImage: { position: "absolute", width: "100%", height: "100%" },

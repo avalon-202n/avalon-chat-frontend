@@ -1,30 +1,119 @@
 // react
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, Modal, Pressable, Image } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 // custom
 import styles from "./Style";
-const ProfileEditModal = () => {
-  console.log("프로필 모달 오픈");
-  //  프로필수정모달(이미지 변경)
-  // const [profileImage, setProfileImage] = useState(null);
-  // const pickImage = async () => {
-  //   let result = await ImagePicker.launchImageLibraryAsync({
-  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
-  //     allowsEditing: true,
-  //     aspect: [4, 3],
-  //     quality: 1,
-  //   });
+const ProfileEditModal = ({ route }) => {
+  const navigation = useNavigation();
+  const profile = route.params;
 
-  //   console.log(result);
+  const [profileImage, setProfileImage] = useState(null);
+  const pickImage = async () => {
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
 
-  //   if (!result.canceled) {
-  //     setProfileImage(result.assets[0].uri);
-  //   }
-  // };
+      console.log(result);
+
+      if (!result.canceled) {
+        setProfileImage(result.assets[0].uri);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <View>
-      <Text>프로필 수정모달</Text>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={profile.isOpenProfile}
+        onRequestClose={() => {
+          navigation.goBack();
+        }}
+      >
+        <View style={styles.container}>
+          <Image
+            style={styles.backgroundImage}
+            source={require("@public/image/backImg.png")}
+          />
+          <View style={styles.buttonContainer}>
+            <Pressable
+              onPress={() => {
+                navigation.goBack();
+                //ProfileModal 이동으로 수정해야함.
+              }}
+            >
+              <Image
+                source={require("@public/image/closeButton_white01.png")}
+                style={styles.CloseImage}
+              />
+            </Pressable>
+            <Pressable
+              onPress={() => {
+                profile.setIsOpenProfile(!profile.isOpenProfile);
+                navigation.navigate("Setting");
+              }}
+            >
+              <Image
+                source={require("@public/image/setting_black01.png")}
+                style={styles.starImage}
+              />
+            </Pressable>
+          </View>
+          <View style={styles.profileContainer}>
+            <View style={styles.profileContent}>
+              <View style={styles.instanceMessageBox}>
+                <Text style={{ fontSize: 15 }}>{profile.instanceMessage}</Text>
+              </View>
+              <Pressable
+                onPress={() => {
+                  pickImage();
+
+                  //ProfileModal close and then ProfileImageModal open
+                  console.log("open Profile image");
+                }}
+              >
+                {/* {profileImage
+                  ? 
+                    (
+                      <Image
+                        style={styles.profileImage}
+                        source={{ uri: profileImage }}
+                        //uri부분수정필요
+                      />
+                    ))
+                  : 
+                    (
+                      <Image
+                        style={styles.profileImage}
+                        source={require("@public/image/coke_01.png")}
+                      />
+                    ))} */}
+                <Image
+                  style={styles.profileImage}
+                  source={require("@public/image/coke_01.png")}
+                />
+              </Pressable>
+              <View style={{ flexDirection: "row" }}>
+                <Text style={styles.profileName}>{profile.profileName}</Text>
+              </View>
+              <Text style={styles.profileMessage}>
+                {profile.profileMessage}
+              </Text>
+            </View>
+          </View>
+          <View style={styles.settingLineView} />
+          <View style={styles.bottomContent}></View>
+        </View>
+      </Modal>
     </View>
   );
 };
