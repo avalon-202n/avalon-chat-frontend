@@ -1,18 +1,23 @@
 // react
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, Modal, Pressable, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 
+// recoil
+import { useSetRecoilState } from "recoil";
 // custom
 import styles from "./Style";
-// network
+// enum
 import { S3_URL_PROFILE } from "@enum/cloud";
+import { photoPathState } from "@store/User";
 const ProfileEditModal = ({ route }) => {
   const navigation = useNavigation();
   const profile = route.params;
 
   const [profileImage, setProfileImage] = useState(null);
+  const photoPath = useSetRecoilState(photoPathState);
+
   const pickImage = async () => {
     try {
       let result = await ImagePicker.launchImageLibraryAsync({
@@ -21,8 +26,6 @@ const ProfileEditModal = ({ route }) => {
         aspect: [4, 3],
         quality: 1,
       });
-
-      console.log(result);
 
       if (!result.canceled) {
         setProfileImage(result.assets[0].uri);
