@@ -2,6 +2,9 @@
 import React, { useState } from "react";
 import { View, Text, Image, Pressable, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+
+// recoil
+import { useRecoilValue } from "recoil";
 // custom
 import styles from "./Style";
 import {
@@ -9,6 +12,8 @@ import {
   ProfileImageModal,
   ProfileEditModal,
 } from "@component/Common";
+// enum
+import { photoPathState } from "@store/User";
 
 const Friend = () => {
   const [profileName, setProfileName] = useState("이름");
@@ -17,7 +22,10 @@ const Friend = () => {
   const [isOpenProfile, setIsOpenProfile] = useState(false); //ProfileModal
   const [isProfileEdit, setIsProfileEdit] = useState(false); //ProfileEditModal
   const [isProfileImage, setIsProfileImage] = useState(false); //ProfileImageModal
+
+  const photoPath = useRecoilValue(photoPathState);
   const navigation = useNavigation();
+  console.log(photoPath);
   return (
     <View style={{ flex: 1 }}>
       <ScrollView style={styles.container}>
@@ -28,10 +36,14 @@ const Friend = () => {
               setIsOpenProfile(true);
             }}
           >
-            <Image
-              source={require("@public/image/coke_01.png")}
-              style={styles.profileImg}
-            />
+            {photoPath !== "" ? (
+              <Image source={{ uri: photoPath }} style={styles.profileImg} />
+            ) : (
+              <Image
+                source={require("@public/image/coke_01.png")}
+                style={styles.profileImg}
+              />
+            )}
 
             <View style={styles.profileInclude}>
               <Text style={styles.profileName}>{profileName}</Text>

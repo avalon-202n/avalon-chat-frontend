@@ -15,6 +15,7 @@ module.exports = function (api) {
             "@screen": "./screen",
             "@public": "./public",
             "@enum": "./enum",
+            "@store": "./store",
             "@root": ".",
           },
         },
