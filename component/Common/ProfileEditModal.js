@@ -76,9 +76,6 @@ const ProfileEditModal = ({ route }) => {
           </View>
           <View style={styles.profileContainer}>
             <View style={styles.profileContent}>
-              <View style={styles.instanceMessageBox}>
-                <Text style={{ fontSize: 15 }}>{profile.instanceMessage}</Text>
-              </View>
               <Pressable
                 onPress={() => {
                   pickImage();

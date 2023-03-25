@@ -18,7 +18,6 @@ import { photoPathState } from "@store/User";
 const Friend = () => {
   const [profileName, setProfileName] = useState("이름");
   const [profileMessage, setProfileMessage] = useState("프로필메세지");
-  const [instanceMessage, setInstanceMessage] = useState("인스턴스 메세지");
   const [isOpenProfile, setIsOpenProfile] = useState(false); //ProfileModal
   const [isProfileEdit, setIsProfileEdit] = useState(false); //ProfileEditModal
   const [isProfileImage, setIsProfileImage] = useState(false); //ProfileImageModal
@@ -50,16 +49,6 @@ const Friend = () => {
               <Text style={styles.profileMessage}>{profileMessage}</Text>
             </View>
           </Pressable>
-          <View>
-            <Pressable
-              onPress={() => {
-                console.log("인스턴스 메시지 수정");
-              }}
-              style={styles.InstanceBox}
-            >
-              <Text style={styles.InstanceMessage}>{instanceMessage}</Text>
-            </Pressable>
-          </View>
         </View>
         <View style={styles.settingLineView} />
         <View>
@@ -77,7 +66,6 @@ const Friend = () => {
           <ProfileModal
             setIsOpenProfile={setIsOpenProfile}
             isOpenProfile={isOpenProfile}
-            instanceMessage={instanceMessage}
             profileMessage={profileMessage}
             profileName={profileName}
             isProfileEdit={isProfileEdit}
