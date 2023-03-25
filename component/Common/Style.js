@@ -81,8 +81,8 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   profileImage: {
-    maxWidth: windowWidth * 100,
-    maxHeight: windowWidth * 100,
+    width: windowWidth * 100,
+    height: windowWidth * 100,
     borderRadius: windowWidth * 25,
   },
   profileName: {

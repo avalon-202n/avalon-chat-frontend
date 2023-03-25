@@ -3,8 +3,11 @@ import React, { useState } from "react";
 import { View, Text, Modal, Pressable, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
+
 // custom
 import styles from "./Style";
+// network
+import { S3_URL_PROFILE } from "@enum/cloud";
 const ProfileEditModal = ({ route }) => {
   const navigation = useNavigation();
   const profile = route.params;
@@ -76,31 +79,23 @@ const ProfileEditModal = ({ route }) => {
               <Pressable
                 onPress={() => {
                   pickImage();
-
-                  //ProfileModal close and then ProfileImageModal open
-                  console.log("open Profile image");
                 }}
               >
-                {/* {profileImage
-                  ? 
-                    (
-                      <Image
-                        style={styles.profileImage}
-                        source={{ uri: profileImage }}
-                        //uri부분수정필요
-                      />
-                    ))
-                  : 
-                    (
-                      <Image
-                        style={styles.profileImage}
-                        source={require("@public/image/coke_01.png")}
-                      />
-                    ))} */}
-                <Image
+                {profileImage ? (
+                  <Image
+                    style={styles.profileImage}
+                    source={{ uri: profileImage }}
+                  />
+                ) : (
+                  <Image
+                    style={styles.profileImage}
+                    source={require("@public/image/coke_01.png")}
+                  />
+                )}
+                {/* <Image
                   style={styles.profileImage}
                   source={require("@public/image/coke_01.png")}
-                />
+                /> */}
               </Pressable>
               <View style={{ flexDirection: "row" }}>
                 <Text style={styles.profileName}>{profile.profileName}</Text>
