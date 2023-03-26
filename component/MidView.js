@@ -9,8 +9,14 @@ import {
   ProfileImageModal,
   ProfileEditModal,
 } from "@component/Common";
+// screen
+import { FriendScreen } from "@screen/friend";
+import { ChatScreen } from "@screen/chat";
+import { SettingScreen } from "@screen/setting";
 
-const MidView = () => {
+// enum
+import { contents } from "@enum/state";
+const MidView = ({ bottomContents }) => {
   const [profileName, setProfileName] = useState("이름");
   const [profileMessage, setProfileMessage] = useState("프로필메세지");
   const [instanceMessage, setInstanceMessage] = useState("인스턴스 메세지");
@@ -20,61 +26,9 @@ const MidView = () => {
   const navigation = useNavigation();
   return (
     <View style={{ flex: 1 }}>
-      <ScrollView style={styles.container}>
-        <View style={{ flexDirection: "row" }}>
-          <Pressable
-            style={{ flexDirection: "row" }}
-            onPress={() => {
-              setIsOpenProfile(true);
-            }}
-          >
-            <Image
-              source={require("@public/image/coke_01.png")}
-              style={styles.profileImg}
-            />
-
-            <View style={styles.profileInclude}>
-              <Text style={styles.profileName}>{profileName}</Text>
-              <Text style={styles.profileMessage}>{profileMessage}</Text>
-            </View>
-          </Pressable>
-          <View>
-            <Pressable
-              onPress={() => {
-                console.log("인스턴스 메시지 수정");
-              }}
-              style={styles.InstanceBox}
-            >
-              <Text style={styles.InstanceMessage}>{instanceMessage}</Text>
-            </Pressable>
-          </View>
-        </View>
-        <View style={styles.settingLineView} />
-        <View>
-          <Text style={styles.contentText}>즐겨 찾기</Text>
-        </View>
-        <View style={styles.settingLineView} />
-        <View>
-          <Text style={styles.contentText}>생일자</Text>
-        </View>
-        <View style={styles.settingLineView} />
-        <View>
-          <Text style={styles.contentText}>친구목록</Text>
-        </View>
-        {isOpenProfile === true && (
-          <ProfileModal
-            setIsOpenProfile={setIsOpenProfile}
-            isOpenProfile={isOpenProfile}
-            instanceMessage={instanceMessage}
-            profileMessage={profileMessage}
-            profileName={profileName}
-            isProfileEdit={isProfileEdit}
-            setIsProfileEdit={setIsProfileEdit}
-            isProfileImage={isProfileImage}
-            setIsProfileImage={setIsProfileImage}
-          />
-        )}
-      </ScrollView>
+      {bottomContents === contents.friend && <FriendScreen />}
+      {bottomContents === contents.chat && <ChatScreen />}
+      {bottomContents === contents.setting && <SettingScreen />}
     </View>
   );
 };

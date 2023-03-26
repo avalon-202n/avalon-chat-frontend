@@ -44,6 +44,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#F3F3F3",
   },
   //MidView
+  profileContainer: {
+    flexDirection: "row",
+    width: windowWidth * 360,
+  },
   profileImg: {
     marginLeft: windowWidth * 10,
     width: windowWidth * 50,
@@ -66,18 +70,6 @@ const styles = StyleSheet.create({
   },
   profileMessage: {
     marginLeft: windowWidth * 5,
-    fontSize: windowWidth * 12,
-  },
-  InstanceBox: {
-    flex: 1,
-    marginVertical: windowHeight * 7,
-    width: windowWidth * 150,
-    marginLeft: windowWidth * 70,
-    backgroundColor: "#cccccc",
-    justifyContent: "center",
-  },
-  InstanceMessage: {
-    marginLeft: windowWidth * 10,
     fontSize: windowWidth * 12,
   },
   contentText: {

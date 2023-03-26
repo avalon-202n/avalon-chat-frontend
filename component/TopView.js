@@ -4,7 +4,7 @@ import { View, Text, Image, Pressable } from "react-native";
 // custom
 import styles from "./Style";
 import { AddFriendModal } from "@component/Common";
-const TopView = () => {
+const TopView = ({ bottomContents }) => {
   const [isOpenAddFriend, setIsOpenAddFriend] = useState(false);
 
   return (
