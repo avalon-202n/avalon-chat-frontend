@@ -1,8 +1,8 @@
 import { StyleSheet } from "react-native";
 import { windowWidth, windowHeight } from "@enum/size";
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "white",
+  profileContainer: {
+    width: windowWidth * 360,
   },
   profileImg: {
     marginLeft: windowWidth * 10,
