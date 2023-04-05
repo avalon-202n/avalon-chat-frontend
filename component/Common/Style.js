@@ -19,8 +19,8 @@ const styles = StyleSheet.create({
     height: windowHeight * 45,
   },
   confirmText: {
-    fontSize: 20,
-    marginTop: 10,
+    fontSize: windowWidth * 20,
+    marginTop: windowHeight * 10,
   },
   topViewContainer: {
     flexDirection: "row",
@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
     height: windowHeight * 60,
   },
   topBtnImage: {
-    width: 50,
-    height: 50,
+    width: windowWidth * 50,
+    height: windowWidth * 50,
     alignSelf: "center",
     justifyContent: "center",
   },
@@ -73,12 +73,12 @@ const styles = StyleSheet.create({
   profileContainer: {
     flex: 11,
     justifyContent: "flex-end",
-    margin: 10,
+    margin: windowWidth * 10,
   },
   profileContent: {
     alignItems: "center",
     justifyContent: "flex-end",
-    marginVertical: 10,
+    marginVertical: windowHeight * 10,
   },
   profileImage: {
     width: windowWidth * 100,

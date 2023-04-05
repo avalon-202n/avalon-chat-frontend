@@ -3,21 +3,36 @@ import React, { useState, useEffect } from "react";
 import { View, Text, Modal, Pressable, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 // recoil
-import { useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 // custom
 import styles from "./Style";
 // enum
 import { S3_URL_PROFILE } from "@enum/cloud";
 import { photoPathState } from "@store/User";
+// network
+import { APIfetch, APIfetchMedia } from "@network/APIfetch";
 const ProfileEditModal = ({ route }) => {
   const navigation = useNavigation();
   const profile = route.params;
 
   const [profileImage, setProfileImage] = useState(null);
-  const photoPath = useSetRecoilState(photoPathState);
+  const [photoPath, setPhotoPath] = useRecoilState(photoPathState);
 
+  useEffect(() => {
+    const getStoredImage = async () => {
+      try {
+        const storedImage = await AsyncStorage.getItem("profileImage");
+        if (storedImage !== null) {
+          setProfileImage(storedImage);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getStoredImage();
+  }, []);
   const pickImage = async () => {
     try {
       let result = await ImagePicker.launchImageLibraryAsync({
@@ -29,6 +44,8 @@ const ProfileEditModal = ({ route }) => {
 
       if (!result.canceled) {
         setProfileImage(result.assets[0].uri);
+        setPhotoPath(result.assets[0].uri);
+        await AsyncStorage.setItem("profileImage", result.assets[0].uri);
       }
     } catch (error) {
       console.log(error);
@@ -64,7 +81,6 @@ const ProfileEditModal = ({ route }) => {
             </Pressable>
             <Pressable
               onPress={() => {
-                profile.setIsOpenProfile(!profile.isOpenProfile);
                 navigation.navigate("Setting");
               }}
             >
@@ -91,11 +107,8 @@ const ProfileEditModal = ({ route }) => {
                     style={styles.profileImage}
                     source={require("@public/image/coke_01.png")}
                   />
+                  //기본이미지
                 )}
-                {/* <Image
-                  style={styles.profileImage}
-                  source={require("@public/image/coke_01.png")}
-                /> */}
               </Pressable>
               <View style={{ flexDirection: "row" }}>
                 <Text style={styles.profileName}>{profile.profileName}</Text>

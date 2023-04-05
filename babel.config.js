@@ -16,6 +16,7 @@ module.exports = function (api) {
             "@public": "./public",
             "@enum": "./enum",
             "@store": "./store",
+            "@network": "./network",
             "@root": ".",
           },
         },

@@ -23,7 +23,7 @@ const MidView = ({ bottomContents }) => {
   const [isOpenProfile, setIsOpenProfile] = useState(false); //ProfileModal
   const [isProfileEdit, setIsProfileEdit] = useState(false); //ProfileEditModal
   const [isProfileImage, setIsProfileImage] = useState(false); //ProfileImageModal
-  const navigation = useNavigation();
+
   return (
     <View style={{ flex: 1 }}>
       {bottomContents === contents.friend && <FriendScreen />}

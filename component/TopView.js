@@ -4,6 +4,8 @@ import { View, Text, Image, Pressable } from "react-native";
 // custom
 import styles from "./Style";
 import { AddFriendModal } from "@component/Common";
+// enum
+import { contents } from "@enum/state";
 const TopView = ({ bottomContents }) => {
   const [isOpenAddFriend, setIsOpenAddFriend] = useState(false);
 
@@ -11,7 +13,13 @@ const TopView = ({ bottomContents }) => {
     <View style={styles.topContainer}>
       <View style={styles.topTitleContainer}>
         <View style={styles.topTitleView}>
-          <Text style={styles.topTitleFont}>친구</Text>
+          <Text style={styles.topTitleFont}>
+            {bottomContents === contents.friend
+              ? "친구"
+              : bottomContents === contents.chat
+              ? "채팅"
+              : "더보기"}
+          </Text>
         </View>
         <View style={styles.topRightView}>
           <View style={styles.topRightIconView}>

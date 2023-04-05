@@ -3,17 +3,20 @@ import React, { useState } from "react";
 import { View, Text, Modal, Pressable, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Carousel from "react-native-reanimated-carousel";
+// recoil
+import { useRecoilValue } from "recoil";
 // custom
 import styles from "./Style";
+// store
+import { photoPathState } from "@store/User";
 const ProfileModal = ({
   setIsOpenProfile,
   isOpenProfile,
-  instanceMessage,
   profileName,
   profileMessage,
 }) => {
   const navigation = useNavigation();
-
+  const photoPath = useRecoilValue(photoPathState);
   return (
     <View>
       <Modal
@@ -54,13 +57,6 @@ const ProfileModal = ({
           </View>
           <View style={styles.profileContainer}>
             <View style={styles.profileContent}>
-              <View style={styles.instanceMessageBox}>
-                <Text style={{ fontSize: 15 }}>
-                  {instanceMessage.length < 80
-                    ? instanceMessage
-                    : instanceMessage.slice(0, 85)}
-                </Text>
-              </View>
               <Pressable
                 onPress={() => {
                   <Carousel
@@ -90,7 +86,7 @@ const ProfileModal = ({
               >
                 <Image
                   style={styles.profileImage}
-                  source={require("@public/image/coke_01.png")}
+                  source={{ uri: photoPath }}
                 />
               </Pressable>
               <Text style={styles.profileName}>{profileName}</Text>
@@ -113,7 +109,6 @@ const ProfileModal = ({
                   navigation.navigate("ProfileEditModal", {
                     profileName: profileName,
                     profileMessage: profileMessage,
-                    instanceMessage: instanceMessage,
                     isOpenProfile: isOpenProfile,
                     setIsOpenProfile: setIsOpenProfile,
                   });
@@ -131,7 +126,7 @@ const ProfileModal = ({
                 style={styles.bottomImages}
                 source={require("@public/image/waterWave_white01.png")}
               />
-              <Text style={styles.bottomfont}>인스턴스</Text>
+              <Text style={styles.bottomfont}>목록1</Text>
             </View>
           </View>
         </View>
