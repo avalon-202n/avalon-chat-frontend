@@ -84,10 +84,17 @@ const ProfileModal = ({
                   //ProfileModal close and then ProfileImageModal open
                 }}
               >
-                <Image
-                  style={styles.profileImage}
-                  source={{ uri: photoPath }}
-                />
+                {photoPath !== "" ? (
+                  <Image
+                    style={styles.profileImage}
+                    source={{ uri: photoPath }}
+                  />
+                ) : (
+                  <Image
+                    style={styles.profileImage}
+                    source={require("@public/image/pepsi.png")}
+                  />
+                )}
               </Pressable>
               <Text style={styles.profileName}>{profileName}</Text>
               <Text style={styles.profileMessage}>{profileMessage}</Text>
