@@ -18,6 +18,8 @@ const ProfileEditModal = ({ route }) => {
   const profile = route.params;
 
   const [profileImage, setProfileImage] = useState(null);
+  const [profileNameEdit, setProfileNameEdit] = useState(false);
+  const [profileMsgEdit, setProfileMsgEdit] = useState(false);
   const [photoPath, setPhotoPath] = useRecoilState(photoPathState);
 
   useEffect(() => {
@@ -70,6 +72,7 @@ const ProfileEditModal = ({ route }) => {
           <View style={styles.buttonContainer}>
             <Pressable
               onPress={() => {
+                profile.setIsOpenProfile(false);
                 navigation.goBack();
                 //ProfileModal 이동으로 수정해야함.
               }}
@@ -116,6 +119,32 @@ const ProfileEditModal = ({ route }) => {
               <Text style={styles.profileMessage}>
                 {profile.profileMessage}
               </Text>
+            </View>
+            <View style={styles.profileEditView}>
+              <Pressable
+                onPress={() => {
+                  console.log("프로필이름수정");
+                  // setProfileNameEdit(!profileNameEdit);
+                  // component 연결
+                }}
+              >
+                <Image
+                  style={{ width: 25, height: 20 }}
+                  source={require("@public/image/pencil_white01.png")}
+                />
+              </Pressable>
+              <Pressable
+                onPress={() => {
+                  console.log("프로필메세지수정");
+                  // setProfileMsgEdit(!profileMsgEdit);
+                  // component 연결
+                }}
+              >
+                <Image
+                  style={{ width: 25, height: 20 }}
+                  source={require("@public/image/pencil_white01.png")}
+                />
+              </Pressable>
             </View>
           </View>
           <View style={styles.settingLineView} />

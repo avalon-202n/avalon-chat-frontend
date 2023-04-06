@@ -118,6 +118,12 @@ const styles = StyleSheet.create({
     height: windowHeight * 1,
     backgroundColor: "#f4f4f5",
   },
+  //profileEditModal
+  profileEditView: {
+    position: "absolute",
+    right: 0,
+    top: "92%",
+  },
 });
 
 export default styles;
