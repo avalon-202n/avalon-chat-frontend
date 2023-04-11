@@ -8,18 +8,15 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRecoilState } from "recoil";
 // custom
 import styles from "./Style";
-// enum
-import { S3_URL_PROFILE } from "@enum/cloud";
+// store
 import { photoPathState } from "@store/User";
-// network
-import { APIfetch, APIfetchMedia } from "@network/APIfetch";
+
 const ProfileEditModal = ({ route }) => {
   const navigation = useNavigation();
-  const profile = route.params;
+  const profileInfo = route.params;
 
+  const [isModal, setIsModal] = useState(true);
   const [profileImage, setProfileImage] = useState(null);
-  const [profileNameEdit, setProfileNameEdit] = useState(false);
-  const [profileMsgEdit, setProfileMsgEdit] = useState(false);
   const [photoPath, setPhotoPath] = useRecoilState(photoPathState);
 
   useEffect(() => {
@@ -59,7 +56,7 @@ const ProfileEditModal = ({ route }) => {
       <Modal
         animationType="slide"
         transparent={true}
-        visible={profile.isOpenProfile}
+        visible={isModal}
         onRequestClose={() => {
           navigation.goBack();
         }}
@@ -72,8 +69,10 @@ const ProfileEditModal = ({ route }) => {
           <View style={styles.buttonContainer}>
             <Pressable
               onPress={() => {
-                profile.setIsOpenProfile(false);
-                navigation.goBack();
+                setIsModal(false);
+                navigation.navigate("ProfileModal", {
+                  isModal: isModal,
+                });
                 //ProfileModal 이동으로 수정해야함.
               }}
             >
@@ -114,10 +113,12 @@ const ProfileEditModal = ({ route }) => {
                 )}
               </Pressable>
               <View style={{ flexDirection: "row" }}>
-                <Text style={styles.profileName}>{profile.profileName}</Text>
+                <Text style={styles.profileName}>
+                  {profileInfo.profileName}
+                </Text>
               </View>
               <Text style={styles.profileMessage}>
-                {profile.profileMessage}
+                {profileInfo.profileMessage}
               </Text>
             </View>
             <View style={styles.profileEditView}>

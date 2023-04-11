@@ -101,22 +101,36 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
+    padding: 5,
   },
   bottomImages: {
-    width: windowWidth * 30,
-    height: windowWidth * 30,
-    justifyContent: "center",
-    alignSelf: "center",
+    marginLeft: windowWidth * 10,
+    width: windowWidth * 35,
+    height: windowWidth * 35,
+    padding: windowWidth * 5,
   },
   bottomfont: {
     color: "white",
     fontSize: windowWidth * 12,
-    padding: windowWidth * 5,
+    alignSelf: "center",
   },
   settingLineView: {
     width: "100%",
     height: windowHeight * 1,
     backgroundColor: "#f4f4f5",
+  },
+  editTopView: {
+    marginTop: windowHeight * 25,
+  },
+  editTopRight: {
+    marginRight: windowWidth * 10,
+  },
+  editTopLeft: {
+    marginLeft: windowWidth * 10,
+  },
+  editTopText: {
+    fontSize: windowWidth * 20,
+    color: "white",
   },
   //profileEditModal
   profileEditView: {

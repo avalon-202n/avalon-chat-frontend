@@ -7,21 +7,13 @@ import { useNavigation } from "@react-navigation/native";
 import { useRecoilValue } from "recoil";
 // custom
 import styles from "./Style";
-import {
-  ProfileModal,
-  ProfileImageModal,
-  ProfileEditModal,
-} from "@component/Common";
+
 // store
-import { isPhotoState, photoPathState } from "@store/User";
+import { photoPathState } from "@store/User";
 
 const FriendScreen = () => {
   const [profileName, setProfileName] = useState("이름");
   const [profileMessage, setProfileMessage] = useState("프로필메세지");
-  const [instanceMessage, setInstanceMessage] = useState("인스턴스 메세지");
-  const [isOpenProfile, setIsOpenProfile] = useState(false); //ProfileModal
-  const [isProfileEdit, setIsProfileEdit] = useState(false); //ProfileEditModal
-  const [isProfileImage, setIsProfileImage] = useState(false); //ProfileImageModal
 
   const photoPath = useRecoilValue(photoPathState);
   const navigation = useNavigation();
@@ -31,7 +23,10 @@ const FriendScreen = () => {
         <Pressable
           style={{ flexDirection: "row" }}
           onPress={() => {
-            setIsOpenProfile(true);
+            navigation.navigate("ProfileModal", {
+              profileName: profileName,
+              profileMessage: profileMessage,
+            });
           }}
         >
           {photoPath !== "" ? (
@@ -76,19 +71,6 @@ const FriendScreen = () => {
       <View>
         <Text style={styles.contentText}>친구목록</Text>
       </View>
-      {isOpenProfile === true && (
-        <ProfileModal
-          setIsOpenProfile={setIsOpenProfile}
-          isOpenProfile={isOpenProfile}
-          instanceMessage={instanceMessage}
-          profileMessage={profileMessage}
-          profileName={profileName}
-          isProfileEdit={isProfileEdit}
-          setIsProfileEdit={setIsProfileEdit}
-          isProfileImage={isProfileImage}
-          setIsProfileImage={setIsProfileImage}
-        />
-      )}
     </ScrollView>
   );
 };
