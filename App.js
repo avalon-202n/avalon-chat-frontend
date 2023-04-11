@@ -14,7 +14,7 @@ import { ChatScreen } from "@screen/chat";
 import { FriendScreen } from "@screen/friend";
 import { SettingScreen } from "@screen/setting";
 import { SettingFriend, HeaderRightFriend } from "@component/Friend";
-import { ProfileEditModal } from "@component/Common";
+import { ProfileModal } from "@component/Common";
 import HomeScreen from "./screen/Home";
 // import { } from '@screen/login';
 // import { } from '@screen/signup';
@@ -45,8 +45,8 @@ const App = () => {
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            name="ProfileEditModal"
-            component={ProfileEditModal}
+            name="ProfileModal"
+            component={ProfileModal}
             options={{ headerShown: false }}
           />
 

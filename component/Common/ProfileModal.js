@@ -1,73 +1,123 @@
 // react
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, Modal, Pressable, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Carousel from "react-native-reanimated-carousel";
+import * as ImagePicker from "expo-image-picker";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 // recoil
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 // custom
 import styles from "./Style";
 // store
 import { photoPathState } from "@store/User";
-const ProfileModal = ({
-  setIsOpenProfile,
-  isOpenProfile,
-  profileName,
-  profileMessage,
-}) => {
+
+const ProfileModal = ({ route }) => {
+  const [isModal, setIsModal] = useState(true);
+  const [isProfileEdit, setIsProfileEdit] = useState(false);
+  const [images, setImages] = useState([]);
   const navigation = useNavigation();
-  const photoPath = useRecoilValue(photoPathState);
+  const profileInfo = route.params;
+
+  const [profileImage, setProfileImage] = useState(null);
+  const [photoPath, setPhotoPath] = useRecoilState(photoPathState);
+  useEffect(() => {
+    const getStoredImage = async () => {
+      try {
+        const storedImage = await AsyncStorage.getItem("profileImage");
+        if (storedImage !== null) {
+          setProfileImage(storedImage);
+        } else {
+          setProfileImage(require("@public/image/setting_black01.png"));
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getStoredImage();
+  }, []);
+
+  const pickImage = async () => {
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+
+      if (!result.canceled) {
+        setProfileImage(result.assets[0].uri);
+        setPhotoPath(result.assets[0].uri);
+
+        await AsyncStorage.setItem("profileImage", result.assets[0].uri);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
-    <View>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={isOpenProfile}
-        onRequestClose={() => {
-          navigation.goBack();
-        }}
-      >
-        <View style={styles.container}>
-          <Image
-            style={styles.backgroundImage}
-            source={require("@public/image/backImg.png")}
-          />
-          <View style={styles.buttonContainer}>
-            <Pressable
-              onPress={() => {
-                setIsOpenProfile(!isOpenProfile);
-              }}
-            >
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={isModal}
+      onRequestClose={() => {
+        navigation.goBack();
+      }}
+    >
+      <View style={styles.container}>
+        <Image
+          style={styles.backgroundImage}
+          source={require("@public/image/backImg.png")}
+        />
+        <View style={styles.buttonContainer}>
+          <Pressable
+            onPress={() => {
+              isProfileEdit ? setIsProfileEdit(false) : navigation.goBack();
+            }}
+          >
+            {isProfileEdit ? (
+              <View style={styles.editTopView}>
+                <Text style={[styles.editTopText, styles.editTopLeft]}>
+                  취소
+                </Text>
+              </View>
+            ) : (
               <Image
                 source={require("@public/image/closeButton_white01.png")}
                 style={styles.CloseImage}
               />
-            </Pressable>
-            <Pressable
-              onPress={() => {
-                setIsOpenProfile(!isOpenProfile);
-                navigation.navigate("Setting");
-              }}
-            >
+            )}
+          </Pressable>
+          <Pressable
+            onPress={() => {
+              navigation.navigate("Setting");
+            }}
+          >
+            {isProfileEdit ? (
+              <View style={[styles.editTopView, styles.editTopRight]}>
+                <Text style={styles.editTopText}>확인</Text>
+              </View>
+            ) : (
               <Image
                 source={require("@public/image/setting_black01.png")}
                 style={styles.starImage}
               />
-            </Pressable>
-          </View>
-          <View style={styles.profileContainer}>
-            <View style={styles.profileContent}>
-              <Pressable
-                onPress={() => {
+            )}
+          </Pressable>
+        </View>
+        <View style={styles.profileContainer}>
+          <View style={styles.profileContent}>
+            <Pressable
+              onPress={() => {
+                isProfileEdit ? (
+                  pickImage()
+                ) : (
                   <Carousel
-                    loop
                     width={300}
                     height={150}
                     autoPlay={false}
-                    data={[...new Array(6).keys()]}
-                    onSnapToItem={(index) =>
-                      console.log("current index:", index)
-                    }
+                    data={images}
                     renderItem={({ index }) => (
                       <View
                         style={{
@@ -75,32 +125,35 @@ const ProfileModal = ({
                           borderWidth: 1,
                           justifyContent: "center",
                         }}
-                      >
-                        <Text>{index}</Text>
-                      </View>
+                      ></View>
                     )}
-                  />;
-
-                  //ProfileModal close and then ProfileImageModal open
-                }}
-              >
-                {photoPath !== "" ? (
-                  <Image
-                    style={styles.profileImage}
-                    source={{ uri: photoPath }}
                   />
-                ) : (
-                  <Image
-                    style={styles.profileImage}
-                    source={require("@public/image/pepsi.png")}
-                  />
-                )}
-              </Pressable>
-              <Text style={styles.profileName}>{profileName}</Text>
-              <Text style={styles.profileMessage}>{profileMessage}</Text>
-            </View>
+                );
+              }}
+            >
+              {photoPath !== "" ? (
+                <Image
+                  style={styles.profileImage}
+                  source={{ uri: photoPath }}
+                />
+              ) : (
+                <Image
+                  style={styles.profileImage}
+                  source={require("@public/image/pepsi.png")}
+                />
+              )}
+            </Pressable>
+            <Text style={styles.profileName}>{profileInfo.profileName}</Text>
+            <Text style={styles.profileMessage}>
+              {profileInfo.profileMessage}
+            </Text>
           </View>
-          <View style={styles.settingLineView} />
+        </View>
+        <View style={styles.settingLineView} />
+
+        {isProfileEdit ? (
+          <View style={styles.bottomContent}></View>
+        ) : (
           <View style={styles.bottomContent}>
             <View>
               <Image
@@ -112,13 +165,7 @@ const ProfileModal = ({
             <View>
               <Pressable
                 onPress={() => {
-                  setIsOpenProfile(!isOpenProfile);
-                  navigation.navigate("ProfileEditModal", {
-                    profileName: profileName,
-                    profileMessage: profileMessage,
-                    isOpenProfile: isOpenProfile,
-                    setIsOpenProfile: setIsOpenProfile,
-                  });
+                  setIsProfileEdit(true);
                 }}
               >
                 <Image
@@ -133,12 +180,12 @@ const ProfileModal = ({
                 style={styles.bottomImages}
                 source={require("@public/image/waterWave_white01.png")}
               />
-              <Text style={styles.bottomfont}>목록1</Text>
+              <Text style={styles.bottomfont}>스토리 보드</Text>
             </View>
           </View>
-        </View>
-      </Modal>
-    </View>
+        )}
+      </View>
+    </Modal>
   );
 };
 
