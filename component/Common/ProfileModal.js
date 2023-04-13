@@ -1,17 +1,13 @@
 // react
-import React, { useState, useEffect } from "react";
-import { View, Text, Modal, Pressable, Image } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import Carousel from "react-native-reanimated-carousel";
-import * as ImagePicker from "expo-image-picker";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-// recoil
-import { useRecoilState } from "recoil";
-// custom
-import styles from "./Style";
-// store
-import { photoPathState } from "@store/User";
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
+import { photoPathState } from '@store/User';
+import * as ImagePicker from 'expo-image-picker';
+import React, { useEffect, useState } from 'react';
+import { Image, Modal, Pressable, Text, View } from 'react-native';
+import Carousel from 'react-native-reanimated-carousel';
+import { useRecoilState } from 'recoil';
+import styles from './Style';
 const ProfileModal = ({ route }) => {
   const [isModal, setIsModal] = useState(true);
   const [isProfileEdit, setIsProfileEdit] = useState(false);
@@ -24,11 +20,11 @@ const ProfileModal = ({ route }) => {
   useEffect(() => {
     const getStoredImage = async () => {
       try {
-        const storedImage = await AsyncStorage.getItem("profileImage");
+        const storedImage = await AsyncStorage.getItem('profileImage');
         if (storedImage !== null) {
           setProfileImage(storedImage);
         } else {
-          setProfileImage(require("@public/image/setting_black01.png"));
+          setProfileImage(require('@public/image/setting_black01.png'));
         }
       } catch (error) {
         console.log(error);
@@ -50,7 +46,7 @@ const ProfileModal = ({ route }) => {
         setProfileImage(result.assets[0].uri);
         setPhotoPath(result.assets[0].uri);
 
-        await AsyncStorage.setItem("profileImage", result.assets[0].uri);
+        await AsyncStorage.setItem('profileImage', result.assets[0].uri);
       }
     } catch (error) {
       console.log(error);
@@ -58,7 +54,7 @@ const ProfileModal = ({ route }) => {
   };
   return (
     <Modal
-      animationType="slide"
+      animationType='slide'
       transparent={true}
       visible={isModal}
       onRequestClose={() => {
@@ -68,7 +64,7 @@ const ProfileModal = ({ route }) => {
       <View style={styles.container}>
         <Image
           style={styles.backgroundImage}
-          source={require("@public/image/backImg.png")}
+          source={require('@public/image/backImg.png')}
         />
         <View style={styles.buttonContainer}>
           <Pressable
@@ -84,14 +80,14 @@ const ProfileModal = ({ route }) => {
               </View>
             ) : (
               <Image
-                source={require("@public/image/closeButton_white01.png")}
+                source={require('@public/image/closeButton_white01.png')}
                 style={styles.CloseImage}
               />
             )}
           </Pressable>
           <Pressable
             onPress={() => {
-              navigation.navigate("Setting");
+              navigation.navigate('Setting');
             }}
           >
             {isProfileEdit ? (
@@ -100,7 +96,7 @@ const ProfileModal = ({ route }) => {
               </View>
             ) : (
               <Image
-                source={require("@public/image/setting_black01.png")}
+                source={require('@public/image/setting_black01.png')}
                 style={styles.starImage}
               />
             )}
@@ -123,7 +119,7 @@ const ProfileModal = ({ route }) => {
                         style={{
                           flex: 1,
                           borderWidth: 1,
-                          justifyContent: "center",
+                          justifyContent: 'center',
                         }}
                       ></View>
                     )}
@@ -131,7 +127,7 @@ const ProfileModal = ({ route }) => {
                 );
               }}
             >
-              {photoPath !== "" ? (
+              {photoPath !== '' ? (
                 <Image
                   style={styles.profileImage}
                   source={{ uri: photoPath }}
@@ -139,7 +135,7 @@ const ProfileModal = ({ route }) => {
               ) : (
                 <Image
                   style={styles.profileImage}
-                  source={require("@public/image/pepsi.png")}
+                  source={require('@public/image/pepsi.png')}
                 />
               )}
             </Pressable>
@@ -158,7 +154,7 @@ const ProfileModal = ({ route }) => {
             <View>
               <Image
                 style={styles.bottomImages}
-                source={require("@public/image/chat_white01.png")}
+                source={require('@public/image/chat_white01.png')}
               />
               <Text style={styles.bottomfont}>나와의 채팅</Text>
             </View>
@@ -170,7 +166,7 @@ const ProfileModal = ({ route }) => {
               >
                 <Image
                   style={styles.bottomImages}
-                  source={require("@public/image/pencil_white01.png")}
+                  source={require('@public/image/pencil_white01.png')}
                 />
                 <Text style={styles.bottomfont}>프로필 편집</Text>
               </Pressable>
@@ -178,7 +174,7 @@ const ProfileModal = ({ route }) => {
             <View>
               <Image
                 style={styles.bottomImages}
-                source={require("@public/image/waterWave_white01.png")}
+                source={require('@public/image/waterWave_white01.png')}
               />
               <Text style={styles.bottomfont}>스토리 보드</Text>
             </View>
