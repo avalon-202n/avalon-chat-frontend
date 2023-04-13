@@ -14,7 +14,6 @@ const ProfileModal = ({ route }) => {
   const [images, setImages] = useState([]);
   const navigation = useNavigation();
   const profileInfo = route.params;
-
   const [profileImage, setProfileImage] = useState(null);
   const [photoPath, setPhotoPath] = useRecoilState(photoPathState);
   useEffect(() => {
