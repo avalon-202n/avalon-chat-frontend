@@ -32,8 +32,7 @@ module.exports = {
           ['builtin', 'external'],
           'internal',
           ['parent', 'sibling', 'index'],
-          ['@react', 'expo', 'react-native'],
-
+          ['react', '@react', '@react-native', '@expo'],
           'styles',
           'recoil',
           'network',
