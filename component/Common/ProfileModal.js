@@ -6,7 +6,9 @@ import * as ImagePicker from 'expo-image-picker';
 import React, { useEffect, useState } from 'react';
 import { Image, Modal, Pressable, Text, View } from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
+// recoil
 import { useRecoilState } from 'recoil';
+// custom
 import styles from './Style';
 const ProfileModal = ({ route }) => {
   const [isModal, setIsModal] = useState(true);
@@ -23,7 +25,7 @@ const ProfileModal = ({ route }) => {
         if (storedImage !== null) {
           setProfileImage(storedImage);
         } else {
-          setProfileImage(require('@public/image/setting_black01.png'));
+          setProfileImage(require('@public/image/pepsi.png'));
         }
       } catch (error) {
         console.log(error);
@@ -43,13 +45,19 @@ const ProfileModal = ({ route }) => {
 
       if (!result.canceled) {
         setProfileImage(result.assets[0].uri);
-        setPhotoPath(result.assets[0].uri);
+        setPhotoPath(profileImage);
+        images.push(result.assets[0].uri);
+        console.log(images);
 
         await AsyncStorage.setItem('profileImage', result.assets[0].uri);
       }
     } catch (error) {
       console.log(error);
     }
+  };
+  const removeImage = () => {
+    // let remove = Object.keys(photoPath).pop(); 전역변수사진 삭제
+    setPhotoPath('');
   };
   return (
     <Modal
@@ -66,24 +74,31 @@ const ProfileModal = ({ route }) => {
           source={require('@public/image/backImg.png')}
         />
         <View style={styles.buttonContainer}>
-          <Pressable
-            onPress={() => {
-              isProfileEdit ? setIsProfileEdit(false) : navigation.goBack();
-            }}
-          >
-            {isProfileEdit ? (
-              <View style={styles.editTopView}>
+          {isProfileEdit ? (
+            <View style={styles.editTopView}>
+              <Pressable
+                onPress={() => {
+                  setIsProfileEdit(false);
+                  removeImage();
+                }}
+              >
                 <Text style={[styles.editTopText, styles.editTopLeft]}>
                   취소
                 </Text>
-              </View>
-            ) : (
+              </Pressable>
+            </View>
+          ) : (
+            <Pressable
+              onPress={() => {
+                navigation.goBack();
+              }}
+            >
               <Image
                 source={require('@public/image/closeButton_white01.png')}
                 style={styles.CloseImage}
               />
-            )}
-          </Pressable>
+            </Pressable>
+          )}
           <Pressable
             onPress={() => {
               navigation.navigate('Setting');
@@ -108,28 +123,30 @@ const ProfileModal = ({ route }) => {
                 isProfileEdit ? (
                   pickImage()
                 ) : (
-                  <Carousel
-                    width={300}
-                    height={150}
-                    autoPlay={false}
-                    data={images}
-                    renderItem={({ index }) => (
-                      <View
-                        style={{
-                          flex: 1,
-                          borderWidth: 1,
-                          justifyContent: 'center',
-                        }}
-                      ></View>
-                    )}
-                  />
+                  <View>
+                    <Carousel
+                      width={360}
+                      height={720}
+                      autoPlay={false}
+                      data={images}
+                      renderItem={() => (
+                        <View
+                          style={{
+                            flex: 1,
+                            borderWidth: 1,
+                            justifyContent: 'center',
+                          }}
+                        ></View>
+                      )}
+                    />
+                  </View>
                 );
               }}
             >
               {photoPath !== '' ? (
                 <Image
                   style={styles.profileImage}
-                  source={{ uri: photoPath }}
+                  source={{ uri: profileImage }}
                 />
               ) : (
                 <Image
