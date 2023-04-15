@@ -1,39 +1,39 @@
 // react
-import React, { useState } from "react";
-import { View, Text, Image, Pressable, ScrollView } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { Image, Pressable, ScrollView, Text, View } from 'react-native';
 
 // recoil
-import { useRecoilValue } from "recoil";
+import { useRecoilValue } from 'recoil';
 // custom
-import styles from "./Style";
+import styles from './Style';
 
 // store
-import { photoPathState } from "@store/User";
+import { photoPathState } from '@store/User';
 
 const FriendScreen = () => {
-  const [profileName, setProfileName] = useState("이름");
-  const [profileMessage, setProfileMessage] = useState("프로필메세지");
-
+  const [profileName, setProfileName] = useState('이름');
+  const [profileMessage, setProfileMessage] = useState('프로필메세지');
   const photoPath = useRecoilValue(photoPathState);
   const navigation = useNavigation();
+
   return (
     <ScrollView>
       <View style={styles.profileContainer}>
         <Pressable
-          style={{ flexDirection: "row" }}
+          style={{ flexDirection: 'row' }}
           onPress={() => {
-            navigation.navigate("ProfileModal", {
+            navigation.navigate('ProfileModal', {
               profileName: profileName,
               profileMessage: profileMessage,
             });
           }}
         >
-          {photoPath !== "" ? (
+          {photoPath !== '' ? (
             <Image source={{ uri: photoPath }} style={styles.profileImg} />
           ) : (
             <Image
-              source={require("@public/image/pepsi.png")}
+              source={require('@public/image/pepsi.png')}
               style={styles.profileImg}
             />
           )}
@@ -50,15 +50,15 @@ const FriendScreen = () => {
         {
           <Pressable
             onPress={() => {
-              console.log("즐겨찾기 친구");
+              console.log('즐겨찾기 친구');
             }}
           >
-            <View style={{ flexDirection: "row" }}>
+            <View style={{ flexDirection: 'row' }}>
               <Image
-                source={require("@public/image/pepsi.png")}
+                source={require('@public/image/pepsi.png')}
                 style={styles.profileImg}
               />
-              <View style={{ justifyContent: "center", marginLeft: 5 }}>
+              <View style={{ justifyContent: 'center', marginLeft: 5 }}>
                 <Text>즐겨찾기이름</Text>
                 <Text>즐겨찾기프로필메세지</Text>
               </View>
