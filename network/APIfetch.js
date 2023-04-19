@@ -1,11 +1,11 @@
-import { S3_URL_PROFILE } from "@enum/cloud";
+import { S3_URL_PROFILE } from '@enum/cloud';
 
 export const APIfetch = async (path, body, token) => {
   try {
     const res = await fetch(`${API_URL}/${path}`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(body),
@@ -19,9 +19,9 @@ export const APIfetch = async (path, body, token) => {
 export const APIfetchMedia = async (path, body, token) => {
   try {
     const res = await fetch(`${S3_URL_PROFILE}/${path}`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "multipart/form-data",
+        'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${token}`,
       },
       body: body,

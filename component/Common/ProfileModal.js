@@ -69,10 +69,7 @@ const ProfileModal = ({ route }) => {
       }}
     >
       <View style={styles.container}>
-        <Image
-          style={styles.backgroundImage}
-          source={require('@public/image/backImg.png')}
-        />
+        <Image style={styles.backgroundImage} source={require('@public/image/backImg.png')} />
         <View style={styles.buttonContainer}>
           {isProfileEdit ? (
             <View style={styles.editTopView}>
@@ -82,9 +79,7 @@ const ProfileModal = ({ route }) => {
                   removeImage();
                 }}
               >
-                <Text style={[styles.editTopText, styles.editTopLeft]}>
-                  취소
-                </Text>
+                <Text style={[styles.editTopText, styles.editTopLeft]}>취소</Text>
               </Pressable>
             </View>
           ) : (
@@ -93,10 +88,7 @@ const ProfileModal = ({ route }) => {
                 navigation.goBack();
               }}
             >
-              <Image
-                source={require('@public/image/closeButton_white01.png')}
-                style={styles.CloseImage}
-              />
+              <Image source={require('@public/image/closeButton_white01.png')} style={styles.CloseImage} />
             </Pressable>
           )}
           <Pressable
@@ -109,10 +101,7 @@ const ProfileModal = ({ route }) => {
                 <Text style={styles.editTopText}>확인</Text>
               </View>
             ) : (
-              <Image
-                source={require('@public/image/setting_black01.png')}
-                style={styles.starImage}
-              />
+              <Image source={require('@public/image/setting_black01.png')} style={styles.starImage} />
             )}
           </Pressable>
         </View>
@@ -144,21 +133,13 @@ const ProfileModal = ({ route }) => {
               }}
             >
               {photoPath !== '' ? (
-                <Image
-                  style={styles.profileImage}
-                  source={{ uri: profileImage }}
-                />
+                <Image style={styles.profileImage} source={{ uri: profileImage }} />
               ) : (
-                <Image
-                  style={styles.profileImage}
-                  source={require('@public/image/pepsi.png')}
-                />
+                <Image style={styles.profileImage} source={require('@public/image/pepsi.png')} />
               )}
             </Pressable>
             <Text style={styles.profileName}>{profileInfo.profileName}</Text>
-            <Text style={styles.profileMessage}>
-              {profileInfo.profileMessage}
-            </Text>
+            <Text style={styles.profileMessage}>{profileInfo.profileMessage}</Text>
           </View>
         </View>
         <View style={styles.settingLineView} />
@@ -168,10 +149,7 @@ const ProfileModal = ({ route }) => {
         ) : (
           <View style={styles.bottomContent}>
             <View>
-              <Image
-                style={styles.bottomImages}
-                source={require('@public/image/chat_white01.png')}
-              />
+              <Image style={styles.bottomImages} source={require('@public/image/chat_white01.png')} />
               <Text style={styles.bottomfont}>나와의 채팅</Text>
             </View>
             <View>
@@ -180,18 +158,12 @@ const ProfileModal = ({ route }) => {
                   setIsProfileEdit(true);
                 }}
               >
-                <Image
-                  style={styles.bottomImages}
-                  source={require('@public/image/pencil_white01.png')}
-                />
+                <Image style={styles.bottomImages} source={require('@public/image/pencil_white01.png')} />
                 <Text style={styles.bottomfont}>프로필 편집</Text>
               </Pressable>
             </View>
             <View>
-              <Image
-                style={styles.bottomImages}
-                source={require('@public/image/waterWave_white01.png')}
-              />
+              <Image style={styles.bottomImages} source={require('@public/image/waterWave_white01.png')} />
               <Text style={styles.bottomfont}>스토리 보드</Text>
             </View>
           </View>
