@@ -1,13 +1,13 @@
 // react
-import React, { useState } from "react";
-import { View, Text } from "react-native";
+import React, { useState } from 'react';
+import { View } from 'react-native';
 
 // custom
-import styles from "@screen/Style";
-import { TopView, MidView, BottomView } from "@component";
+import { BottomView, MidView, TopView } from '@component';
+import styles from '@screen/Style';
 
 // enum
-import { contents } from "@enum/state";
+import { contents } from '@enum/state';
 const HomeScreen = () => {
   const [bottomContents, setContents] = useState(contents.friend);
 
@@ -18,10 +18,7 @@ const HomeScreen = () => {
     <View style={styles.container}>
       <TopView bottomContents={bottomContents} getContents={getContents} />
       <MidView bottomContents={bottomContents} />
-      <BottomView
-        bottomContents={bottomContents}
-        onPressContents={getContents}
-      />
+      <BottomView bottomContents={bottomContents} onPressContents={getContents} />
     </View>
   );
 };

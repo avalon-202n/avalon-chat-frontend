@@ -1,15 +1,15 @@
 // react
-import React, { useState, useEffect } from "react";
-import { View, Text, Image, Pressable, Modal } from "react-native";
+import React, { useState } from 'react';
+import { Image, Modal, Pressable, Text, View } from 'react-native';
 // custom
-import styles from "./Style";
+import styles from './Style';
 const AddFriendModal = ({ isOpenAddFriend, setIsOpenAddFriend }) => {
-  const [searchFor, setSearchFor] = useState("");
+  const [searchFor, setSearchFor] = useState('');
 
   return (
     <View>
       <Modal
-        animationType="slide"
+        animationType='slide'
         transparent={true}
         visible={isOpenAddFriend}
         onRequestClose={() => {
@@ -23,15 +23,12 @@ const AddFriendModal = ({ isOpenAddFriend, setIsOpenAddFriend }) => {
                 setIsOpenAddFriend(!isOpenAddFriend);
               }}
             >
-              <Image
-                source={require("@public/image/leftArrow_black04.png")}
-                style={styles.CloseImage}
-              />
+              <Image source={require('@public/image/leftArrow_black04.png')} style={styles.CloseImage} />
             </Pressable>
             <Pressable
               style={styles.starImage}
               onPress={() => {
-                console.log("확인버튼클릭");
+                console.log('확인버튼클릭');
               }}
             >
               <Text style={styles.confirmText}>확인</Text>
@@ -40,35 +37,26 @@ const AddFriendModal = ({ isOpenAddFriend, setIsOpenAddFriend }) => {
           <View style={styles.topViewContainer}>
             <Pressable
               onPress={() => {
-                setSearchFor("QR");
+                setSearchFor('QR');
               }}
             >
-              <Image
-                style={styles.topBtnImage}
-                source={require("@public/image/qrcodeSearch_black01.png")}
-              />
+              <Image style={styles.topBtnImage} source={require('@public/image/qrcodeSearch_black01.png')} />
               <Text>QR코드</Text>
             </Pressable>
             <Pressable
               onPress={() => {
-                setSearchFor("PHONE");
+                setSearchFor('PHONE');
               }}
             >
-              <Image
-                style={styles.topBtnImage}
-                source={require("@public/image/numberSearch_black01.png")}
-              />
+              <Image style={styles.topBtnImage} source={require('@public/image/numberSearch_black01.png')} />
               <Text>연락처로 추가</Text>
             </Pressable>
             <Pressable
               onPress={() => {
-                setSearchFor("ID");
+                setSearchFor('ID');
               }}
             >
-              <Image
-                style={styles.topBtnImage}
-                source={require("@public/image/idSearch_black01.png")}
-              />
+              <Image style={styles.topBtnImage} source={require('@public/image/idSearch_black01.png')} />
               <Text>ID로 추가</Text>
             </Pressable>
           </View>
