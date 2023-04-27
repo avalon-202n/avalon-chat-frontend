@@ -14,11 +14,13 @@ const SignupScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [secPassword, secSetPassword] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [authenticateNumber, setAuthenticateNumber] = useState('');
+
+  const [isEmail, setIsEmail] = useState(false);
+  const [isPhoneNumber, setIsPhoneNumber] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [isSecPassword, setIsSecPassword] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [numberCheck, setnumberCheck] = useState('');
-
   const userId = useSetRecoilState(profileMessageState);
 
   useEffect(() => {
@@ -50,8 +52,10 @@ const SignupScreen = ({ navigation }) => {
 
       if (result.duplicated === false) {
         Alert.alert('사용가능합니다.');
+        setIsEmail(true);
       } else {
         Alert.alert('사용할 수 없는 아이디입니다.');
+        setIsEmail(false);
       }
     } else {
       Alert.alert('이메일 형식이 아닙니다');
@@ -70,21 +74,29 @@ const SignupScreen = ({ navigation }) => {
 
   const formatPhoneNumber = () => {
     const formatNumber = phoneNumber.replace(/^(\d{3})(\d{4})(\d{4})$/, '$1-$2-$3');
+
     if (formatNumber) {
       setPhoneNumber(formatNumber);
     }
   };
-  const checkRandomNumber = async () => {
-    console.log(numberCheck);
-    const res = await APIfetch(SIGNUP_PHONE_CHECK, { phoneNumber, numberCheck });
+  const authPhoneNumber = () => {
+    if (phoneNumber.length === 13) {
+      Alert.alert('인증번호를 발송했습니다');
+      APIfetch(SIGNUP_PHONE_SEND, phoneNumber);
+    } else {
+      Alert.alert('번호를 확인하세요');
+    }
+  };
+  const checkAuthNumber = async () => {
+    const res = await APIfetch(SIGNUP_PHONE_CHECK, { phoneNumber, authenticateNumber });
 
     const result = await res.json();
     console.log(result);
   };
 
   return (
-    <View style={{ flex: 1 }}>
-      <View style={{ flex: 3, flexDirection: 'row' }}>
+    <View style={styles.container}>
+      <View style={styles.inputContainer}>
         <View style={{ flex: 4, justifyContent: 'center', alignItems: 'center' }}>
           <TextInput
             style={{ fontSize: 15 }}
@@ -125,6 +137,7 @@ const SignupScreen = ({ navigation }) => {
               setPhoneNumber(text);
             }}
             value={phoneNumber}
+            keyboardType='number-pad'
             maxLength={13}
           />
           <View style={styles.lineView} />
@@ -132,9 +145,10 @@ const SignupScreen = ({ navigation }) => {
             style={{ fontSize: 15 }}
             placeholder='인증번호를 입력하세요.'
             onChangeText={(text) => {
-              setnumberCheck(text);
+              setAuthenticateNumber(text);
             }}
-            value={numberCheck}
+            value={authenticateNumber}
+            keyboardType='number-pad'
             maxLength={6}
           />
           <View style={styles.lineView} />
@@ -153,8 +167,7 @@ const SignupScreen = ({ navigation }) => {
           {isSecPassword ? <Text style={styles.checkText}>OK</Text> : <Text style={styles.checkText}>No</Text>}
           <Pressable
             onPress={() => {
-              Alert.alert('인증번호를 보냈습니다');
-              APIfetch(SIGNUP_PHONE_SEND, phoneNumber);
+              authPhoneNumber();
             }}
           >
             <Text style={styles.checkText}>인증하기</Text>
@@ -162,26 +175,28 @@ const SignupScreen = ({ navigation }) => {
 
           <Pressable
             onPress={() => {
-              checkRandomNumber();
+              checkAuthNumber();
             }}
           >
             <Text style={styles.checkText}>확인하기</Text>
           </Pressable>
         </View>
       </View>
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={styles.SignupBtnContainer}>
         <Pressable
+          style={styles.SignupBtn}
           onPress={() => {
-            if (isPassword === false || isSecPassword === false) {
+            if (isEmail === false) {
+              Alert.alert('이메일을 확인하세요');
+            } else if (isPassword === false || isSecPassword === false) {
               Alert.alert('비밀번호를 확인하세요');
             } else {
-              //유저 정보생성
               navigation.navigate('SignProfile');
               console.log('가입완료');
             }
           }}
         >
-          <Text>가입하기</Text>
+          <Text style={styles.SignupText}>가입하기</Text>
         </Pressable>
       </View>
     </View>
