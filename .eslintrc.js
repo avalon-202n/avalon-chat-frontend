@@ -4,12 +4,7 @@ module.exports = {
     es2021: true,
     jest: true,
   },
-  extends: [
-    'eslint:recommended',
-    'plugin:react/recommended',
-    'prettier',
-    'plugin:import/recommended',
-  ],
+  extends: ['eslint:recommended', 'plugin:react/recommended', 'prettier', 'plugin:import/recommended'],
   parser: '@babel/eslint-parser',
   parserOptions: {
     babelOptions: {
@@ -35,6 +30,7 @@ module.exports = {
           ['react', '@react', '@react-native', '@expo'],
           'styles',
           'recoil',
+          'axios',
           'network',
           'enum',
           'store',

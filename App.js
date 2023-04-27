@@ -15,7 +15,7 @@ import { FriendScreen } from '@screen/friend';
 import HomeScreen from '@screen/Home';
 import { LoadScreen, LoginScreen, LoginSetupScreen } from '@screen/login';
 import { SettingScreen } from '@screen/setting';
-import { SignupScreen } from '@screen/signup';
+import { SignupProfileScreen, SignupScreen } from '@screen/signup';
 import { SplashAppScreen } from '@screen/splash';
 const Stack = createNativeStackNavigator();
 
@@ -36,6 +36,7 @@ const App = () => {
             <Stack.Screen name='LoginSetup' component={LoginSetupScreen} options={{ headerShown: false }} />
             <Stack.Screen name='Login' component={LoginScreen} options={{ headerShown: false }} />
             <Stack.Screen name='Signup' component={SignupScreen} options={{ headerShown: false }} />
+            <Stack.Screen name='SignProfile' component={SignupProfileScreen} options={{ headerShown: false }} />
           </Stack.Group>
           <Stack.Group>
             <Stack.Screen name='Load' component={LoadScreen} options={{ headerShown: false }} />

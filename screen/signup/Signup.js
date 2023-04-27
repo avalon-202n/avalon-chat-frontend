@@ -5,6 +5,10 @@ import { Alert, Pressable, Text, TextInput, View } from 'react-native';
 import { useSetRecoilState } from 'recoil';
 // store
 import { profileMessageState } from '@store/User';
+// enum
+import { SIGNUP_EMAIL_DUPULICATED, SIGNUP_PHONE_CHECK, SIGNUP_PHONE_SEND } from '@enum/server';
+// network
+import { APIfetch } from '@network/APIfetch';
 import styles from './Style';
 const SignupScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -14,8 +18,7 @@ const SignupScreen = ({ navigation }) => {
   const [isSecPassword, setIsSecPassword] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [numberCheck, setnumberCheck] = useState('');
-  const [randomNumber, setRandomNumber] = useState(0);
-  const [isRandomNumberPass, setIsRandomNumberPass] = useState(false);
+
   const userId = useSetRecoilState(profileMessageState);
 
   useEffect(() => {
@@ -24,9 +27,10 @@ const SignupScreen = ({ navigation }) => {
   useEffect(() => {
     secPasswordCheck();
   }, [secPassword]);
+
   useEffect(() => {
-    console.log(randomNumber);
-  }, [randomNumber]);
+    formatPhoneNumber();
+  }, [phoneNumber]);
   const passwordCheck = () => {
     const regex = /^(?=.*[!@#$%^&*])(?=.*[a-zA-Z]).{7,}$/;
     const isValid = regex.test(password);
@@ -36,6 +40,24 @@ const SignupScreen = ({ navigation }) => {
       setIsPassword(false);
     }
   };
+
+  const emailCheck = async () => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const isValid = emailRegex.test(email);
+    if (isValid) {
+      const res = await APIfetch(SIGNUP_EMAIL_DUPULICATED, { email });
+      const result = await res.json();
+
+      if (result.duplicated === false) {
+        Alert.alert('사용가능합니다.');
+      } else {
+        Alert.alert('사용할 수 없는 아이디입니다.');
+      }
+    } else {
+      Alert.alert('이메일 형식이 아닙니다');
+    }
+  };
+
   const secPasswordCheck = () => {
     const regex = /^(?=.*[!@#$%^&*])(?=.*[a-zA-Z]).{7,}$/;
     const isValid = regex.test(secPassword);
@@ -46,18 +68,18 @@ const SignupScreen = ({ navigation }) => {
     }
   };
 
-  const RandomNumber = () => {
-    const number = Math.floor(Math.random() * 10000) * 9;
-    setRandomNumber(number);
-  };
-  const checkRandomNumber = () => {
-    if (numberCheck == randomNumber) {
-      Alert.alert('인증되었습니다.');
-      setIsRandomNumberPass(true);
-    } else {
-      Alert.alert('인증번호를 확인하세요.');
-      setIsRandomNumberPass(false);
+  const formatPhoneNumber = () => {
+    const formatNumber = phoneNumber.replace(/^(\d{3})(\d{4})(\d{4})$/, '$1-$2-$3');
+    if (formatNumber) {
+      setPhoneNumber(formatNumber);
     }
+  };
+  const checkRandomNumber = async () => {
+    console.log(numberCheck);
+    const res = await APIfetch(SIGNUP_PHONE_CHECK, { phoneNumber, numberCheck });
+
+    const result = await res.json();
+    console.log(result);
   };
 
   return (
@@ -66,7 +88,7 @@ const SignupScreen = ({ navigation }) => {
         <View style={{ flex: 4, justifyContent: 'center', alignItems: 'center' }}>
           <TextInput
             style={{ fontSize: 15 }}
-            placeholder='아이디를 입력하세요'
+            placeholder='이메일을 입력하세요'
             onChangeText={(text) => {
               setEmail(text);
             }}
@@ -94,6 +116,7 @@ const SignupScreen = ({ navigation }) => {
             secureTextEntry={true}
             maxLength={12}
           />
+
           <View style={styles.lineView} />
           <TextInput
             style={{ fontSize: 15 }}
@@ -102,7 +125,7 @@ const SignupScreen = ({ navigation }) => {
               setPhoneNumber(text);
             }}
             value={phoneNumber}
-            maxLength={12}
+            maxLength={13}
           />
           <View style={styles.lineView} />
           <TextInput
@@ -119,16 +142,19 @@ const SignupScreen = ({ navigation }) => {
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <Pressable
             onPress={() => {
-              console.log('아이디확인');
+              {
+                emailCheck();
+              }
             }}
           >
-            <Text style={styles.checkText}>아이디 확인</Text>
+            <Text style={styles.checkText}>이메일 확인</Text>
           </Pressable>
           {isPassword ? <Text style={styles.checkText}>OK</Text> : <Text style={[styles.checkText]}>No</Text>}
           {isSecPassword ? <Text style={styles.checkText}>OK</Text> : <Text style={styles.checkText}>No</Text>}
           <Pressable
             onPress={() => {
-              RandomNumber();
+              Alert.alert('인증번호를 보냈습니다');
+              APIfetch(SIGNUP_PHONE_SEND, phoneNumber);
             }}
           >
             <Text style={styles.checkText}>인증하기</Text>
@@ -148,11 +174,9 @@ const SignupScreen = ({ navigation }) => {
           onPress={() => {
             if (isPassword === false || isSecPassword === false) {
               Alert.alert('비밀번호를 확인하세요');
-            } else if (isRandomNumberPass === false) {
-              Alert.alert('인증번호를 확인하세요');
             } else {
               //유저 정보생성
-              navigation.goBack();
+              navigation.navigate('SignProfile');
               console.log('가입완료');
             }
           }}
