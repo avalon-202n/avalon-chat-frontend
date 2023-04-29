@@ -1,6 +1,6 @@
 // React
 import React, { useEffect, useState } from 'react';
-import { Alert, Pressable, Text, TextInput, View } from 'react-native';
+import { Alert, Keyboard, Pressable, Text, TextInput, View } from 'react-native';
 //recoil
 import { useSetRecoilState } from 'recoil';
 // store
@@ -82,8 +82,10 @@ const SignupScreen = ({ navigation }) => {
   const authPhoneNumber = () => {
     if (phoneNumber.length === 13) {
       Alert.alert('인증번호를 발송했습니다');
+      setIsPhoneNumber(true);
       APIfetch(SIGNUP_PHONE_SEND, phoneNumber);
     } else {
+      setIsPhoneNumber(false);
       Alert.alert('번호를 확인하세요');
     }
   };
@@ -96,107 +98,132 @@ const SignupScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.noticeView}>
+        <Text>아이디</Text>
+      </View>
       <View style={styles.inputContainer}>
-        <View style={{ flex: 4, justifyContent: 'center', alignItems: 'center' }}>
-          <TextInput
-            style={{ fontSize: 15 }}
-            placeholder='이메일을 입력하세요'
-            onChangeText={(text) => {
-              setEmail(text);
-            }}
-            value={email}
-          />
-          <View style={styles.lineView} />
-          <TextInput
-            style={{ fontSize: 15 }}
-            placeholder={`비밀번호를 입력하세요(7자 이상,특수문자포함)`}
-            onChangeText={(text) => {
-              setPassword(text);
-            }}
-            value={password}
-            secureTextEntry={true}
-            maxLength={12}
-          />
-          <View style={styles.lineView} />
-          <TextInput
-            style={{ fontSize: 15 }}
-            placeholder='비밀번호를 한번 더 입력하세요'
-            onChangeText={(text) => {
-              secSetPassword(text);
-            }}
-            value={secPassword}
-            secureTextEntry={true}
-            maxLength={12}
-          />
-
-          <View style={styles.lineView} />
-          <TextInput
-            style={{ fontSize: 15 }}
-            placeholder='핸드폰 번호를 입력하세요.'
-            onChangeText={(text) => {
-              setPhoneNumber(text);
-            }}
-            value={phoneNumber}
-            keyboardType='number-pad'
-            maxLength={13}
-          />
-          <View style={styles.lineView} />
-          <TextInput
-            style={{ fontSize: 15 }}
-            placeholder='인증번호를 입력하세요.'
-            onChangeText={(text) => {
-              setAuthenticateNumber(text);
-            }}
-            value={authenticateNumber}
-            keyboardType='number-pad'
-            maxLength={6}
-          />
-          <View style={styles.lineView} />
-        </View>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Pressable
-            onPress={() => {
-              {
-                emailCheck();
-              }
-            }}
-          >
-            <Text style={styles.checkText}>이메일 확인</Text>
-          </Pressable>
-          {isPassword ? <Text style={styles.checkText}>OK</Text> : <Text style={[styles.checkText]}>No</Text>}
-          {isSecPassword ? <Text style={styles.checkText}>OK</Text> : <Text style={styles.checkText}>No</Text>}
-          <Pressable
-            onPress={() => {
-              authPhoneNumber();
-            }}
-          >
-            <Text style={styles.checkText}>인증하기</Text>
-          </Pressable>
-
-          <Pressable
-            onPress={() => {
-              checkAuthNumber();
-            }}
-          >
-            <Text style={styles.checkText}>확인하기</Text>
-          </Pressable>
+        <TextInput
+          style={styles.inputText}
+          placeholder='예) avalon12@gmail.com'
+          autoCapitalize='none'
+          onChangeText={(text) => {
+            setEmail(text);
+          }}
+          value={email}
+        />
+        <Pressable
+          style={styles.checkBox}
+          onPress={() => {
+            {
+              emailCheck();
+            }
+          }}
+        >
+          <Text style={styles.checkBoxText}>중복 확인</Text>
+        </Pressable>
+      </View>
+      <View style={styles.noticeView}>
+        <Text>비밀번호</Text>
+      </View>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.inputText}
+          placeholder={`7자 이상, 특수문자포함(!@#$%^&*)`}
+          onChangeText={(text) => {
+            setPassword(text);
+          }}
+          value={password}
+          secureTextEntry={true}
+          maxLength={12}
+        />
+        <View style={styles.passwordBoxView}>
+          <Text style={styles.passwordCheckText}>{isPassword ? 'OK' : 'NO'}</Text>
         </View>
       </View>
-      <View style={styles.SignupBtnContainer}>
+      <View style={styles.noticeView}>
+        <Text>비밀번호 확인</Text>
+      </View>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.inputText}
+          placeholder='비밀번호를 한번 더 입력하세요'
+          onChangeText={(text) => {
+            secSetPassword(text);
+          }}
+          value={secPassword}
+          secureTextEntry={true}
+          maxLength={12}
+        />
+        <View style={styles.passwordBoxView}>
+          <Text style={styles.passwordCheckText}>{isSecPassword ? 'OK' : 'NO'}</Text>
+        </View>
+      </View>
+      <View style={styles.noticeView}>
+        <Text>휴대폰</Text>
+      </View>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.inputText}
+          placeholder='핸드폰 번호를 입력하세요.'
+          onChangeText={(text) => {
+            setPhoneNumber(text);
+          }}
+          value={phoneNumber}
+          keyboardType='number-pad'
+          maxLength={13}
+        />
         <Pressable
-          style={styles.SignupBtn}
+          style={styles.checkBox}
+          onPress={() => {
+            authPhoneNumber();
+          }}
+        >
+          <Text style={styles.checkBoxText}>{`인증번호\n발송`}</Text>
+        </Pressable>
+      </View>
+      <View style={styles.noticeView}>
+        <Text>인증번호</Text>
+      </View>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.inputText}
+          placeholder='인증번호를 입력하세요.'
+          onChangeText={(text) => {
+            setAuthenticateNumber(text);
+            if (text.length === 6) {
+              Keyboard.dismiss();
+            }
+          }}
+          value={authenticateNumber}
+          keyboardType='number-pad'
+          maxLength={6}
+        />
+        <Pressable
+          style={styles.checkBox}
+          onPress={() => {
+            checkAuthNumber();
+          }}
+        >
+          <Text style={styles.checkBoxText}>{'인증번호\n확인'}</Text>
+        </Pressable>
+      </View>
+      <View style={styles.signupView}>
+        <Pressable
+          style={styles.signupBtn}
           onPress={() => {
             if (isEmail === false) {
               Alert.alert('이메일을 확인하세요');
             } else if (isPassword === false || isSecPassword === false) {
               Alert.alert('비밀번호를 확인하세요');
+            } else if (isPhoneNumber === false) {
+              Alert.alert('핸드폰 인증을 확인하세요');
             } else {
               navigation.navigate('SignProfile');
               console.log('가입완료');
             }
           }}
         >
-          <Text style={styles.SignupText}>가입하기</Text>
+          <Text style={styles.signupText}>계속</Text>
         </Pressable>
       </View>
     </View>
