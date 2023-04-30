@@ -98,8 +98,8 @@ const SignupScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.noticeView}>
-        <Text>아이디</Text>
+      <View style={styles.informView}>
+        <Text style={styles.informText}>아이디</Text>
       </View>
       <View style={styles.inputContainer}>
         <TextInput
@@ -122,7 +122,7 @@ const SignupScreen = ({ navigation }) => {
           <Text style={styles.checkBoxText}>중복 확인</Text>
         </Pressable>
       </View>
-      <View style={styles.noticeView}>
+      <View style={styles.informView}>
         <Text>비밀번호</Text>
       </View>
       <View style={styles.inputContainer}>
@@ -140,7 +140,7 @@ const SignupScreen = ({ navigation }) => {
           <Text style={styles.passwordCheckText}>{isPassword ? 'OK' : 'NO'}</Text>
         </View>
       </View>
-      <View style={styles.noticeView}>
+      <View style={styles.informView}>
         <Text>비밀번호 확인</Text>
       </View>
       <View style={styles.inputContainer}>
@@ -158,7 +158,7 @@ const SignupScreen = ({ navigation }) => {
           <Text style={styles.passwordCheckText}>{isSecPassword ? 'OK' : 'NO'}</Text>
         </View>
       </View>
-      <View style={styles.noticeView}>
+      <View style={styles.informView}>
         <Text>휴대폰</Text>
       </View>
       <View style={styles.inputContainer}>
@@ -181,7 +181,7 @@ const SignupScreen = ({ navigation }) => {
           <Text style={styles.checkBoxText}>{`인증번호\n발송`}</Text>
         </Pressable>
       </View>
-      <View style={styles.noticeView}>
+      <View style={styles.informView}>
         <Text>인증번호</Text>
       </View>
       <View style={styles.inputContainer}>
