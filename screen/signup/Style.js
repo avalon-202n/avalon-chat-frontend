@@ -7,6 +7,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  container_withoutKeyboard: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    marginTop: windowHeight * 50,
+  },
   informView: {
     width: windowWidth * 320,
     height: windowHeight * 18,
@@ -29,7 +35,7 @@ const styles = StyleSheet.create({
   checkBox: {
     width: windowWidth * 70,
     height: windowHeight * 35,
-    backgroundColor: 'pink',
+    backgroundColor: '#ADABE8',
     justifyContent: 'center',
     alignSelf: 'center',
     borderRadius: windowWidth * 7,
@@ -56,13 +62,12 @@ const styles = StyleSheet.create({
     width: '100%',
     height: windowHeight * 50,
     bottom: windowHeight * 0,
-    backgroundColor: 'green',
     justifyContent: 'flex-end',
     position: 'absolute',
   },
   signupBtn: {
     flex: 1,
-    backgroundColor: 'pink',
+    backgroundColor: '#ADABE8',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -70,11 +75,6 @@ const styles = StyleSheet.create({
     fontSize: windowWidth * 20,
   },
   //SignupProfile
-  defineView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   inputProfileText: {
     width: windowWidth * 340,
     height: windowHeight * 40,
@@ -88,23 +88,28 @@ const styles = StyleSheet.create({
     padding: windowWidth * 10,
     margin: windowWidth * 10,
   },
+  withoutKeyboard: {
+    marginTop: isKeyboardVisible * 50,
+  },
   photoView: {
-    flex: 0.6,
-    width: windowWidth * 300,
+    width: windowWidth * 330,
+    height: windowHeight * 200,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignSelf: 'center',
     borderRadius: windowWidth * 10,
     borderWidth: windowWidth * 0.5,
-    marginBottom: windowHeight * 40,
+    marginVertical: windowHeight * 40,
   },
   photoImage: {
+    justifyContent: 'center',
+    alignSelf: 'center',
     width: windowWidth * 50,
     height: windowWidth * 50,
   },
   assignBtn: {
     width: '100%',
     height: windowHeight * 50,
-    backgroundColor: 'pink',
+    backgroundColor: '#ADABE8',
     justifyContent: 'center',
     alignItems: 'center',
   },

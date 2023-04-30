@@ -21,8 +21,23 @@ const SignupScreen = ({ navigation }) => {
   const [isPhoneNumber, setIsPhoneNumber] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [isSecPassword, setIsSecPassword] = useState(false);
+  const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
   const userId = useSetRecoilState(profileMessageState);
 
+  const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
+    setIsKeyboardVisible(true);
+  });
+
+  const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
+    setIsKeyboardVisible(false);
+  });
+
+  useEffect(() => {
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
   useEffect(() => {
     passwordCheck();
   }, [password]);
@@ -42,7 +57,9 @@ const SignupScreen = ({ navigation }) => {
       setIsPassword(false);
     }
   };
-
+  const handlePress = () => {
+    Keyboard.dismiss();
+  };
   const emailCheck = async () => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const isValid = emailRegex.test(email);
@@ -97,7 +114,12 @@ const SignupScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <Pressable
+      style={!isKeyboardVisible ? styles.container : styles.container_withoutKeyboard}
+      onPress={() => {
+        handlePress();
+      }}
+    >
       <View style={styles.informView}>
         <Text style={styles.informText}>아이디</Text>
       </View>
@@ -226,7 +248,7 @@ const SignupScreen = ({ navigation }) => {
           <Text style={styles.signupText}>계속</Text>
         </Pressable>
       </View>
-    </View>
+    </Pressable>
   );
 };
 export default SignupScreen;
