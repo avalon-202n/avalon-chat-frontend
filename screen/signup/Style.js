@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
     marginTop: windowHeight * 50,
   },
   informView: {
+    marginLeft: windowWidth * 10,
     width: windowWidth * 320,
     height: windowHeight * 18,
     justifyContent: 'center',
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
     margin: windowWidth * 10,
   },
   withoutKeyboard: {
-    marginTop: isKeyboardVisible * 50,
+    marginTop: windowHeight * 50,
   },
   photoView: {
     width: windowWidth * 330,

@@ -108,7 +108,6 @@ const SignupScreen = ({ navigation }) => {
   };
   const checkAuthNumber = async () => {
     const res = await APIfetch(SIGNUP_PHONE_CHECK, { phoneNumber, authenticateNumber });
-
     const result = await res.json();
     console.log(result);
   };
