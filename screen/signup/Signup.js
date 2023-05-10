@@ -4,11 +4,12 @@ import { Alert, Keyboard, Pressable, Text, TextInput, View } from 'react-native'
 //recoil
 import { useSetRecoilState } from 'recoil';
 // store
-import { profileMessageState } from '@store/User';
 // enum
 import { SIGNUP_EMAIL_DUPULICATED, SIGNUP_PHONE_CHECK, SIGNUP_PHONE_SEND } from '@enum/server';
+import { userInfo } from '@enum/user';
 // network
 import { APIfetch } from '@network/APIfetch';
+// custom
 import styles from './Style';
 const SignupScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -22,7 +23,7 @@ const SignupScreen = ({ navigation }) => {
   const [isPassword, setIsPassword] = useState(false);
   const [isSecPassword, setIsSecPassword] = useState(false);
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
-  const userId = useSetRecoilState(profileMessageState);
+  const userInfomation = useSetRecoilState(userInfo);
 
   const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
     setIsKeyboardVisible(true);
@@ -33,6 +34,11 @@ const SignupScreen = ({ navigation }) => {
   });
 
   useEffect(() => {
+    setEmail('');
+    setPassword('');
+    secSetPassword('');
+    setPhoneNumber('');
+    setAuthenticateNumber('');
     return () => {
       keyboardDidShowListener.remove();
       keyboardDidHideListener.remove();
@@ -61,21 +67,25 @@ const SignupScreen = ({ navigation }) => {
     Keyboard.dismiss();
   };
   const emailCheck = async () => {
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    const isValid = emailRegex.test(email);
-    if (isValid) {
-      const res = await APIfetch(SIGNUP_EMAIL_DUPULICATED, { email });
-      const result = await res.json();
+    try {
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      const isValid = emailRegex.test(email);
+      if (isValid) {
+        const res = await APIfetch(SIGNUP_EMAIL_DUPULICATED, { email });
+        const result = await res.json();
 
-      if (result.duplicated === false) {
-        Alert.alert('사용가능합니다.');
-        setIsEmail(true);
+        if (result.duplicated === false) {
+          Alert.alert('사용가능합니다.');
+          setIsEmail(true);
+        } else {
+          Alert.alert('사용할 수 없는 아이디입니다.');
+          setIsEmail(false);
+        }
       } else {
-        Alert.alert('사용할 수 없는 아이디입니다.');
-        setIsEmail(false);
+        Alert.alert('이메일 형식이 아닙니다');
       }
-    } else {
-      Alert.alert('이메일 형식이 아닙니다');
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -230,7 +240,7 @@ const SignupScreen = ({ navigation }) => {
       </View>
       <View style={styles.signupView}>
         <Pressable
-          style={styles.signupBtn}
+          style={isEmail && isPassword && isPhoneNumber && isSecPassword ? styles.signupBtn : styles.signupBtnGray}
           onPress={() => {
             if (isEmail === false) {
               Alert.alert('이메일을 확인하세요');
@@ -239,7 +249,12 @@ const SignupScreen = ({ navigation }) => {
             } else if (isPhoneNumber === false) {
               Alert.alert('핸드폰 인증을 확인하세요');
             } else {
-              navigation.navigate('SignProfile');
+              userInfomation({
+                userEmail: email,
+                userPassword: password,
+                userPhone: phoneNumber,
+              });
+              navigation.navigate('SignProfile', { phoneNumber: phoneNumber });
               console.log('가입완료');
             }
           }}
