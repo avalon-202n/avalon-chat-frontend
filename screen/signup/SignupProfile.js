@@ -10,8 +10,6 @@ import { SIGNUP } from '@enum/server';
 import { userInfo } from '@enum/user';
 // network
 import { APIfetch } from '@network/APIfetch';
-// hash
-import bcrypt from 'bcryptjs';
 // custom
 import styles from './Style';
 const SignupProfileScreen = ({ navigation }) => {
@@ -96,20 +94,19 @@ const SignupProfileScreen = ({ navigation }) => {
       if (!result.canceled) {
         const imageUri = result.assets[0].uri;
         setProfileImage(imageUri);
-        await AsyncStorage.setItem('profileImage', imageUri);
+
+        const newUserInfo = {
+          ...userInfomation,
+          profileImage: [imageUri],
+        };
+        setUserInfomation(newUserInfo);
+        // await AsyncStorage.setItem('profileImage', imageUri);
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  const hashAlgorithm = async (password) => {
-    //해쉬 알고리즘 보안 패스워드 만들기
-    const saltRounds = 10;
-    const salt = await bcrypt.genSalt(saltRounds);
-    const hash = await bcrypt.hash(password, salt);
-    return hash;
-  };
   return (
     <Pressable
       onPress={() => {
@@ -125,15 +122,15 @@ const SignupProfileScreen = ({ navigation }) => {
                 pickImage();
               }}
             >
-              {/* {profileImage !== null ? (
-                <Image source={{ uri: profileImage }} style={styles.isPhotoImage} />
+              {userInfomation.profileImage !== undefined ? (
+                <View style={styles.photoImageView}>
+                  <Image source={userInfomation.profileImage} style={styles.photoImage} />
+                </View>
               ) : (
-                <Image source={require('@public/image/imagePlus.png')} style={{ width: 30, height: 30 }} />
-              )} 
-              1.imagepicker define
-                2. default style 적용안됨
-              */}
-              <Image source={require('@public/image/imagePlus.png')} style={styles.defaultPhotoImage} />
+                <View style={styles.photoImageView}>
+                  <Image source={require('@public/image/imagePlus.png')} style={styles.nonPhotoImage} />
+                </View>
+              )}
             </Pressable>
           </View>
         ) : null}
@@ -176,7 +173,7 @@ const SignupProfileScreen = ({ navigation }) => {
       </ScrollView>
 
       <Pressable
-        style={isValueNoN ? styles.assignBtn : styles.assignBtnGray}
+        style={isValueNoN ? styles.signBtn : styles.signBtnGray}
         onPress={() => {
           //유저 정보생성
           if (nickName == null) {
@@ -187,7 +184,7 @@ const SignupProfileScreen = ({ navigation }) => {
           navigation.navigate('Login');
         }}
       >
-        <Text style={styles.assignBtnText}>가입하기</Text>
+        <Text style={styles.signBtnText}>가입하기</Text>
       </Pressable>
     </Pressable>
   );
