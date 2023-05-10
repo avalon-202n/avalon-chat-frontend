@@ -113,28 +113,35 @@ const styles = StyleSheet.create({
     width: windowWidth * 50,
     height: windowWidth * 50,
   },
-  isPhotoImage: {
+  photoImageView: {
+    flex: 1,
     justifyContent: 'center',
     alignSelf: 'center',
+  },
+  photoImage: {
     width: windowWidth * 330,
     height: windowWidth * 250,
     borderRadius: 15,
   },
-  assignBtn: {
+  nonPhotoImage: {
+    width: windowWidth * 100,
+    height: windowWidth * 100,
+  },
+  signBtn: {
     width: '100%',
     height: windowHeight * 50,
     backgroundColor: '#ADABE8',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  assignBtnGray: {
+  signBtnGray: {
     width: '100%',
     height: windowHeight * 50,
     backgroundColor: 'gray',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  assignBtnText: {
+  signBtnText: {
     fontSize: windowWidth * 20,
   },
 });
