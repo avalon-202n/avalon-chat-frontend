@@ -72,6 +72,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  signupBtnGray: {
+    flex: 1,
+    backgroundColor: 'gray',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   signupText: {
     fontSize: windowWidth * 20,
   },
@@ -101,16 +107,30 @@ const styles = StyleSheet.create({
     borderWidth: windowWidth * 0.5,
     marginVertical: windowHeight * 40,
   },
-  photoImage: {
+  defaultPhotoImage: {
     justifyContent: 'center',
     alignSelf: 'center',
     width: windowWidth * 50,
     height: windowWidth * 50,
   },
+  isPhotoImage: {
+    justifyContent: 'center',
+    alignSelf: 'center',
+    width: windowWidth * 330,
+    height: windowWidth * 250,
+    borderRadius: 15,
+  },
   assignBtn: {
     width: '100%',
     height: windowHeight * 50,
     backgroundColor: '#ADABE8',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  assignBtnGray: {
+    width: '100%',
+    height: windowHeight * 50,
+    backgroundColor: 'gray',
     justifyContent: 'center',
     alignItems: 'center',
   },
