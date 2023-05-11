@@ -1,5 +1,4 @@
 // React
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
 import React, { useEffect, useState } from 'react';
 import { Alert, Image, Keyboard, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
@@ -16,29 +15,31 @@ const SignupProfileScreen = ({ navigation }) => {
   const [nickName, setNickName] = useState('');
   const [stateMessage, setStateMessage] = useState('');
   const [birthday, setBirthday] = useState('');
+  const [isBirthday, setIsBirthday] = useState(false);
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
   const [isValueNoN, setIsValueNoN] = useState(false);
   const [userInfomation, setUserInfomation] = useRecoilState(userInfo);
 
-  const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
-    setIsKeyboardVisible(true);
-  });
-
-  const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
-    setIsKeyboardVisible(false);
-  });
-
   useEffect(() => {
     valueNONCheck();
   }, [nickName, stateMessage, birthday]);
   const valueNONCheck = () => {
-    if (nickName !== '' && stateMessage !== '' && birthday !== '') {
+    if (nickName !== '' && stateMessage !== '' && isBirthday) {
       setIsValueNoN(true);
     } else {
       setIsValueNoN(false);
     }
   };
+  useEffect(() => {
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
+  useEffect(() => {
+    birthCheck();
+  }, [birthday]);
   const signupFunc = async () => {
     const userInfo = Object.assign({
       usernickName: nickName,
@@ -47,38 +48,32 @@ const SignupProfileScreen = ({ navigation }) => {
       userEmail: userInfomation.userEmail,
       userPassword: userInfomation.userPassword,
       userPhone: userInfomation.userPhone,
+      userImage: userInfomation.profileImage,
     });
     setUserInfomation(userInfo);
-
-    const res = await APIfetch(SIGNUP, {
+    await APIfetch(SIGNUP, {
       email: userInfomation.userEmail,
-      password: { value: userInfomation.userPassword },
+      password: userInfomation.userPassword,
     });
-    const result = await res.json();
-    console.log(result);
   };
-  useEffect(() => {
-    const getStoredImage = async () => {
-      try {
-        const storedImage = await AsyncStorage.getItem('profileImage');
-        if (storedImage !== null) {
-          setProfileImage(storedImage);
-        } else {
-          setProfileImage(require('@public/image/pepsi.png'));
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getStoredImage();
-  }, []);
-  useEffect(() => {
-    return () => {
-      keyboardDidShowListener.remove();
-      keyboardDidHideListener.remove();
-    };
-  }, []);
 
+  const birthCheck = () => {
+    if (birthday.length === 8) {
+      const year = birthday.slice(4);
+      const month = birthday.slice(2, 4);
+      const day = birthday.slice(0, 2);
+      const formattedBirthday = `${year}-${month}-${day}`;
+      setBirthday(formattedBirthday);
+      setIsBirthday(true);
+    }
+  };
+  const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
+    setIsKeyboardVisible(true);
+  });
+
+  const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
+    setIsKeyboardVisible(false);
+  });
   const handlePress = () => {
     Keyboard.dismiss();
   };
@@ -94,13 +89,18 @@ const SignupProfileScreen = ({ navigation }) => {
       if (!result.canceled) {
         const imageUri = result.assets[0].uri;
         setProfileImage(imageUri);
-
         const newUserInfo = {
           ...userInfomation,
           profileImage: [imageUri],
         };
+
         setUserInfomation(newUserInfo);
-        // await AsyncStorage.setItem('profileImage', imageUri);
+      } else {
+        const newUserInfo = {
+          ...userInfomation,
+          profileImage: null,
+        };
+        setUserInfomation(newUserInfo);
       }
     } catch (error) {
       console.log(error);
