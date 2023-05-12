@@ -23,6 +23,7 @@ const SignupScreen = ({ navigation }) => {
   const [isPassword, setIsPassword] = useState(false);
   const [isSecPassword, setIsSecPassword] = useState(false);
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
+  const [isAuthenticateNumber, isSetAuthenticateNumber] = useState(false);
   const userInfomation = useSetRecoilState(userInfo);
 
   const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
@@ -106,20 +107,27 @@ const SignupScreen = ({ navigation }) => {
       setPhoneNumber(formatNumber);
     }
   };
-  const authPhoneNumber = () => {
+  const authPhoneNumber = async () => {
     if (phoneNumber.length === 13) {
       Alert.alert('인증번호를 발송했습니다');
       setIsPhoneNumber(true);
-      APIfetch(SIGNUP_PHONE_SEND, phoneNumber);
+      await APIfetch(SIGNUP_PHONE_SEND, phoneNumber);
     } else {
       setIsPhoneNumber(false);
       Alert.alert('번호를 확인하세요');
     }
   };
   const checkAuthNumber = async () => {
-    const res = await APIfetch(SIGNUP_PHONE_CHECK, { phoneNumber, authenticateNumber });
+    const res = await APIfetch(SIGNUP_PHONE_CHECK, { phoneNumber: phoneNumber, certificationCode: authenticateNumber });
     const result = await res.json();
-    console.log(result);
+
+    if (result.authenticated) {
+      isSetAuthenticateNumber(true);
+      Alert.alert('확인되었습니다.');
+    } else {
+      isSetAuthenticateNumber(false);
+      Alert.alert('인증번호를 확인해주세요');
+    }
   };
 
   return (
@@ -240,7 +248,11 @@ const SignupScreen = ({ navigation }) => {
       </View>
       <View style={styles.signupView}>
         <Pressable
-          style={isEmail && isPassword && isPhoneNumber && isSecPassword ? styles.signupBtn : styles.signupBtnGray}
+          style={
+            isEmail && isPassword && isPhoneNumber && isSecPassword && isAuthenticateNumber
+              ? styles.signupBtn
+              : styles.signupBtnGray
+          }
           onPress={() => {
             if (isEmail === false) {
               Alert.alert('이메일을 확인하세요');
@@ -248,6 +260,8 @@ const SignupScreen = ({ navigation }) => {
               Alert.alert('비밀번호를 확인하세요');
             } else if (isPhoneNumber === false) {
               Alert.alert('핸드폰 인증을 확인하세요');
+            } else if (isAuthenticateNumber === false) {
+              Alert.alert('인증번호를 확인하세요');
             } else {
               userInfomation({
                 userEmail: email,
