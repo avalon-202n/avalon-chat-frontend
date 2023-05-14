@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Pressable, Text, TextInput, View } from 'react-native';
 // recoil
 import { useSetRecoilState } from 'recoil';
+import styles from './Style';
 // store
 import { emailState, phoneNumberState, profileMessageState } from '@store/User';
 const LoginScreen = ({ navigation, route }) => {
@@ -25,54 +26,45 @@ const LoginScreen = ({ navigation, route }) => {
     }
   }, []);
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <View style={{ flexDirection: 'row' }}>
-        <Text>아이디 입력:</Text>
-        <TextInput placeholder='아이디를 입력하세요' />
+    <View style={styles.loginContainer}>
+      <View>
+        <Text style={styles.loginTitle}>AVALON</Text>
       </View>
-      <View style={{ flexDirection: 'row' }}>
-        <Text>비밀번호 입력:</Text>
-        <TextInput placeholder='비밀번호를 입력하세요.' />
+      <View style={styles.textField}>
+        <TextInput style={styles.textInput} placeholder='아이디를 입력해주세요' autoComplete='email' />
       </View>
-      <View style={{ flexDirection: 'row', margin: 10 }}>
+      <View style={styles.textField}>
+        <TextInput style={styles.textInput} placeholder='비밀번호를 입력해주세요.' />
+      </View>
+      <View style={styles.buttonField}>
         <Pressable
           onPress={() => {
             navigation.navigate('Home');
           }}
-          style={{
-            marginLeft: 5,
-            backgroundColor: 'pink',
-            width: 70,
-            height: 50,
-            alignSelf: 'center',
-            justifyContent: 'center',
-          }}
+          style={styles.button}
         >
           <Text style={{ textAlign: 'center' }}>로그인</Text>
         </Pressable>
-        <Pressable
-          onPress={() => {
-            navigation.navigate('Signup');
-          }}
-          style={{
-            marginLeft: 5,
-            backgroundColor: 'pink',
-            width: 70,
-            height: 50,
-            alignSelf: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Text style={{ textAlign: 'center' }}>회원가입</Text>
-        </Pressable>
       </View>
-      <View style={{ flexDirection: 'row' }}>
-        <Pressable style={{ marginLeft: 5 }}>
-          <Text>아이디 찾기</Text>
-        </Pressable>
-        <Pressable style={{ marginLeft: 5 }}>
-          <Text>비밀번호 찾기</Text>
-        </Pressable>
+      <View style={styles.linkFiled}>
+        <View>
+          <Pressable
+            onPress={() => {
+              navigation.navigate('Signup');
+            }}
+            style={styles.link}
+          >
+            <Text>회원가입</Text>
+          </Pressable>
+        </View>
+        <View style={styles.findAccountLink}>
+          <Pressable style={styles.link}>
+            <Text>아이디 찾기</Text>
+          </Pressable>
+          <Pressable style={styles.link}>
+            <Text>비밀번호 찾기</Text>
+          </Pressable>
+        </View>
       </View>
       <StatusBar style='dark' />
     </View>
