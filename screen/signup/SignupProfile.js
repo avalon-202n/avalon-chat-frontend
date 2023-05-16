@@ -17,7 +17,6 @@ const SignupProfileScreen = ({ navigation }) => {
   const [birthday, setBirthday] = useState('');
   const [isBirthday, setIsBirthday] = useState(false);
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
-  const [profileImage, setProfileImage] = useState(null);
   const [isValueNoN, setIsValueNoN] = useState(false);
   const [userInfomation, setUserInfomation] = useRecoilState(userInfo);
 
@@ -40,29 +39,31 @@ const SignupProfileScreen = ({ navigation }) => {
   useEffect(() => {
     birthCheck();
   }, [birthday]);
+
   const signupFunc = async () => {
-    const userInfo = Object.assign({
-      usernickName: nickName,
-      userStateMessage: stateMessage,
-      userBirthday: birthday,
-      userEmail: userInfomation.userEmail,
-      userPassword: userInfomation.userPassword,
-      userPhone: userInfomation.userPhone,
-      userImage: userInfomation.profileImage,
-    });
-    setUserInfomation(userInfo);
-    await APIfetch(SIGNUP, {
-      email: userInfomation.userEmail,
-      password: userInfomation.userPassword,
-    });
+    try {
+      const userInfo = Object.assign({
+        usernickName: nickName,
+        userStateMessage: stateMessage,
+        userBirthday: birthday,
+        userEmail: userInfomation.userEmail,
+        userPassword: userInfomation.userPassword,
+        userPhone: userInfomation.userPhone,
+        userImage: userInfomation.profileImage,
+      });
+      setUserInfomation(userInfo);
+      await APIfetch(SIGNUP, {
+        email: userInfomation.userEmail,
+        password: userInfomation.userPassword,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const birthCheck = () => {
     if (birthday.length === 8) {
-      const year = birthday.slice(4);
-      const month = birthday.slice(2, 4);
-      const day = birthday.slice(0, 2);
-      const formattedBirthday = `${year}-${month}-${day}`;
+      const formattedBirthday = birthday.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');
       setBirthday(formattedBirthday);
       setIsBirthday(true);
     }
@@ -88,7 +89,7 @@ const SignupProfileScreen = ({ navigation }) => {
 
       if (!result.canceled) {
         const imageUri = result.assets[0].uri;
-        setProfileImage(imageUri);
+
         const newUserInfo = {
           ...userInfomation,
           profileImage: [imageUri],

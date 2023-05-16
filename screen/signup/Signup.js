@@ -17,13 +17,15 @@ const SignupScreen = ({ navigation }) => {
   const [secPassword, secSetPassword] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [authenticateNumber, setAuthenticateNumber] = useState('');
-
+  const [timer, setTimer] = useState(180);
+  const [isTimerRunning, setIsTimerRunning] = useState(false);
   const [isEmail, setIsEmail] = useState(false);
   const [isPhoneNumber, setIsPhoneNumber] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [isSecPassword, setIsSecPassword] = useState(false);
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
   const [isAuthenticateNumber, isSetAuthenticateNumber] = useState(false);
+
   const userInfomation = useSetRecoilState(userInfo);
 
   const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
@@ -51,7 +53,22 @@ const SignupScreen = ({ navigation }) => {
   useEffect(() => {
     secPasswordCheck();
   }, [secPassword]);
+  useEffect(() => {
+    if (isTimerRunning) {
+      const interval = setInterval(() => {
+        setTimer((prevTimer) => prevTimer - 1);
+      }, 1000);
 
+      return () => clearInterval(interval);
+    }
+  }, [isTimerRunning]);
+
+  useEffect(() => {
+    if (isTimerRunning && timer === 0) {
+      setIsTimerRunning(false);
+      isSetAuthenticateNumber(false);
+    }
+  }, [isTimerRunning, timer]);
   useEffect(() => {
     formatPhoneNumber();
   }, [phoneNumber]);
@@ -110,12 +127,24 @@ const SignupScreen = ({ navigation }) => {
   const authPhoneNumber = async () => {
     if (phoneNumber.length === 13) {
       Alert.alert('인증번호를 발송했습니다');
+      startTimer();
+
       setIsPhoneNumber(true);
       await APIfetch(SIGNUP_PHONE_SEND, phoneNumber);
     } else {
       setIsPhoneNumber(false);
       Alert.alert('번호를 확인하세요');
     }
+  };
+  const startTimer = () => {
+    setTimer(180);
+    setIsTimerRunning(true);
+    isSetAuthenticateNumber(true);
+  };
+  const formatTime = (time) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
   };
   const checkAuthNumber = async () => {
     const res = await APIfetch(SIGNUP_PHONE_CHECK, { phoneNumber: phoneNumber, certificationCode: authenticateNumber });
@@ -246,6 +275,10 @@ const SignupScreen = ({ navigation }) => {
           <Text style={styles.checkBoxText}>{'인증번호\n확인'}</Text>
         </Pressable>
       </View>
+      <View style={styles.informView}>
+        <Text>{formatTime(timer)}</Text>
+      </View>
+
       <View style={styles.signupView}>
         <Pressable
           style={
@@ -260,8 +293,6 @@ const SignupScreen = ({ navigation }) => {
               Alert.alert('비밀번호를 확인하세요');
             } else if (isPhoneNumber === false) {
               Alert.alert('핸드폰 인증을 확인하세요');
-            } else if (isAuthenticateNumber === false) {
-              Alert.alert('인증번호를 확인하세요');
             } else {
               userInfomation({
                 userEmail: email,
