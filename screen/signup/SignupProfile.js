@@ -12,7 +12,7 @@ import { APIfetch } from '@network/APIfetch';
 // custom
 import styles from './Style';
 const SignupProfileScreen = ({ navigation }) => {
-  const [nickName, setNickName] = useState('');
+  const [name, setName] = useState('');
   const [stateMessage, setStateMessage] = useState('');
   const [birthday, setBirthday] = useState('');
   const [isBirthday, setIsBirthday] = useState(false);
@@ -22,9 +22,9 @@ const SignupProfileScreen = ({ navigation }) => {
 
   useEffect(() => {
     valueNONCheck();
-  }, [nickName, stateMessage, birthday]);
+  }, [name, stateMessage, birthday]);
   const valueNONCheck = () => {
-    if (nickName !== '' && stateMessage !== '' && isBirthday) {
+    if (name !== '' && stateMessage !== '' && isBirthday) {
       setIsValueNoN(true);
     } else {
       setIsValueNoN(false);
@@ -43,7 +43,7 @@ const SignupProfileScreen = ({ navigation }) => {
   const signupFunc = async () => {
     try {
       const userInfo = Object.assign({
-        usernickName: nickName,
+        userName: name,
         userStateMessage: stateMessage,
         userBirthday: birthday,
         userEmail: userInfomation.userEmail,
@@ -137,15 +137,15 @@ const SignupProfileScreen = ({ navigation }) => {
         ) : null}
         <View style={isKeyboardVisible ? { ...styles.withoutKeyboard } : null}>
           <View style={styles.informView}>
-            <Text style={styles.informText}>닉네임</Text>
+            <Text style={styles.informText}>이름</Text>
           </View>
           <TextInput
             style={styles.inputProfileText}
-            placeholder='닉네임을 입력하세요'
+            placeholder='이름을 입력하세요'
             onChangeText={(text) => {
-              setNickName(text);
+              setName(text);
             }}
-            value={nickName}
+            value={name}
           />
           <View style={styles.informView}>
             <Text style={styles.informText}>상태메세지</Text>
@@ -177,8 +177,8 @@ const SignupProfileScreen = ({ navigation }) => {
         style={isValueNoN ? styles.signBtn : styles.signBtnGray}
         onPress={() => {
           //유저 정보생성
-          if (nickName == null) {
-            Alert.alert('닉네임을 입력하세요');
+          if (name == null) {
+            Alert.alert('이름을 입력하세요');
           }
 
           signupFunc();

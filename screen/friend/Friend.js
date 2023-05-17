@@ -1,6 +1,6 @@
 // react
 import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React from 'react';
 import { Image, Pressable, ScrollView, Text, View } from 'react-native';
 
 // recoil
@@ -10,10 +10,10 @@ import styles from './Style';
 
 // store
 import { photoPathState } from '@store/User';
-
+// unum
+import { userInfo } from '@enum/user';
 const FriendScreen = () => {
-  const [profileName, setProfileName] = useState('이름');
-  const [profileMessage, setProfileMessage] = useState('프로필메세지');
+  const newUserInfo = useRecoilValue(userInfo);
   const photoPath = useRecoilValue(photoPathState);
   const navigation = useNavigation();
 
@@ -24,23 +24,20 @@ const FriendScreen = () => {
           style={{ flexDirection: 'row' }}
           onPress={() => {
             navigation.navigate('ProfileModal', {
-              profileName: profileName,
-              profileMessage: profileMessage,
+              profileName: newUserInfo.usernickName,
+              profileMessage: newUserInfo.userStateMessage,
             });
           }}
         >
           {photoPath !== '' ? (
             <Image source={{ uri: photoPath }} style={styles.profileImg} />
           ) : (
-            <Image
-              source={require('@public/image/pepsi.png')}
-              style={styles.profileImg}
-            />
+            <Image source={require('@public/image/pepsi.png')} style={styles.profileImg} />
           )}
 
           <View style={styles.profileInclude}>
-            <Text style={styles.profileName}>{profileName}</Text>
-            <Text style={styles.profileMessage}>{profileMessage}</Text>
+            <Text style={styles.profileName}>{newUserInfo.userName}</Text>
+            <Text style={styles.profileMessage}>{newUserInfo.userStateMessage}</Text>
           </View>
         </Pressable>
       </View>
@@ -53,16 +50,7 @@ const FriendScreen = () => {
               console.log('즐겨찾기 친구');
             }}
           >
-            <View style={{ flexDirection: 'row' }}>
-              <Image
-                source={require('@public/image/pepsi.png')}
-                style={styles.profileImg}
-              />
-              <View style={{ justifyContent: 'center', marginLeft: 5 }}>
-                <Text>즐겨찾기이름</Text>
-                <Text>즐겨찾기프로필메세지</Text>
-              </View>
-            </View>
+            <View style={{ flexDirection: 'row' }}></View>
           </Pressable>
         }
       </View>
