@@ -1,45 +1,82 @@
 // react
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useRef, useState } from 'react';
-import { Pressable, Text, TextInput, View } from 'react-native';
+import { Pressable, Text, TextInput, View, Alert } from 'react-native';
 // recoil
 import { useSetRecoilState } from 'recoil';
 import styles from './Style';
 // store
 import { emailState, phoneNumberState, profileMessageState } from '@store/User';
+import { APIfetch } from '@network/APIfetch';
+
 const LoginScreen = ({ navigation, route }) => {
   const setEmail = useSetRecoilState(emailState);
   const setProfileMessage = useSetRecoilState(profileMessageState);
   const setPhoneNumber = useSetRecoilState(phoneNumberState);
 
-  const [loginInfo, setLoginInfo] = useState({});
+  const [loginInfo, setLoginInfo] = useState({
+    email: '',
+    password: '',
+  });
 
-  const tempLoginInfo = useRef({});
-
-  const login = async (email, password) => {
-    const loginInfo = { loginId: email, loginPw: password };
-    //storage id, pw 저장후 임시로 저장
-  };
-  useEffect(() => {
-    login();
-    if (route.params) {
+  const login = async () => {
+    try {
+      const res = await APIfetch('/login', {
+        email: loginInfo.email,
+        password: loginInfo.password,
+      });
+      console.log(loginInfo);
+      console.log('login error : ', JSON.stringify(res));
+      if (res.status === 200) {
+        setEmail(loginInfo.email);
+        navigation.navigate('Home');
+      } else {
+        setLoginInfo({
+          email: '',
+          password: '',
+        });
+        Alert.alert('입력하신 정보를 다시 확인해주세요.');
+      }
+    } catch (e) {
+      console.error(e);
     }
-  }, []);
+  };
   return (
     <View style={styles.loginContainer}>
       <View>
         <Text style={styles.loginTitle}>AVALON</Text>
       </View>
       <View style={styles.textField}>
-        <TextInput style={styles.textInput} placeholder='아이디를 입력해주세요' autoComplete='email' />
+        <TextInput
+          style={styles.textInput}
+          placeholder='아이디를 입력해주세요'
+          autoComplete='email'
+          value={loginInfo.email}
+          onChangeText={(e) => {
+            setLoginInfo({
+              email: e,
+              password: loginInfo.password,
+            });
+          }}
+        />
       </View>
       <View style={styles.textField}>
-        <TextInput style={styles.textInput} placeholder='비밀번호를 입력해주세요.' />
+        <TextInput
+          style={styles.textInput}
+          placeholder='비밀번호를 입력해주세요.'
+          value={loginInfo.password}
+          onChangeText={(e) => {
+            setLoginInfo({
+              email: loginInfo.email,
+              password: e,
+            });
+          }}
+        />
       </View>
       <View style={styles.buttonField}>
         <Pressable
           onPress={() => {
-            navigation.navigate('Home');
+            login();
           }}
           style={styles.button}
         >
