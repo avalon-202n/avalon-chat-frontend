@@ -18,6 +18,7 @@ const SignupProfileScreen = ({ navigation }) => {
   const [isBirthday, setIsBirthday] = useState(false);
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
   const [isValueNoN, setIsValueNoN] = useState(false);
+
   const [userInfomation, setUserInfomation] = useRecoilState(userInfo);
 
   useEffect(() => {
@@ -30,12 +31,14 @@ const SignupProfileScreen = ({ navigation }) => {
       setIsValueNoN(false);
     }
   };
+
   useEffect(() => {
     return () => {
       keyboardDidShowListener.remove();
       keyboardDidHideListener.remove();
     };
   }, []);
+
   useEffect(() => {
     birthCheck();
   }, [birthday]);
@@ -68,6 +71,7 @@ const SignupProfileScreen = ({ navigation }) => {
       setIsBirthday(true);
     }
   };
+
   const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
     setIsKeyboardVisible(true);
   });
@@ -86,15 +90,12 @@ const SignupProfileScreen = ({ navigation }) => {
         aspect: [4, 3],
         quality: 1,
       });
-
       if (!result.canceled) {
         const imageUri = result.assets[0].uri;
-
         const newUserInfo = {
           ...userInfomation,
           profileImage: [imageUri],
         };
-
         setUserInfomation(newUserInfo);
       } else {
         const newUserInfo = {
@@ -180,7 +181,6 @@ const SignupProfileScreen = ({ navigation }) => {
           if (name == null) {
             Alert.alert('이름을 입력하세요');
           }
-
           signupFunc();
           navigation.navigate('Login');
         }}
