@@ -1,13 +1,13 @@
 // react
 import { StatusBar } from 'expo-status-bar';
-import React, { useEffect, useRef, useState } from 'react';
-import { Pressable, Text, TextInput, View, Alert } from 'react-native';
+import React, { useState } from 'react';
+import { Alert, Pressable, Text, TextInput, View } from 'react-native';
 // recoil
 import { useSetRecoilState } from 'recoil';
 import styles from './Style';
 // store
-import { emailState, phoneNumberState, profileMessageState } from '@store/User';
 import { APIfetch } from '@network/APIfetch';
+import { emailState, phoneNumberState, profileMessageState } from '@store/User';
 
 const LoginScreen = ({ navigation, route }) => {
   const setEmail = useSetRecoilState(emailState);
@@ -27,7 +27,7 @@ const LoginScreen = ({ navigation, route }) => {
       });
       console.log(loginInfo);
       console.log('login error : ', JSON.stringify(res));
-      if (res.status === 200) {
+      if (res && res.status === 200) {
         setEmail(loginInfo.email);
         navigation.navigate('Home');
       } else {
