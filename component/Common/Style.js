@@ -1,54 +1,17 @@
-import { StyleSheet } from "react-native";
-import { windowWidth, windowHeight } from "@enum/size";
+import { windowHeight, windowWidth } from '@enum/size';
+import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: 'black',
   },
 
-  //AddFriendModal
-  addFriendContainer: {
-    flex: 1,
-    backgroundColor: "white",
-    marginTop: windowHeight * 15,
-  },
-  headerBtnContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: windowWidth * 360,
-    height: windowHeight * 45,
-  },
-  confirmText: {
-    fontSize: windowWidth * 20,
-    marginTop: windowHeight * 10,
-  },
-  topViewContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-around",
-    marginVertical: windowHeight * 5,
-    width: windowWidth * 360,
-    height: windowHeight * 60,
-  },
-  topBtnImage: {
-    width: windowWidth * 50,
-    height: windowWidth * 50,
-    alignSelf: "center",
-    justifyContent: "center",
-  },
-  middleViewContainer: {
-    flex: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "black",
-    opacity: "80%",
-  },
   //ProfileModal
-  backgroundImage: { position: "absolute", width: "100%", height: "100%" },
+  backgroundImage: { position: 'absolute', width: '100%', height: '100%' },
   buttonContainer: {
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginVertical: windowHeight * 10,
   },
   CloseImage: {
@@ -64,7 +27,7 @@ const styles = StyleSheet.create({
     marginRight: windowWidth * 10,
   },
   instanceMessageBox: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
     marginBottom: windowHeight * 10,
     maxWidth: windowWidth * 260,
     maxHeight: windowHeight * 80,
@@ -72,12 +35,12 @@ const styles = StyleSheet.create({
   },
   profileContainer: {
     flex: 11,
-    justifyContent: "flex-end",
+    justifyContent: 'flex-end',
     margin: windowWidth * 10,
   },
   profileContent: {
-    alignItems: "center",
-    justifyContent: "flex-end",
+    alignItems: 'center',
+    justifyContent: 'flex-end',
     marginVertical: windowHeight * 10,
   },
   profileImage: {
@@ -87,20 +50,20 @@ const styles = StyleSheet.create({
   },
   profileName: {
     fontSize: windowWidth * 15,
-    fontWeight: "500",
-    color: "white",
+    fontWeight: '500',
+    color: 'white',
     marginVertical: windowHeight * 5,
   },
   profileMessage: {
     marginLeft: windowWidth * 5,
     fontSize: windowWidth * 12,
-    color: "white",
+    color: 'white',
   },
   bottomContent: {
     flex: 2,
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
     padding: 5,
   },
   bottomImages: {
@@ -110,14 +73,14 @@ const styles = StyleSheet.create({
     padding: windowWidth * 5,
   },
   bottomfont: {
-    color: "white",
+    color: 'white',
     fontSize: windowWidth * 12,
-    alignSelf: "center",
+    alignSelf: 'center',
   },
   settingLineView: {
-    width: "100%",
+    width: '100%',
     height: windowHeight * 1,
-    backgroundColor: "#f4f4f5",
+    backgroundColor: '#f4f4f5',
   },
   editTopView: {
     marginTop: windowHeight * 25,
@@ -130,13 +93,13 @@ const styles = StyleSheet.create({
   },
   editTopText: {
     fontSize: windowWidth * 20,
-    color: "white",
+    color: 'white',
   },
   //profileEditModal
   profileEditView: {
-    position: "absolute",
+    position: 'absolute',
     right: 0,
-    top: "92%",
+    top: '92%',
   },
 });
 
