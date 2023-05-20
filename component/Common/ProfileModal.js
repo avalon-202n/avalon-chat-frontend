@@ -10,12 +10,11 @@ import Carousel from 'react-native-reanimated-carousel';
 import { useRecoilState } from 'recoil';
 // custom
 import styles from './Style';
-const ProfileModal = ({ route }) => {
+const ProfileModal = ({ setIsOpen, newUserInfo }) => {
   const [isModal, setIsModal] = useState(true);
   const [isProfileEdit, setIsProfileEdit] = useState(false);
   const [images, setImages] = useState([]);
   const navigation = useNavigation();
-  const profileInfo = route.params;
   const [profileImage, setProfileImage] = useState(null);
   const [photoPath, setPhotoPath] = useRecoilState(photoPathState);
   useEffect(() => {
@@ -65,7 +64,7 @@ const ProfileModal = ({ route }) => {
       transparent={true}
       visible={isModal}
       onRequestClose={() => {
-        navigation.goBack();
+        setIsOpen(false);
       }}
     >
       <View style={styles.container}>
@@ -85,7 +84,7 @@ const ProfileModal = ({ route }) => {
           ) : (
             <Pressable
               onPress={() => {
-                navigation.goBack();
+                setIsOpen(false);
               }}
             >
               <Image source={require('@public/image/closeButton_white01.png')} style={styles.CloseImage} />
@@ -138,8 +137,8 @@ const ProfileModal = ({ route }) => {
                 <Image style={styles.profileImage} source={require('@public/image/pepsi.png')} />
               )}
             </Pressable>
-            <Text style={styles.profileName}>{profileInfo.profileName}</Text>
-            <Text style={styles.profileMessage}>{profileInfo.profileMessage}</Text>
+            <Text style={styles.profileName}>{newUserInfo.profileName}</Text>
+            <Text style={styles.profileMessage}>{newUserInfo.profileMessage}</Text>
           </View>
         </View>
         <View style={styles.settingLineView} />

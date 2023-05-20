@@ -1,13 +1,12 @@
 // react
-import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, Pressable, ScrollView, Text, View } from 'react-native';
 
 // recoil
 import { useRecoilValue } from 'recoil';
 // custom
+import { ProfileModal } from '@component/Common';
 import styles from './Style';
-
 // store
 import { photoPathState } from '@store/User';
 // unum
@@ -15,18 +14,15 @@ import { userInfo } from '@enum/user';
 const FriendScreen = () => {
   const newUserInfo = useRecoilValue(userInfo);
   const photoPath = useRecoilValue(photoPathState);
-  const navigation = useNavigation();
 
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <ScrollView>
       <View style={styles.profileContainer}>
         <Pressable
           style={{ flexDirection: 'row' }}
           onPress={() => {
-            navigation.navigate('ProfileModal', {
-              profileName: newUserInfo.usernickName,
-              profileMessage: newUserInfo.userStateMessage,
-            });
+            setIsOpen(true);
           }}
         >
           {photoPath !== '' ? (
@@ -59,6 +55,7 @@ const FriendScreen = () => {
       <View>
         <Text style={styles.contentText}>친구목록</Text>
       </View>
+      {isOpen && <ProfileModal setIsOpen={setIsOpen} newUserInfo={newUserInfo} />}
     </ScrollView>
   );
 };

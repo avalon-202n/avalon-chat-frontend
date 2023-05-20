@@ -146,7 +146,6 @@ const SignupScreen = ({ navigation }) => {
   const startTimer = () => {
     setTimer(180);
     setIsTimerRunning(true);
-    isSetAuthenticateNumber(true);
   };
 
   const formatTime = (time) => {
@@ -293,7 +292,6 @@ const SignupScreen = ({ navigation }) => {
       <View style={styles.informView}>
         <Text>{formatTime(timer)}</Text>
       </View>
-
       <View style={styles.signupView}>
         <Pressable
           style={
@@ -317,7 +315,6 @@ const SignupScreen = ({ navigation }) => {
                 userPhone: phoneNumber,
               });
               navigation.navigate('SignProfile');
-              console.log('가입완료');
             }
           }}
         >
