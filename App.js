@@ -17,6 +17,7 @@ import { LoadScreen, LoginScreen, LoginSetupScreen } from '@screen/login';
 import { SettingScreen } from '@screen/setting';
 import { SignupProfileScreen, SignupScreen } from '@screen/signup';
 import { SplashAppScreen } from '@screen/splash';
+import { FindIdScreen, FindPwScreen } from './screen/findInfo';
 const Stack = createNativeStackNavigator();
 
 const App = () => {
@@ -37,6 +38,8 @@ const App = () => {
             <Stack.Screen name='Login' component={LoginScreen} options={{ headerShown: false }} />
             <Stack.Screen name='Signup' component={SignupScreen} options={{ headerShown: false }} />
             <Stack.Screen name='SignProfile' component={SignupProfileScreen} options={{ headerShown: false }} />
+            <Stack.Screen name='FindId' component={FindIdScreen} options={{ headerShown: false }} />
+            <Stack.Screen name='FindPw' component={FindPwScreen} options={{ headerShown: false }} />
           </Stack.Group>
           <Stack.Group>
             <Stack.Screen name='Load' component={LoadScreen} options={{ headerShown: false }} />

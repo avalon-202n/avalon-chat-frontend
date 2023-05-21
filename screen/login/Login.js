@@ -25,8 +25,6 @@ const LoginScreen = ({ navigation, route }) => {
         email: loginInfo.email,
         password: loginInfo.password,
       });
-      console.log(loginInfo);
-      console.log('login error : ', JSON.stringify(res));
       if (res.status === 200) {
         setEmail(loginInfo.email);
         navigation.navigate('Home');
@@ -95,10 +93,20 @@ const LoginScreen = ({ navigation, route }) => {
           </Pressable>
         </View>
         <View style={styles.findAccountLink}>
-          <Pressable style={styles.link}>
+          <Pressable
+            onPress={() => {
+              navigation.navigate('FindId');
+            }}
+            style={styles.link}
+          >
             <Text>아이디 찾기</Text>
           </Pressable>
-          <Pressable style={styles.link}>
+          <Pressable
+            style={styles.link}
+            onPress={() => {
+              navigation.navigate('FindPw');
+            }}
+          >
             <Text>비밀번호 찾기</Text>
           </Pressable>
         </View>
