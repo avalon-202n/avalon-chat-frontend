@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Pressable, Alert } from 'react-native';
 import { API_URL } from '@enum/server';
 import styles from './Style';
 
 const FindIdScreen = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
+
+  useEffect(() => {
+    formatPhoneNumber();
+  }, [phoneNumber]);
 
   const getEmail = async () => {
     try {
@@ -25,6 +29,13 @@ const FindIdScreen = () => {
         });
     } catch (e) {
       console.log('아이디 찾기 API ERROR : ', e);
+    }
+  };
+
+  const formatPhoneNumber = () => {
+    const formatNumber = phoneNumber.replace(/^(\d{3})(\d{4})(\d{4})$/, '$1-$2-$3');
+    if (formatNumber) {
+      setPhoneNumber(formatNumber);
     }
   };
   return (

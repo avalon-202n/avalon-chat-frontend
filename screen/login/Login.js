@@ -1,7 +1,7 @@
 // react
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { Alert, Pressable, Text, TextInput, View } from 'react-native';
+import { Image, Alert, Pressable, Text, TextInput, View } from 'react-native';
 // recoil
 import { useSetRecoilState } from 'recoil';
 import styles from './Style';
@@ -11,6 +11,7 @@ import { emailState } from '@store/User';
 
 const LoginScreen = ({ navigation, route }) => {
   const setEmail = useSetRecoilState(emailState);
+  const [passwordVisible, setPasswordVisible] = useState(true);
 
   const [loginInfo, setLoginInfo] = useState({
     email: '',
@@ -63,7 +64,7 @@ const LoginScreen = ({ navigation, route }) => {
         <TextInput
           style={styles.textInput}
           placeholder='비밀번호를 입력해주세요.'
-          secureTextEntry={true}
+          secureTextEntry={passwordVisible}
           value={loginInfo.password}
           onChangeText={(e) => {
             setLoginInfo({
@@ -72,6 +73,18 @@ const LoginScreen = ({ navigation, route }) => {
             });
           }}
         />
+        <Pressable
+          onPress={() => {
+            setPasswordVisible(!passwordVisible);
+          }}
+          style={styles.eyeIcon}
+        >
+          {passwordVisible ? (
+            <Image source={require('@public/image/eye.png')} style={{ width: 20, height: 20 }} />
+          ) : (
+            <Image source={require('@public/image/eye-off.png')} style={{ width: 20, height: 20 }} />
+          )}
+        </Pressable>
       </View>
       <View style={styles.buttonField}>
         <Pressable
