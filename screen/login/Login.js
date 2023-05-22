@@ -7,12 +7,10 @@ import { useSetRecoilState } from 'recoil';
 import styles from './Style';
 // store
 import { APIfetch } from '@network/APIfetch';
-import { emailState, phoneNumberState, profileMessageState } from '@store/User';
+import { emailState } from '@store/User';
 
 const LoginScreen = ({ navigation, route }) => {
   const setEmail = useSetRecoilState(emailState);
-  const setProfileMessage = useSetRecoilState(profileMessageState);
-  const setPhoneNumber = useSetRecoilState(phoneNumberState);
 
   const [loginInfo, setLoginInfo] = useState({
     email: '',
@@ -29,7 +27,6 @@ const LoginScreen = ({ navigation, route }) => {
       console.log(loginInfo);
       console.log('login error : ', JSON.stringify(res));
       if (res && res.status === 200) {
-
         setEmail(loginInfo.email);
         navigation.navigate('Home');
       } else {
@@ -66,6 +63,7 @@ const LoginScreen = ({ navigation, route }) => {
         <TextInput
           style={styles.textInput}
           placeholder='비밀번호를 입력해주세요.'
+          secureTextEntry={true}
           value={loginInfo.password}
           onChangeText={(e) => {
             setLoginInfo({
