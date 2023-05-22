@@ -44,6 +44,11 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
   },
+  eyeIcon: {
+    position: 'absolute',
+    top: '25%',
+    left: '93%',
+  },
 });
 
 export default styles;
