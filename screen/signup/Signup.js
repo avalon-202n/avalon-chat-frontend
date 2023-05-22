@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { Alert, Keyboard, Pressable, Text, TextInput, View } from 'react-native';
 //recoil
 import { useSetRecoilState } from 'recoil';
-// store
 // enum
 import { SIGNUP_EMAIL_DUPULICATED, SIGNUP_PHONE_CHECK, SIGNUP_PHONE_SEND } from '@enum/server';
 import { userInfo } from '@enum/user';
@@ -53,6 +52,7 @@ const SignupScreen = ({ navigation }) => {
   useEffect(() => {
     secPasswordCheck();
   }, [secPassword]);
+
   useEffect(() => {
     if (isTimerRunning) {
       const interval = setInterval(() => {
@@ -69,9 +69,11 @@ const SignupScreen = ({ navigation }) => {
       isSetAuthenticateNumber(false);
     }
   }, [isTimerRunning, timer]);
+
   useEffect(() => {
     formatPhoneNumber();
   }, [phoneNumber]);
+
   const passwordCheck = () => {
     const regex = /^(?=.*[!@#$%^&*])(?=.*[a-zA-Z]).{7,}$/;
     const isValid = regex.test(password);
@@ -81,9 +83,11 @@ const SignupScreen = ({ navigation }) => {
       setIsPassword(false);
     }
   };
+
   const handlePress = () => {
     Keyboard.dismiss();
   };
+
   const emailCheck = async () => {
     try {
       const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -91,7 +95,6 @@ const SignupScreen = ({ navigation }) => {
       if (isValid) {
         const res = await APIfetch(SIGNUP_EMAIL_DUPULICATED, { email });
         const result = await res.json();
-
         if (result.duplicated === false) {
           Alert.alert('사용가능합니다.');
           setIsEmail(true);
@@ -102,8 +105,8 @@ const SignupScreen = ({ navigation }) => {
       } else {
         Alert.alert('이메일 형식이 아닙니다');
       }
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -119,43 +122,54 @@ const SignupScreen = ({ navigation }) => {
 
   const formatPhoneNumber = () => {
     const formatNumber = phoneNumber.replace(/^(\d{3})(\d{4})(\d{4})$/, '$1-$2-$3');
-
     if (formatNumber) {
       setPhoneNumber(formatNumber);
     }
   };
-  const authPhoneNumber = async () => {
-    if (phoneNumber.length === 13) {
-      Alert.alert('인증번호를 발송했습니다');
-      startTimer();
 
-      setIsPhoneNumber(true);
-      await APIfetch(SIGNUP_PHONE_SEND, phoneNumber);
-    } else {
-      setIsPhoneNumber(false);
-      Alert.alert('번호를 확인하세요');
+  const authPhoneNumber = async () => {
+    try {
+      if (phoneNumber.length === 13) {
+        Alert.alert('인증번호를 발송했습니다');
+        startTimer();
+        setIsPhoneNumber(true);
+        await APIfetch(SIGNUP_PHONE_SEND, phoneNumber);
+      } else {
+        setIsPhoneNumber(false);
+        Alert.alert('번호를 확인하세요');
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
+
   const startTimer = () => {
     setTimer(180);
     setIsTimerRunning(true);
-    isSetAuthenticateNumber(true);
   };
+
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
     return `${minutes}:${seconds.toString().padStart(2, '0')}`;
   };
-  const checkAuthNumber = async () => {
-    const res = await APIfetch(SIGNUP_PHONE_CHECK, { phoneNumber: phoneNumber, certificationCode: authenticateNumber });
-    const result = await res.json();
 
-    if (result.authenticated) {
-      isSetAuthenticateNumber(true);
-      Alert.alert('확인되었습니다.');
-    } else {
-      isSetAuthenticateNumber(false);
-      Alert.alert('인증번호를 확인해주세요');
+  const checkAuthNumber = async () => {
+    try {
+      const res = await APIfetch(SIGNUP_PHONE_CHECK, {
+        phoneNumber: phoneNumber,
+        certificationCode: authenticateNumber,
+      });
+      const result = await res.json();
+      if (result.authenticated) {
+        isSetAuthenticateNumber(true);
+        Alert.alert('확인되었습니다.');
+      } else {
+        isSetAuthenticateNumber(false);
+        Alert.alert('인증번호를 확인해주세요');
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -278,7 +292,6 @@ const SignupScreen = ({ navigation }) => {
       <View style={styles.informView}>
         <Text>{formatTime(timer)}</Text>
       </View>
-
       <View style={styles.signupView}>
         <Pressable
           style={
@@ -287,20 +300,21 @@ const SignupScreen = ({ navigation }) => {
               : styles.signupBtnGray
           }
           onPress={() => {
-            if (isEmail === false) {
+            if (!isEmail) {
               Alert.alert('이메일을 확인하세요');
-            } else if (isPassword === false || isSecPassword === false) {
+            } else if (!isPassword || !isSecPassword) {
               Alert.alert('비밀번호를 확인하세요');
-            } else if (isPhoneNumber === false) {
+            } else if (!isPhoneNumber) {
               Alert.alert('핸드폰 인증을 확인하세요');
+            } else if (!isAuthenticateNumber) {
+              Alert.alert('인증번호를 확인하세요');
             } else {
               userInfomation({
                 userEmail: email,
                 userPassword: password,
                 userPhone: phoneNumber,
               });
-              navigation.navigate('SignProfile', { phoneNumber: phoneNumber });
-              console.log('가입완료');
+              navigation.navigate('SignProfile');
             }
           }}
         >
