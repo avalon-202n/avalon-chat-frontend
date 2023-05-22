@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Pressable, Alert } from 'react-native';
 // network
 import { APIfetch } from '@network/APIfetch';
@@ -10,6 +10,10 @@ const FindPwScreen = () => {
   const [certificationCode, setCertificationCode] = useState('');
   const [certificationState, setCertificationState] = useState(false);
 
+  useEffect(() => {
+    formatPhoneNumber();
+  }, [phoneNumber]);
+
   // 인증번호 전송
   const getCertificationNumber = async () => {
     if (phoneNumber.length === 13) {
@@ -20,6 +24,12 @@ const FindPwScreen = () => {
     }
   };
 
+  const formatPhoneNumber = () => {
+    const formatNumber = phoneNumber.replace(/^(\d{3})(\d{4})(\d{4})$/, '$1-$2-$3');
+    if (formatNumber) {
+      setPhoneNumber(formatNumber);
+    }
+  };
   // 인증번호 확인
   const checkCertificationNumber = async () => {
     const res = await APIfetch(SIGNUP_PHONE_CHECK, { phoneNumber: phoneNumber, certificationCode: certificationCode });
