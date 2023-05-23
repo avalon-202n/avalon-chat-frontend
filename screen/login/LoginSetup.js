@@ -4,7 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
 import { Image, Pressable, Text, View } from 'react-native';
 // custom Component
-// enum
+import styles from './Style';
 
 const LoginSetupScreen = ({ navigation }) => {
   useEffect(() => {
@@ -12,17 +12,16 @@ const LoginSetupScreen = ({ navigation }) => {
   }, []);
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Image style={{ width: 350, height: 200 }} source={require('@public/image/avalonLogo.png')} />
-
-      <View style={{ flexDirection: 'row', margin: 20 }}>
-        <View style={{ marginRight: 10 }}>
+    <View style={styles.container}>
+      <Image style={styles.mainImage} source={require('@public/image/avalonLogo.png')} />
+      <View style={styles.loginTextSetup}>
+        <View style={styles.loginBtnSetup}>
           <Pressable
             onPress={() => {
               navigation.navigate('Login');
             }}
           >
-            <Text>로그인</Text>
+            <Text style={styles.loginText}>로그인</Text>
           </Pressable>
         </View>
         <Pressable
@@ -30,7 +29,7 @@ const LoginSetupScreen = ({ navigation }) => {
             navigation.navigate('Signup');
           }}
         >
-          <Text>회원가입</Text>
+          <Text style={styles.loginText}>회원가입</Text>
         </Pressable>
       </View>
       <StatusBar style='dark' />
