@@ -1,6 +1,24 @@
+import { windowHeight, windowWidth } from '@enum/size';
 import { StyleSheet } from 'react-native';
-import { windowWidth, windowHeight } from '@enum/size';
 const styles = StyleSheet.create({
+  //LoginSetup
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  mainImage: { width: windowWidth * 360, height: windowHeight * 180 },
+  loginTextSetup: {
+    flexDirection: 'row',
+    margin: windowWidth * 20,
+  },
+  loginBtnSetup: {
+    marginRight: windowHeight * 10,
+  },
+  loginText: {
+    fontSize: windowWidth * 12,
+    fontWeight: '500',
+  },
   loginContainer: {
     display: 'flex',
     marginTop: windowHeight * 50,

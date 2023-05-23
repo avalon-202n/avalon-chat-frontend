@@ -4,7 +4,8 @@ import { Image, Pressable, Text, View } from 'react-native';
 import styles from './Style';
 // enum
 import { contents } from '@enum/state';
-const TopView = ({ bottomContents }) => {
+// screen
+const TopView = ({ bottomContents, getContents }) => {
   return (
     <View style={styles.topContainer}>
       <View style={styles.topTitleContainer}>
@@ -22,7 +23,7 @@ const TopView = ({ bottomContents }) => {
             ) : null}
             <Pressable
               onPress={() => {
-                console.log('setting');
+                getContents(contents.setting);
               }}
             >
               <Image source={require('@public/image/setting_black01.png')} style={styles.topRightIcon} />

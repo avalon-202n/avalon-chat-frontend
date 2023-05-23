@@ -19,8 +19,9 @@ const SplashAppScreen = ({ navigation }) => {
   }, []);
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <StatusBar style='dark' />
+      {/* <Image source={require('@public/image/pepsi.png')} style={{ width: 360, height: 720 }} /> */}
     </View>
   );
 };
