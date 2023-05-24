@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { Image, View } from 'react-native';
 // Util
 import * as Storage from '@util/Storage.js';
-import styles from './style';
+import styles from './Style';
 const SplashAppScreen = ({ navigation }) => {
   useEffect(() => {
     SplashScreen.preventAutoHideAsync();
@@ -24,7 +24,7 @@ const SplashAppScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <StatusBar style='dark' />
-      <Image source={require('@public/image/pepsi.png')} style={styles.mainImage} />
+      <Image source={require('@public/image/pepsi.png')} />
     </View>
   );
 };
