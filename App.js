@@ -8,7 +8,7 @@ import { RecoilRoot } from 'recoil';
 import RecoilNexus from 'recoil-nexus';
 // custom component
 import { ProfileModal } from '@component/Common';
-import { SettingFriend } from '@component/Friend';
+import { AddfriendModal, AddfriendPlusContact, AddfriendPlusId, SettingFriend } from '@component/Friend';
 // screen
 import { ChatScreen } from '@screen/chat';
 import { FriendScreen } from '@screen/friend';
@@ -27,11 +27,7 @@ const App = () => {
       <NavigationContainer>
         <Stack.Navigator initialRouteName='Splash'>
           <Stack.Group>
-            <Stack.Screen
-              name='Splash'
-              component={SplashAppScreen}
-              options={{ headerShown: false, animationEnabled: false }}
-            />
+            <Stack.Screen name='Splash' component={SplashAppScreen} options={{ headerShown: false, animationEnabled: false }} />
           </Stack.Group>
           <Stack.Group>
             <Stack.Screen name='LoginSetup' component={LoginSetupScreen} options={{ headerShown: false }} />
@@ -50,6 +46,11 @@ const App = () => {
             <Stack.Screen name='ProfileModal' component={ProfileModal} options={{ headerShown: false }} />
             <Stack.Screen name='Setting' component={SettingScreen} options={{ headerShown: false }} />
             <Stack.Screen name='SettingFriend' component={SettingFriend} options={{ headerShown: false }} />
+            <Stack.Group>
+              <Stack.Screen name='AddfriendModal' component={AddfriendModal} options={{ headerShown: false }} />
+              <Stack.Screen name='AddfriendPlusContact' component={AddfriendPlusContact} options={{ headerShown: false }} />
+              <Stack.Screen name='AddfriendPlusId' component={AddfriendPlusId} options={{ headerShown: false }} />
+            </Stack.Group>
             <Stack.Screen name='Chat' component={ChatScreen} options={{ headerShown: false }} />
           </Stack.Group>
         </Stack.Navigator>
