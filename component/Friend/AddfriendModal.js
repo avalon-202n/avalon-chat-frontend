@@ -6,8 +6,8 @@ import { ADDFRIEND_PHONENUMBER } from '@enum/server';
 // network
 import { APIfetch } from '@network/APIfetch';
 // custom
-import { AddfriendPlusContact } from '@component/Friend/AddfriendPlusContact';
-import { AddfriendPlusId } from '@component/Friend/AddfriendPlusId';
+import AddfriendPlusContact from '@component/Friend/AddfriendPlusContact';
+import AddfriendPlusId from '@component/Friend/AddfriendPlusId';
 import styles from './Style';
 
 const AddfriendModal = ({ setIsOpen, isOpen }) => {
