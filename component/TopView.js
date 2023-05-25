@@ -1,11 +1,14 @@
 // react
+import React, { useState } from 'react';
 import { Image, Pressable, Text, View } from 'react-native';
 // custom
+import { AddfriendModal } from '@component/Friend';
 import styles from './Style';
 // enum
 import { contents } from '@enum/state';
 // screen
 const TopView = ({ bottomContents, getContents }) => {
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <View style={styles.topContainer}>
       <View style={styles.topTitleContainer}>
@@ -17,7 +20,11 @@ const TopView = ({ bottomContents, getContents }) => {
         <View style={styles.topRightView}>
           <View style={styles.topRightIconView}>
             {bottomContents === contents.friend ? (
-              <Pressable onPress={() => {}}>
+              <Pressable
+                onPress={() => {
+                  setIsOpen(true);
+                }}
+              >
                 <Image source={require('@public/image/user_black01.png')} style={styles.topRightIcon} />
               </Pressable>
             ) : null}
@@ -31,6 +38,7 @@ const TopView = ({ bottomContents, getContents }) => {
           </View>
         </View>
       </View>
+      {isOpen && <AddfriendModal setIsOpen={setIsOpen} isOpen={isOpen} />}
     </View>
   );
 };

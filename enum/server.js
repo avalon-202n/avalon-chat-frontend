@@ -4,3 +4,4 @@ export const SIGNUP_EMAIL_DUPULICATED = '/signup/email/duplicated';
 export const SIGNUP_PHONE_SEND = '/signup/phonenumber/authenticate/send';
 export const SIGNUP_PHONE_CHECK = '/signup/phonenumber/authenticate/check';
 export const SIGNUP_USERINFO = '/profiles';
+export const ADDFRIEND_PHONENUMBER = '/friends';
