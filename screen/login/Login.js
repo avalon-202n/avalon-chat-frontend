@@ -1,7 +1,7 @@
 // react
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import { Image, Alert, Pressable, Text, TextInput, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Alert, Image, Pressable, Text, TextInput, View } from 'react-native';
 // recoil
 import { useSetRecoilState } from 'recoil';
 import styles from './Style';
@@ -18,6 +18,14 @@ const LoginScreen = ({ navigation, route }) => {
     password: '',
   });
 
+  useEffect(() => {
+    if (route.params) {
+      login();
+      setLoginInfo({ email: route.params.loginInfo.email, password: route.params.loginInfo.password });
+    }
+  }, []);
+
+  console.log(route);
   const login = async () => {
     try {
       const res = await APIfetch('/login', {

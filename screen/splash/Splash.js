@@ -1,11 +1,8 @@
 // React Component
 import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
-import { Image, View } from 'react-native';
 // Util
 import * as Storage from '@util/Storage.js';
-import styles from './Style';
 const SplashAppScreen = ({ navigation }) => {
   useEffect(() => {
     SplashScreen.preventAutoHideAsync();
@@ -15,18 +12,10 @@ const SplashAppScreen = ({ navigation }) => {
           routes: [{ name: 'Login', params: { loginInfo: ret } }],
         });
       else SplashScreen.hideAsync();
-      setTimeout(() => {
-        navigation.reset({ routes: [{ name: 'LoginSetup' }] });
-      }, 1500);
+
+      navigation.reset({ routes: [{ name: 'LoginSetup' }] });
     });
   }, []);
-
-  return (
-    <View style={styles.container}>
-      <StatusBar style='dark' />
-      <Image source={require('@public/image/pepsi.png')} />
-    </View>
-  );
 };
 
 export default SplashAppScreen;
