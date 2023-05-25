@@ -4,16 +4,42 @@ const styles = StyleSheet.create({
   //LoginSetup
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     alignItems: 'center',
   },
-  mainImage: { width: windowWidth * 360, height: windowHeight * 180 },
+
+  title: {
+    textAlign: 'center',
+    fontSize: windowWidth * 40,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+
   loginTextSetup: {
-    flexDirection: 'row',
-    margin: windowWidth * 20,
+    marginTop: windowHeight * 200,
+    marginBottom: windowHeight * 20,
   },
   loginBtnSetup: {
     marginRight: windowHeight * 10,
+  },
+  loginButton: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: windowWidth * 330,
+    height: windowHeight * 35,
+    backgroundColor: '#fff',
+    borderRadius: windowWidth * 5,
+    marginBottom: windowHeight * 10,
+  },
+  signUpButton: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: windowWidth * 330,
+    height: windowHeight * 35,
+    backgroundColor: '#f4f7fa',
+    borderRadius: windowWidth * 5,
   },
   loginText: {
     fontSize: windowWidth * 12,
