@@ -9,7 +9,6 @@ const FindPwScreen = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [certificationCode, setCertificationCode] = useState('');
   const [certificationState, setCertificationState] = useState(false);
-
   useEffect(() => {
     formatPhoneNumber();
   }, [phoneNumber]);
@@ -112,16 +111,25 @@ const FindPwScreen = () => {
           <Text style={styles.DualButtonText}>확인</Text>
         </Pressable>
       </View>
-      <View style={styles.buttonField}>
-        <Pressable
-          onPress={() => {
-            getPassword();
-          }}
-          style={styles.button}
-        >
-          <Text>비밀번호 찾기</Text>
-        </Pressable>
-      </View>
+      {certificationState ? (
+        <View style={styles.buttonField}>
+          <Pressable
+            onPress={() => {
+              getPassword();
+            }}
+            style={styles.button}
+          >
+            <Text style={{ color: '#fff' }}>비밀번호 찾기</Text>
+          </Pressable>
+        </View>
+      ) : (
+        <View style={styles.buttonField}>
+          <Pressable style={styles.disableButton}>
+            <Text style={{ color: '#fff' }}>비밀번호 찾기</Text>
+          </Pressable>
+        </View>
+      )}
+
       <View style={styles.guideBox}>
         <Text style={styles.guideTitle}>비밀번호가 기억나지 않아요.</Text>
         <Text style={styles.guideContent}>계정을 만들 때 주로 사용하는 휴대폰 번호를 입력하시면</Text>

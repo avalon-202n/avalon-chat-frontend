@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: windowWidth * 330,
     height: windowHeight * 35,
-    backgroundColor: '#fee631',
+    backgroundColor: '#5A45F7',
     borderRadius: windowWidth * 5,
   },
   linkFiled: {

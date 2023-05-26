@@ -52,13 +52,23 @@ const styles = StyleSheet.create({
   buttonField: {
     margin: windowWidth * 15,
   },
+
+  disableButton: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: windowWidth * 330,
+    height: windowHeight * 35,
+    backgroundColor: '#9385FA',
+    borderRadius: windowWidth * 5,
+  },
   button: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     width: windowWidth * 330,
     height: windowHeight * 35,
-    backgroundColor: '#fee631',
+    backgroundColor: '#5A45F7',
     borderRadius: windowWidth * 5,
   },
 
