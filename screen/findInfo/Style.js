@@ -42,11 +42,12 @@ const styles = StyleSheet.create({
     marginLeft: windowWidth * 10,
     padding: windowHeight * 5,
     borderRadius: windowWidth * 5,
-    backgroundColor: '#fee631',
+    backgroundColor: '#5A45F7',
     textAlign: 'center',
   },
   DualButtonText: {
     textAlign: 'center',
+    color: '#fff',
   },
   // 하단 버튼
   buttonField: {
