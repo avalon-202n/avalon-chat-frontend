@@ -8,7 +8,8 @@ import styles from './Style';
 // store
 import { APIfetch } from '@network/APIfetch';
 import { emailState } from '@store/User';
-
+// util
+import * as Storage from '@util/Storage.js';
 const LoginScreen = ({ navigation, route }) => {
   const setEmail = useSetRecoilState(emailState);
   const [passwordVisible, setPasswordVisible] = useState(true);
@@ -19,13 +20,12 @@ const LoginScreen = ({ navigation, route }) => {
   });
 
   useEffect(() => {
-    if (route.params) {
+    if (loginInfo) {
       login();
-      setLoginInfo({ email: route.params.loginInfo.email, password: route.params.loginInfo.password });
+      setLoginInfo({ email: loginInfo.email, password: loginInfo.password });
     }
   }, []);
 
-  console.log(route);
   const login = async () => {
     try {
       const res = await APIfetch('/login', {
@@ -37,6 +37,7 @@ const LoginScreen = ({ navigation, route }) => {
       console.log('login error : ', JSON.stringify(res));
       if (res && res.status === 200) {
         setEmail(loginInfo.email);
+        await Storage.saveLoginInfo({ email: loginInfo.email, password: loginInfo.password });
         navigation.navigate('Home');
       } else {
         setLoginInfo({

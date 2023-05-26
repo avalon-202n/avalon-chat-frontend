@@ -182,7 +182,7 @@ const SignupProfileScreen = ({ navigation }) => {
             Alert.alert('이름을 입력하세요');
           }
           signupFunc();
-          navigation.navigate('Login');
+          navigation.reset({ routes: [{ name: 'Login' }] });
         }}
       >
         <Text style={styles.signBtnText}>가입하기</Text>
