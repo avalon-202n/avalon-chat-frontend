@@ -5,9 +5,14 @@ import styles from './Style';
 
 const FindIdScreen = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
-
+  const [buttonState, setButtonState] = useState(false);
   useEffect(() => {
     formatPhoneNumber();
+    if (phoneNumber.length > 10) {
+      setButtonState(true);
+    } else {
+      setButtonState(false);
+    }
   }, [phoneNumber]);
 
   const getEmail = async () => {
@@ -54,16 +59,24 @@ const FindIdScreen = () => {
           style={styles.textInput}
         />
       </View>
-      <View style={styles.buttonField}>
-        <Pressable
-          onPress={() => {
-            getEmail();
-          }}
-          style={styles.button}
-        >
-          <Text>아이디 찾기</Text>
-        </Pressable>
-      </View>
+      {buttonState ? (
+        <View style={styles.buttonField}>
+          <Pressable
+            onPress={() => {
+              getEmail();
+            }}
+            style={styles.button}
+          >
+            <Text style={{ color: '#fff' }}>아이디 찾기</Text>
+          </Pressable>
+        </View>
+      ) : (
+        <View style={styles.buttonField}>
+          <Pressable style={styles.disableButton}>
+            <Text style={{ color: '#fff' }}>아이디 찾기</Text>
+          </Pressable>
+        </View>
+      )}
 
       <View style={styles.guideBox}>
         <Text style={styles.guideTitle}>아이디가 기억나지 않아요.</Text>

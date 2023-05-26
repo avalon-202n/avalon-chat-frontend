@@ -93,7 +93,7 @@ const LoginScreen = ({ navigation, route }) => {
           }}
           style={styles.button}
         >
-          <Text style={{ textAlign: 'center' }}>로그인</Text>
+          <Text style={{ textAlign: 'center', color: '#fff' }}>로그인</Text>
         </Pressable>
       </View>
       <View style={styles.linkFiled}>
