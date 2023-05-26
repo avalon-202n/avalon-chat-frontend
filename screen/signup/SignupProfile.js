@@ -117,6 +117,9 @@ const SignupProfileScreen = ({ navigation }) => {
       style={styles.container}
     >
       <ScrollView style={styles.defineView}>
+        <View>
+          <Text style={styles.profileTitle}>추가 입력사항</Text>
+        </View>
         {!isKeyboardVisible ? (
           <View style={styles.photoView}>
             <Pressable

@@ -180,6 +180,9 @@ const SignupScreen = ({ navigation }) => {
         handlePress();
       }}
     >
+      <View>
+        <Text style={styles.title}>회원가입</Text>
+      </View>
       <View style={styles.informView}>
         <Text style={styles.informText}>아이디</Text>
       </View>
@@ -205,7 +208,7 @@ const SignupScreen = ({ navigation }) => {
         </Pressable>
       </View>
       <View style={styles.informView}>
-        <Text>비밀번호</Text>
+        <Text style={styles.informText}>비밀번호</Text>
       </View>
       <View style={styles.inputContainer}>
         <TextInput
@@ -219,11 +222,11 @@ const SignupScreen = ({ navigation }) => {
           maxLength={12}
         />
         <View style={styles.passwordBoxView}>
-          <Text style={styles.passwordCheckText}>{isPassword ? 'OK' : 'NO'}</Text>
+          <Text style={styles.passwordCheckText}>{isPassword ? 'OK' : ''}</Text>
         </View>
       </View>
       <View style={styles.informView}>
-        <Text>비밀번호 확인</Text>
+        <Text style={styles.informText}>비밀번호 확인</Text>
       </View>
       <View style={styles.inputContainer}>
         <TextInput
@@ -237,11 +240,11 @@ const SignupScreen = ({ navigation }) => {
           maxLength={12}
         />
         <View style={styles.passwordBoxView}>
-          <Text style={styles.passwordCheckText}>{isSecPassword ? 'OK' : 'NO'}</Text>
+          <Text style={styles.passwordCheckText}>{isSecPassword ? 'OK' : ''}</Text>
         </View>
       </View>
       <View style={styles.informView}>
-        <Text>휴대폰</Text>
+        <Text style={styles.informText}>휴대폰</Text>
       </View>
       <View style={styles.inputContainer}>
         <TextInput
@@ -260,11 +263,11 @@ const SignupScreen = ({ navigation }) => {
             authPhoneNumber();
           }}
         >
-          <Text style={styles.checkBoxText}>{`인증번호\n발송`}</Text>
+          <Text style={styles.checkBoxText}>{`발송`}</Text>
         </Pressable>
       </View>
       <View style={styles.informView}>
-        <Text>인증번호</Text>
+        <Text style={styles.informText}>인증번호</Text>
       </View>
       <View style={styles.inputContainer}>
         <TextInput
@@ -286,12 +289,22 @@ const SignupScreen = ({ navigation }) => {
             checkAuthNumber();
           }}
         >
-          <Text style={styles.checkBoxText}>{'인증번호\n확인'}</Text>
+          <Text style={styles.checkBoxText}>{'확인'}</Text>
         </Pressable>
+        <View style={styles.timerView}>
+          <Text>{formatTime(timer)}</Text>
+        </View>
       </View>
-      <View style={styles.informView}>
-        <Text>{formatTime(timer)}</Text>
-      </View>
+      {/* {isKeyboardVisible ? (
+        <View style={styles.isKeyboardVisibleTimerView}>
+          <Text>{formatTime(timer)}</Text>
+        </View>
+      ) : (
+        <View style={styles.timerView}>
+          <Text>{formatTime(timer)}</Text>
+        </View>
+      )} */}
+
       <View style={styles.signupView}>
         <Pressable
           style={
