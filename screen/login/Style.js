@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
     top: '25%',
     left: '93%',
   },
+  eyeIconImage: { width: windowWidth * 20, height: windowWidth * 20 },
 });
 
 export default styles;

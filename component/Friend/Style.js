@@ -1,3 +1,4 @@
+import { windowHeight, windowWidth } from '@enum/size';
 import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   //AddfriendModal
@@ -13,27 +14,27 @@ const styles = StyleSheet.create({
     flex: 0.7,
     justifyContent: 'space-between',
     flexDirection: 'row',
-    marginTop: 15,
+    marginTop: windowHeight * 15,
   },
   topIconBtn: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   backIconBtn: {
-    marginLeft: 5,
-    width: 30,
-    height: 30,
+    marginLeft: windowWidth * 5,
+    width: windowWidth * 30,
+    height: windowWidth * 30,
   },
   backBtnText: {
-    fontSize: 18,
+    fontSize: windowWidth * 18,
   },
   confirmBtn: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginRight: 10,
+    marginRight: windowWidth * 10,
   },
   confirmText: {
-    fontSize: 20,
+    fontSize: windowWidth * 20,
   },
   typeAddfriendView: {
     flex: 1,
@@ -46,8 +47,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   typeAddfriendIcon: {
-    width: 50,
-    height: 50,
+    width: windowWidth * 50,
+    height: windowWidth * 50,
   },
   bottomContents: {
     flex: 3.5,
@@ -56,33 +57,66 @@ const styles = StyleSheet.create({
   //AddfriendPlus
   inputContents: {
     flex: 0.1,
-    marginHorizontal: 10,
-    marginTop: 30,
-    padding: 10,
+    marginHorizontal: windowWidth * 10,
+    marginTop: windowHeight * 30,
+    padding: windowWidth * 10,
   },
   inputText: {
-    fontSize: 18,
+    fontSize: windowWidth * 18,
     color: 'white',
-    padding: 7,
+    padding: windowWidth * 7,
   },
   lineView: {
     width: '100%',
-    height: 1,
+    height: windowHeight * 1,
     borderStyle: 'solid',
     borderColor: 'white',
-    marginTop: 5,
+    marginTop: windowHeight * 5,
     backgroundColor: 'white',
   },
   descView: {
     flex: 1,
-    alignSelf: 'flex-start',
     marginHorizontal: 10,
-    marginTop: 5,
-    padding: 10,
+    marginTop: windowHeight * 5,
+    padding: windowWidth * 10,
   },
   descText: {
     color: 'white',
-    fontSize: 13,
+    fontSize: windowWidth * 13,
+  },
+  //AddfriendSearch
+  searchContainer: {
+    justifyContent: 'center',
+    alignSelf: 'center',
+    marginTop: windowHeight * 20,
+  },
+  searchContents: {
+    width: windowWidth * 320,
+    height: windowWidth * 320,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  profileImage: {
+    width: windowWidth * 150,
+    height: windowWidth * 150,
+    borderRadius: windowWidth * 10,
+  },
+  profileText: {
+    color: 'white',
+    marginVertical: windowHeight * 10,
+    fontSize: windowWidth * 15,
+  },
+  addfriendBtn: {
+    width: windowWidth * 150,
+    height: windowHeight * 30,
+    backgroundColor: 'gray',
+    justifyContent: 'center',
+  },
+  addfriendText: {
+    textAlign: 'center',
+    color: 'white',
+    fontSize: windowWidth * 15,
+    fontWeight: '600',
   },
 });
 

@@ -89,9 +89,9 @@ const LoginScreen = ({ navigation, route }) => {
           style={styles.eyeIcon}
         >
           {passwordVisible ? (
-            <Image source={require('@public/image/eye.png')} style={{ width: 20, height: 20 }} />
+            <Image source={require('@public/image/eye.png')} style={styles.eyeIconImage} />
           ) : (
-            <Image source={require('@public/image/eye-off.png')} style={{ width: 20, height: 20 }} />
+            <Image source={require('@public/image/eye-off.png')} style={styles.eyeIconImage} />
           )}
         </Pressable>
       </View>

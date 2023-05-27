@@ -8,7 +8,7 @@ import { RecoilRoot } from 'recoil';
 import RecoilNexus from 'recoil-nexus';
 // custom component
 import { ProfileModal } from '@component/Common';
-import { AddfriendModal, AddfriendPlusContact, AddfriendPlusId, SettingFriend } from '@component/Friend';
+import { AddfriendModal, AddfriendPlusContact, AddfriendPlusId, AddfriendSearch, SettingFriend } from '@component/Friend';
 // screen
 import { ChatScreen } from '@screen/chat';
 import { FriendScreen } from '@screen/friend';
@@ -50,6 +50,7 @@ const App = () => {
               <Stack.Screen name='AddfriendModal' component={AddfriendModal} options={{ headerShown: false }} />
               <Stack.Screen name='AddfriendPlusContact' component={AddfriendPlusContact} options={{ headerShown: false }} />
               <Stack.Screen name='AddfriendPlusId' component={AddfriendPlusId} options={{ headerShown: false }} />
+              <Stack.Screen name='AddfriendSearch' component={AddfriendSearch} options={{ headerShown: false }} />
             </Stack.Group>
             <Stack.Screen name='Chat' component={ChatScreen} options={{ headerShown: false }} />
           </Stack.Group>
