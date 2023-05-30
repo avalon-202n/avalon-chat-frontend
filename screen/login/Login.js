@@ -33,11 +33,14 @@ const LoginScreen = ({ navigation, route }) => {
         password: loginInfo.password,
       });
 
-      console.log(loginInfo);
-      console.log('login error : ', JSON.stringify(res));
       if (res && res.status === 200) {
         setEmail(loginInfo.email);
+        const result = await res.json();
         await Storage.saveLoginInfo({ email: loginInfo.email, password: loginInfo.password });
+
+        await Storage.setToken('accessToken', result.accessToken);
+        await Storage.setToken('refreshToken', result.refreshToken);
+
         navigation.navigate('Home');
       } else {
         setLoginInfo({

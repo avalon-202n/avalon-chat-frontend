@@ -1,5 +1,5 @@
 // react
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Image, Pressable, ScrollView, Text, View } from 'react-native';
 
 // recoil
@@ -7,15 +7,50 @@ import { useRecoilValue } from 'recoil';
 // custom
 import { ProfileModal } from '@component/Common';
 import styles from './Style';
+
 // store
+import { APIfetch } from '@network/APIfetch';
 import { photoPathState } from '@store/User';
 // unum
 import { userInfo } from '@enum/user';
+// util
+import * as Storage from '@util/Storage.js';
+
 const FriendScreen = () => {
   const newUserInfo = useRecoilValue(userInfo);
   const photoPath = useRecoilValue(photoPathState);
 
   const [isOpen, setIsOpen] = useState(false);
+
+  const getFriend = async () => {
+    const Token = await Storage.getToken('accessToken');
+    console.log('token : ', Token);
+    if (Token) {
+      const res = await APIfetch('/profiles', {
+        headers: {
+          'Content-Type': 'application/json',
+          'bearer-key': Token,
+        },
+      });
+      console.log('/profiles response : ', JSON.stringify(res));
+      console.log('getFriend response : ', res.json());
+    }
+
+    if (Token) {
+      const res = await APIfetch('/profiles/me', {
+        headers: {
+          'Content-Type': 'application/json',
+          'bearer-key': Token,
+        },
+      });
+      console.log('/profiles/me response : ', JSON.stringify(res));
+      console.log('getMyProfiles response : ', res.json());
+    }
+  };
+
+  useEffect(() => {
+    getFriend();
+  });
   return (
     <ScrollView>
       <View style={styles.profileContainer}>
