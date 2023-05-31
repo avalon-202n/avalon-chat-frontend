@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Pressable, Alert } from 'react-native';
-import { API_URL } from '@enum/server';
+import { API_URL, FIND_ID } from '@enum/server';
 import styles from './Style';
 
 const FindIdScreen = () => {
@@ -17,7 +17,7 @@ const FindIdScreen = () => {
 
   const getEmail = async () => {
     try {
-      await fetch(`${API_URL}/login/email?phone_number=${phoneNumber}`, {
+      await fetch(`${API_URL}/${FIND_ID}?phone_number=${phoneNumber}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

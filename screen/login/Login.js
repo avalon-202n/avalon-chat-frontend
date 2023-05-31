@@ -5,8 +5,10 @@ import { Alert, Image, Pressable, Text, TextInput, View } from 'react-native';
 // recoil
 import { useSetRecoilState } from 'recoil';
 import styles from './Style';
-// store
+// network
 import { APIfetch } from '@network/APIfetch';
+import { LOGIN } from '@enum/server';
+// store
 import { emailState } from '@store/User';
 // util
 import * as Storage from '@util/Storage.js';
@@ -28,7 +30,7 @@ const LoginScreen = ({ navigation, route }) => {
 
   const login = async () => {
     try {
-      const res = await APIfetch('/login', {
+      const res = await APIfetch(LOGIN, {
         email: loginInfo.email,
         password: loginInfo.password,
       });
