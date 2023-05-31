@@ -5,3 +5,6 @@ export const SIGNUP_PHONE_SEND = '/signup/phonenumber/authenticate/send';
 export const SIGNUP_PHONE_CHECK = '/signup/phonenumber/authenticate/check';
 export const SIGNUP_USERINFO = '/profiles';
 export const ADDFRIEND_PHONENUMBER = '/friends';
+export const LOGIN = '/login';
+export const FIND_ID = 'login/email';
+export const FIND_PASSWORD = '/login/password/reset';
