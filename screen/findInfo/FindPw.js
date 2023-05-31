@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Pressable, Alert } from 'react-native';
 // network
 import { APIfetch } from '@network/APIfetch';
-import { SIGNUP_PHONE_CHECK, SIGNUP_PHONE_SEND } from '@enum/server';
+import { SIGNUP_PHONE_CHECK, SIGNUP_PHONE_SEND, FIND_PASSWORD } from '@enum/server';
 import styles from './Style';
 const FindPwScreen = () => {
   const [email, setEmail] = useState('');
@@ -48,7 +48,7 @@ const FindPwScreen = () => {
   const getPassword = async () => {
     console.log('비밀번호 찾기 동작');
     try {
-      await APIfetch('/login/passsword/reset', { email: email, certificationCode: certificationCode })
+      await APIfetch(FIND_PASSWORD, { email: email, certificationCode: certificationCode })
         .then((res) => res.json())
         .then((data) => {
           if (data.password) {
