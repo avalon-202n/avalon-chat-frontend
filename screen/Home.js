@@ -16,7 +16,8 @@ const HomeScreen = () => {
     <View style={styles.container}>
       <TopView bottomContents={bottomContents} getContents={getContents} />
       <MidView bottomContents={bottomContents} getContents={getContents} />
-      <BottomView bottomContents={bottomContents} onPressContents={getContents} />
+      {/* 수정한 UI에서는 하단 View가 없어서 주석처리 했습니다. */}
+      {/* <BottomView bottomContents={bottomContents} onPressContents={getContents} /> */}
     </View>
   );
 };

@@ -7,8 +7,8 @@ const styles = StyleSheet.create({
   //TopView
   topContainer: {
     width: windowWidth * 360,
-    height: windowHeight * 50,
-    backgroundColor: 'white',
+    height: windowHeight * 220,
+    backgroundColor: '#F0F1F5',
     marginTop: windowHeight * 20,
   },
   topTitleContainer: {
@@ -16,26 +16,74 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   topTitleView: {
-    alignContent: 'center',
-    justifyContent: 'center',
+    marginTop: windowHeight * 5,
   },
   topRightView: {
     flex: 1,
-    justifyContent: 'flex-end',
-    alignSelf: 'center',
+    justifyContent: 'flex-start',
+    marginTop: windowHeight * 8,
   },
   topTitleFont: {
+    fontWeight: 'bold',
     fontSize: windowWidth * 25,
     marginLeft: windowWidth * 20,
   },
   topRightIconView: {
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'flex-end',
   },
   topRightIcon: {
-    width: windowWidth * 30,
-    height: windowWidth * 30,
-    marginRight: windowWidth * 3,
+    width: windowWidth * 26,
+    height: windowWidth * 26,
+    marginRight: windowWidth * 5,
+  },
+  myProfileContainer: {
+    display: 'flex',
+    width: '100%',
+    flexDirection: 'row',
+    paddingLeft: windowWidth * 20,
+    paddingRight: windowWidth * 20,
+    marginBottom: windowHeight * 10,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  myDataContainer: {
+    width: '60%',
+  },
+  myImageContainer: {
+    width: '40%',
+  },
+
+  activeTap: {
+    fontSize: windowHeight * 20,
+    color: '#5A45F7',
+    borderBottomWidth: windowWidth * 2,
+    borderBottomColor: '#5A45F7',
+    width: windowWidth * 100,
+    textAlign: 'center',
+  },
+  normalTap: {
+    fontSize: windowHeight * 20,
+    width: windowWidth * 100,
+    textAlign: 'center',
+  },
+  myName: {
+    fontSize: windowHeight * 20,
+    paddingBottom: windowHeight * 14,
+  },
+  myBio: {
+    color: '#7B6BEE',
+    fontSize: windowHeight * 14,
+  },
+  myImg: {
+    marginLeft: windowWidth * 10,
+    width: windowWidth * 100,
+    height: windowWidth * 100,
+    maxWidth: windowWidth * 100,
+    maxHeight: windowHeight * 100,
+    borderRadius: windowWidth * 45,
+    margin: windowWidth * 7,
   },
   //BottomView
   bottomContent: {

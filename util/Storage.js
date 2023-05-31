@@ -50,9 +50,9 @@ export const loadLoginInfo = async () => {
   }
 };
 
-export const getToken = async () => {
+export const getToken = async (tokenName) => {
   try {
-    const s = await SecureStore.getItemAsync('token');
+    const s = await SecureStore.getItemAsync(tokenName);
     if (s) return s;
   } catch (err) {
     console.log('Get Token Error', err);

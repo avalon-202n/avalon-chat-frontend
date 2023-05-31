@@ -8,3 +8,5 @@ export const ADDFRIEND_PHONENUMBER = '/friends';
 export const LOGIN = '/login';
 export const FIND_ID = 'login/email';
 export const FIND_PASSWORD = '/login/password/reset';
+export const GET_PROFILES_LIST = 'profiles';
+export const GET_MY_PROFILE = 'profiles/me';
