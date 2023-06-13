@@ -9,7 +9,6 @@ const styles = StyleSheet.create({
     width: windowWidth * 360,
     height: windowHeight * 220,
     backgroundColor: '#F0F1F5',
-    marginTop: windowHeight * 20,
   },
   topTitleContainer: {
     flexDirection: 'row',
