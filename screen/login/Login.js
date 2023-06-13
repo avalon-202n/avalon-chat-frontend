@@ -5,14 +5,15 @@ import { Alert, Image, Pressable, Text, TextInput, View } from 'react-native';
 // recoil
 import { useSetRecoilState } from 'recoil';
 import styles from './Style';
+//enum
+import { LOGIN } from '@enum/server';
 // network
 import { APIfetch } from '@network/APIfetch';
-import { LOGIN } from '@enum/server';
 // store
 import { emailState } from '@store/User';
 // util
 import * as Storage from '@util/Storage.js';
-const LoginScreen = ({ navigation, route }) => {
+const LoginScreen = ({ navigation }) => {
   const setEmail = useSetRecoilState(emailState);
   const [passwordVisible, setPasswordVisible] = useState(true);
 
@@ -22,37 +23,45 @@ const LoginScreen = ({ navigation, route }) => {
   });
 
   useEffect(() => {
-    if (loginInfo) {
-      login();
-      setLoginInfo({ email: loginInfo.email, password: loginInfo.password });
-    }
-  }, []);
+    const checkPreviousLogin = async () => {
+      const savedLoginInfo = await Storage.loadLoginInfo();
+      if (savedLoginInfo && savedLoginInfo.email && savedLoginInfo.password) {
+        setLoginInfo(savedLoginInfo);
+        login(savedLoginInfo);
+      }
+    };
 
-  const login = async () => {
+    checkPreviousLogin();
+  }, []);
+  const login = async (info) => {
     try {
       const res = await APIfetch(LOGIN, {
-        email: loginInfo.email,
-        password: loginInfo.password,
+        email: info.email,
+        password: info.password,
       });
 
       if (res && res.status === 200) {
-        setEmail(loginInfo.email);
+        setEmail(info.email);
         const result = await res.json();
-        await Storage.saveLoginInfo({ email: loginInfo.email, password: loginInfo.password });
         await Storage.setToken('accessToken', result.accessToken);
         await Storage.setToken('refreshToken', result.refreshToken);
 
         navigation.navigate('Home');
       } else {
-        setLoginInfo({
-          email: '',
-          password: '',
-        });
         Alert.alert('입력하신 정보를 다시 확인해주세요.');
       }
     } catch (e) {
       console.error(e);
     }
+  };
+
+  const handleLogin = () => {
+    if (!loginInfo.email || !loginInfo.password) {
+      Alert.alert('아이디와 비밀번호를 입력해주세요.');
+      return;
+    }
+
+    login(loginInfo);
   };
   return (
     <View style={styles.loginContainer}>
@@ -102,7 +111,7 @@ const LoginScreen = ({ navigation, route }) => {
       <View style={styles.buttonField}>
         <Pressable
           onPress={() => {
-            login();
+            handleLogin();
           }}
           style={styles.button}
         >
