@@ -1,13 +1,13 @@
 // react
-import React, { useState, useEffect } from 'react';
-import { Image, Pressable, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Image, Pressable, SafeAreaView, Text, View } from 'react-native';
 
 // recoil
 import { useRecoilValue } from 'recoil';
 
 // custom
-import { AddfriendModal } from '@component/Friend';
 import { ProfileModal } from '@component/Common';
+import { AddfriendModal } from '@component/Friend';
 import styles from './Style';
 
 // network
@@ -51,7 +51,7 @@ const TopView = ({ bottomContents, getContents }) => {
     getMyData();
   }, []);
   return (
-    <View style={styles.topContainer}>
+    <SafeAreaView style={styles.topContainer}>
       <View style={styles.topTitleContainer}>
         <View style={styles.topTitleView}>
           <Text style={styles.topTitleFont}>AVALON</Text>
@@ -122,7 +122,7 @@ const TopView = ({ bottomContents, getContents }) => {
       </View>
       {isOpen && <AddfriendModal setIsOpen={setIsOpen} isOpen={isOpen} />}
       {profileIsOpen && <ProfileModal setIsOpen={setProfileIsOpen} newUserInfo={newUserInfo} />}
-    </View>
+    </SafeAreaView>
   );
 };
 export default TopView;
