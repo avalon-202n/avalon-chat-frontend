@@ -25,3 +25,7 @@ export const phoneNumberState = atom({
   default: '',
 });
 // 휴대폰 번호
+export const friendListState = atom({
+  key: 'friendListState',
+  default: [],
+});
