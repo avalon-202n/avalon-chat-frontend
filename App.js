@@ -11,6 +11,7 @@ import { ProfileModal } from '@component/Common';
 import { AddfriendModal, AddfriendPlusContact, AddfriendPlusId, AddfriendSearch, SettingFriend } from '@component/Friend';
 // screen
 import { ChatScreen } from '@screen/chat';
+import { SearchScreen } from '@screen/common';
 import { FriendScreen } from '@screen/friend';
 import HomeScreen from '@screen/Home';
 import { LoadScreen, LoginScreen, LoginSetupScreen } from '@screen/login';
@@ -51,6 +52,7 @@ const App = () => {
               <Stack.Screen name='AddfriendPlusContact' component={AddfriendPlusContact} options={{ headerShown: false }} />
               <Stack.Screen name='AddfriendPlusId' component={AddfriendPlusId} options={{ headerShown: false }} />
               <Stack.Screen name='AddfriendSearch' component={AddfriendSearch} options={{ headerShown: false }} />
+              <Stack.Screen name='Search' component={SearchScreen} options={{ headerShown: false }} />
             </Stack.Group>
             <Stack.Screen name='Chat' component={ChatScreen} options={{ headerShown: false }} />
           </Stack.Group>

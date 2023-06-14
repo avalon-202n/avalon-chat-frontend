@@ -1,7 +1,7 @@
 // react
+import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { Image, Pressable, SafeAreaView, Text, View } from 'react-native';
-
 // recoil
 import { useRecoilValue } from 'recoil';
 
@@ -26,7 +26,10 @@ const TopView = ({ bottomContents, getContents }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [profileIsOpen, setProfileIsOpen] = useState(false);
   const [mydata, setData] = useState('');
+
   const [tap, setTap] = useState('friend');
+
+  const navigation = useNavigation();
   const getMyData = async () => {
     const Token = await Storage.getToken('accessToken');
     if (Token) {
@@ -58,6 +61,13 @@ const TopView = ({ bottomContents, getContents }) => {
         </View>
         <View style={styles.topRightView}>
           <View style={styles.topRightIconView}>
+            <Pressable
+              onPress={() => {
+                navigation.navigate('Search');
+              }}
+            >
+              <Image source={require('@public/image/search_black01.png')} style={styles.topRightIcon} />
+            </Pressable>
             {bottomContents === contents.friend ? (
               <Pressable
                 onPress={() => {

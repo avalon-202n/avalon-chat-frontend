@@ -1,9 +1,9 @@
 // react
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, Pressable, ScrollView, Text, View } from 'react-native';
 
 // recoil
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 // custom
 import { ProfileModal } from '@component/Common';
@@ -13,9 +13,9 @@ import styles from './Style';
 import { API_URL, GET_PROFILES_LIST } from '@enum/server';
 
 // store
-import { photoPathState } from '@store/User';
+import { friendListState, photoPathState } from '@store/User';
 
-// unum
+// enum
 import { userInfo } from '@enum/user';
 
 // util
@@ -24,9 +24,10 @@ import * as Storage from '@util/Storage.js';
 const FriendScreen = () => {
   const newUserInfo = useRecoilValue(userInfo);
   const photoPath = useRecoilValue(photoPathState);
+  const [friendList, setFriendList] = useRecoilState(friendListState);
   const [favoriteList, setFavoriteList] = useState('');
   const [isOpen, setIsOpen] = useState(false);
-  const [friendList, setFriendList] = useState([]);
+
   const getFriend = async () => {
     const Token = await Storage.getToken('accessToken');
     if (Token) {
